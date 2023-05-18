@@ -33,7 +33,7 @@ export default {
 .carousel {
     display: flex;
     max-width: 1200px;
-    height: 330px;
+    max-height: 330px;
     padding: 0 20px;
     margin: 0 auto;
     box-sizing: inherit;

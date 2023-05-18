@@ -30,8 +30,9 @@
                                 id="navbarSupportedContent"
                             >
                                 <ul class="navbar-nav ml-auto py-4 py-md-0">
+                                    <!-- Search Form START-->
                                     <the-search-box-item></the-search-box-item>
-
+                                    <!-- Search Form END -->
                                     <li
                                         class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                     >
@@ -598,27 +599,5 @@ body.dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
         background-color: transparent;
         box-shadow: none;
     }
-}
-
-/* #Link to page
-================================================== */
-
-.logo {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    display: block;
-    z-index: 100;
-    transition: all 250ms linear;
-}
-.logo img {
-    height: 26px;
-    width: auto;
-    display: block;
-    filter: brightness(10%);
-    transition: all 250ms linear;
-}
-body.dark .logo img {
-    filter: brightness(100%);
 }
 </style>
