@@ -1,11 +1,10 @@
 <template>
     <div>
-        <b-icon
-            class="search-icon mr-1"
-            icon="search"
-            animation="throb"
-            font-scale="1.5"
-        ></b-icon>
+        <font-awesome-icon
+            class="mr-2"
+            icon="fa-solid fa-magnifying-glass"
+            beat
+        />
         <input class="search-form" placeholder="제목, 게시글 검색" value="" />
     </div>
 </template>
