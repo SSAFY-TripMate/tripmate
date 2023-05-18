@@ -84,7 +84,6 @@ export default {
             }
         },
         moveModify() {
-            console.log("AAAAA");
             this.$router.push({
                 name: "matemodify",
                 params: { mateno: this.$route.params.mateno },
