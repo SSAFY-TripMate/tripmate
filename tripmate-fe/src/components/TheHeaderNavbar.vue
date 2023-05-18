@@ -1,11 +1,14 @@
 <template>
-    <div class="hero-anime">
-        <div class="navigation-wrap bg-light start-header start-style">
+    <header class="hero-anime">
+        <nav class="navigation-wrap bg-light start-header start-style">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <nav class="navbar navbar-expand-md navbar-light">
-                            <router-link :to="{ name: 'main' }">
+                            <router-link
+                                style="text-decoration: none"
+                                :to="{ name: 'main' }"
+                            >
                                 <!-- <img src="@/assets/logo.png" alt="" /> -->
                                 <div class="logo-font">TripMate</div>
                             </router-link>
@@ -31,14 +34,16 @@
                                         class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                     >
                                         <router-link to="/" class="nav-link"
-                                            >메인</router-link
+                                            >홈</router-link
                                         >
                                     </li>
                                     <li
                                         class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                     >
-                                        <router-link to="/mate" class="nav-link"
-                                            >질문 게시판</router-link
+                                        <router-link
+                                            to="/mate/list"
+                                            class="nav-link"
+                                            >동행 찾기</router-link
                                         >
                                     </li>
 
@@ -55,8 +60,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </nav>
+    </header>
 </template>
 
 <script>
@@ -70,7 +75,7 @@ export default {};
     font-family: "KimjungchulGothic-Bold";
     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2")
         format("woff2");
-    font-weight: 700;
+    font-weight: 400;
     font-style: normal;
 }
 
@@ -78,7 +83,7 @@ export default {};
     font-family: "KimjungchulGothic-Bold", sans-serif;
     font-size: 18px;
     line-height: 24px;
-    font-weight: 400;
+    font-weight: 700;
     color: #212112;
     background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg");
     background-position: center;
@@ -90,15 +95,19 @@ export default {};
 }
 ::selection {
     color: #fff;
-    background-color: #8167a9;
+    background-color: #006940;
 }
 ::-moz-selection {
     color: #fff;
-    background-color: #8167a9;
+    background-color: #006940;
 }
 .logo-font {
     font-size: 30px;
     font-weight: 500;
+    color: #42b983 !important;
+}
+.logo-font:hover {
+    color: #006940 !important;
 }
 
 /* #Navigation
@@ -124,7 +133,7 @@ export default {};
     transition: all 0.3s ease-out;
 }
 .navigation-wrap {
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     top: 0;
     left: 0;
@@ -190,7 +199,7 @@ export default {};
     transition: all 200ms linear;
 }
 .nav-item:hover .nav-link {
-    color: #8167a9 !important;
+    color: #006940 !important;
 }
 .nav-item.active .nav-link {
     color: #777 !important;
@@ -207,7 +216,7 @@ export default {};
     width: 100%;
     height: 2px;
     content: "";
-    background-color: #8167a9;
+    background-color: #006940;
     opacity: 0;
     transition: all 200ms linear;
 }
@@ -391,7 +400,7 @@ h1 span:nth-child(15) {
 #switch {
     width: 60px;
     height: 8px;
-    border: 2px solid #8167a9;
+    border: 2px solid #006940;
     border-radius: 27px;
     background: #000;
     position: relative;
@@ -419,7 +428,7 @@ body.hero-anime #switch {
 }
 .switched {
     border-color: #000 !important;
-    background: #8167a9 !important;
+    background: #006940 !important;
 }
 .switched #circle {
     left: 43px;
