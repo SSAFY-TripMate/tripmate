@@ -30,6 +30,8 @@
                                 id="navbarSupportedContent"
                             >
                                 <ul class="navbar-nav ml-auto py-4 py-md-0">
+                                    <the-search-box-item></the-search-box-item>
+
                                     <li
                                         class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                     >
@@ -65,7 +67,13 @@
 </template>
 
 <script>
-export default {};
+import TheSearchBoxItem from "./item/TheSearchBoxItem.vue";
+
+export default {
+    components: {
+        TheSearchBoxItem,
+    },
+};
 </script>
 
 <style scope>

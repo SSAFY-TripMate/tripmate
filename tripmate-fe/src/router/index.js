@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import MainView from "@/views/MainView";
+import HomeView from "@/views/HomeView";
 import MateView from "@/views/MateView";
 
 Vue.use(VueRouter);
@@ -9,7 +9,7 @@ const routes = [
     {
         path: "/",
         name: "main",
-        component: MainView,
+        component: HomeView,
     },
     {
         path: "/mate",
