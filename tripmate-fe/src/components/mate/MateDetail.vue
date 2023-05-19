@@ -1,22 +1,15 @@
 <template>
-    <b-row class="mb-1">
+    <b-container class="bv-example-row mt-3">
+        <b-row>
+            <b-col>
+                <h3>동행 찾기 Detail</h3>
+            </b-col>
+        </b-row>
+        <mate-input-item type="detail" />
+    </b-container>
+    <!-- <b-row class="mb-1">
         <b-col style="text-align: left">
             <b-form>
-                <!-- <b-form-group
-                    id="userid-group"
-                    label="작성자 id:"
-                    label-for="userid"
-                    description="작성자를 입력하세요."
-                >
-                    <b-form-input
-                        id="userid"
-                        :disabled="isUserid"
-                        v-model="article.id"
-                        type="text"
-                        required
-                        placeholder="작성자 입력..."
-                    ></b-form-input>
-                </b-form-group> -->
 
                 <b-form-group id="title-group" label="제목:" label-for="title">
                     <b-form-input
@@ -53,15 +46,16 @@
                 >
             </b-form>
         </b-col>
-    </b-row>
+    </b-row> -->
 </template>
 
 <script>
-import axios from "axios";
+import MateInputItem from "@/components/mate/item/MateInputItem.vue";
+// import axios from "axios";
 
 export default {
     name: "MateDetail",
-
+    components: { MateInputItem },
     data() {
         return {
             mateItem: {},
@@ -69,26 +63,25 @@ export default {
     },
 
     created() {
-        this.getMateItem();
+        // this.getMateItem();
     },
     methods: {
-        async getMateItem() {
-            let mateNo = this.$route.params.mateno;
-            let res = await axios.get(`http://localhost:9999/mate/${mateNo}`);
-            this.mateItem = res.data;
-        },
-
-        async deleteMateItem() {
-            if (confirm("정말로 삭제?")) {
-                this.$router.push({ name: "matedelete" });
-            }
-        },
-        moveModify() {
-            this.$router.push({
-                name: "matemodify",
-                params: { mateno: this.$route.params.mateno },
-            });
-        },
+        // async getMateItem() {
+        //     let mateNo = this.$route.params.mateno;
+        //     let res = await axios.get(`http://localhost:9999/mate/${mateNo}`);
+        //     this.mateItem = res.data;
+        // },
+        // async deleteMateItem() {
+        //     if (confirm("정말로 삭제?")) {
+        //         this.$router.push({ name: "matedelete" });
+        //     }
+        // },
+        // moveModify() {
+        //     this.$router.push({
+        //         name: "matemodify",
+        //         params: { mateno: this.$route.params.mateno },
+        //     });
+        // },
     },
 };
 </script>
