@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "@/views/HomeView";
 import MateView from "@/views/MateView";
+import MemberView from "@/views/MemberView";
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,23 @@ const routes = [
                     import(
                         /* webpackChunkName: "mate" */ "@/components/mate/MateDelete"
                     ),
+            },
+        ],
+    },
+    {
+        path: "/member",
+        name: "member",
+        component: MemberView,
+        children: [
+            {
+                path: "login",
+                name: "login",
+                component: () => import("@/components/member/TheLogin"),
+            },
+            {
+                path: "register",
+                name: "register",
+                component: () => import("@/components/member/TheRegister"),
             },
         ],
     },

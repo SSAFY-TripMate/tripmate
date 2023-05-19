@@ -50,13 +50,27 @@
                                         >
                                     </li>
 
-                                    <li
-                                        class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
-                                    >
-                                        <router-link to="#" class="nav-link"
-                                            >로그인</router-link
+                                    <div class="member-item">
+                                        <li
+                                            class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                         >
-                                    </li>
+                                            <router-link
+                                                to="/member/login"
+                                                class="nav-link"
+                                                >로그인</router-link
+                                            >
+                                        </li>
+
+                                        <li
+                                            class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
+                                        >
+                                            <router-link
+                                                to="/member/register"
+                                                class="nav-link"
+                                                >회원가입</router-link
+                                            >
+                                        </li>
+                                    </div>
                                 </ul>
                             </div>
                         </nav>
@@ -599,5 +613,9 @@ body.dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
         background-color: transparent;
         box-shadow: none;
     }
+}
+
+.member-item {
+    display: flex;
 }
 </style>
