@@ -2,6 +2,16 @@
     <b-row class="mb-1">
         <b-col style="text-align: left">
             <b-form @submit="onSubmit" @reset="onReset">
+                <b-row class="mb-3" v-if="type == 'detail'">
+                    <b-col cols="10" class="menu-select">
+                        <b-img
+                            src="https://picsum.photos/1024/400/?image=41"
+                            fluid
+                            alt="Responsive image"
+                        ></b-img>
+                    </b-col>
+                </b-row>
+
                 <b-row class="mb-3">
                     <b-col class="menu"> 도시 </b-col>
                     <b-col cols="11" class="menu-select">
@@ -18,6 +28,7 @@
                                     :key="sido.sidoCode"
                                     :value="sido.sidoCode"
                                     class="m-1 radiobtn"
+                                    :disabled="type == 'detail'"
                                 >
                                     <b-badge
                                         v-if="sido.sidoCode !== mate.sidoCode"
@@ -54,6 +65,7 @@
                                     :key="preference.preferenceNo"
                                     :value="preference.preferenceNo"
                                     class="m-1 radiobtn"
+                                    :disabled="type == 'detail'"
                                 >
                                     <b-badge
                                         variant="light"
@@ -75,6 +87,7 @@
                             firstDayOfWeek="sunday"
                             placeholder="여행 기간을 선택해주세요."
                             v-model="selectedDate"
+                            :disabled="type == 'detail'"
                         ></datepicker-ui>
                     </b-col>
                 </b-row>
@@ -89,6 +102,7 @@
                             v-model="mate.capacity"
                             min="0"
                             class="number-form"
+                            :disabled="type == 'detail'"
                         ></b-form-spinbutton>
                     </b-col>
                 </b-row>
@@ -102,11 +116,12 @@
                             v-model="mate.contact"
                             type="text"
                             placeholder="동행과 연결될 방법을 입력해주세요.(ex. 카카오톡 링크)"
+                            :disabled="type == 'detail'"
                         ></b-form-input>
                     </b-col>
                 </b-row>
 
-                <b-row class="mb-3">
+                <b-row class="mb-3" v-if="type != 'detail'">
                     <b-col class="menu">
                         <label for="capacity-form">썸네일</label>
                     </b-col>
@@ -158,6 +173,7 @@
                         type="text"
                         required
                         placeholder="제목을 입력하세요."
+                        :disabled="type == 'detail'"
                     ></b-form-input>
                 </b-form-group>
 
@@ -173,6 +189,7 @@
                         rows="10"
                         max-rows="15"
                         required
+                        :disabled="type == 'detail'"
                     ></b-form-textarea>
                 </b-form-group>
 
@@ -182,13 +199,43 @@
                         variant="primary"
                         class="m-1"
                         v-if="this.type === 'register'"
-                        >글작성</b-button
+                        >작성 완료</b-button
                     >
-                    <b-button type="submit" variant="primary" class="m-1" v-else
-                        >글수정</b-button
+
+                    <!-- TODO:글 작성자와 유저가 같으면 수정하기 보이기로 수정 -->
+                    <router-link :to="'/mate/modify/' + mate.mateNo"
+                        ><b-button
+                            type="button"
+                            variant="primary"
+                            v-if="this.type === 'detail'"
+                            class="m-1"
+                        >
+                            수정하기
+                        </b-button>
+                    </router-link>
+
+                    <b-button
+                        type="submit"
+                        variant="primary"
+                        class="m-1"
+                        v-if="this.type === 'modify'"
+                        >수정 완료</b-button
                     >
-                    <b-button type="reset" variant="danger" class="m-1"
+                    <b-button
+                        type="reset"
+                        variant="danger"
+                        class="m-1"
+                        v-if="
+                            this.type === 'modify' || this.type === 'register'
+                        "
                         >초기화</b-button
+                    >
+                    <b-button
+                        type="submit"
+                        variant="primary"
+                        class="m-1"
+                        :to="'/mate/'"
+                        >목록</b-button
                     >
                 </div>
             </b-form>
@@ -235,7 +282,7 @@ export default {
     created() {
         this.readSido();
         this.readPreference();
-        if (this.type === "modify") {
+        if (this.type === "modify" || this.type === "detail") {
             let param = this.$route.params.mateno;
             axios
                 .get(`http://localhost:9999/mate/${param}`)
@@ -308,10 +355,26 @@ export default {
         },
         onReset(event) {
             event.preventDefault();
-            this.mate.mateNo = 0;
-            this.mate.title = "";
-            this.mate.content = "";
-            this.movewrite();
+            this.mate = {
+                sidoCode: "",
+                startDate: "",
+                endDate: "",
+                preferenceNo: "",
+                capacity: "",
+                contact: "",
+                title: "",
+                content: "",
+                memberNo: "",
+                thumbnail: {
+                    imageFolder: "",
+                    imageOriginName: "",
+                    imageSaveName: "",
+                    imageType: "",
+                },
+            };
+            this.isUserid = false;
+            this.selectedDate = [new Date(), ""];
+            this.fileRecords = [];
         },
         registArticle() {
             // TODO: 작성자 넣기
@@ -524,5 +587,15 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    border-color: var(--color-reset-button);
+}
+
+*.disabled,
+*:disabled {
+    opacity: 1 !important;
 }
 </style>
