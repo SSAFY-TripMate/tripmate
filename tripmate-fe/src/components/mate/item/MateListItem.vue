@@ -138,7 +138,7 @@ body {
     border: 2px solid #5957f9;
 }
 
-.card:hover {
+.card-item:hover {
     transform: scale(1.03);
     transition: 0.5s;
 }
