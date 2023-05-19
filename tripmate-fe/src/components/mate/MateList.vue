@@ -228,10 +228,10 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 .mate-list {
     margin: auto;
-    max-width: 1180px;
+    max-width: 1040px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     /* gap: 24px; */
