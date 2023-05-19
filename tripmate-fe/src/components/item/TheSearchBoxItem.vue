@@ -8,14 +8,20 @@
         <input
             id="search-box-input"
             class="search-form"
-            placeholder="관광지 검색"
+            :placeholder="placeholder"
             value=""
         />
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            placeholder: "검색키워드 지정",
+        };
+    },
+};
 </script>
 
 <style>

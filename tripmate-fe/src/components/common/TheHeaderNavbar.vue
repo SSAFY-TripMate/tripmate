@@ -30,16 +30,6 @@
                                 id="navbarSupportedContent"
                             >
                                 <ul class="navbar-nav ml-auto py-4 py-md-0">
-                                    <!-- Search Form START-->
-                                    <the-search-box-item></the-search-box-item>
-                                    <!-- Search Form END -->
-                                    <li
-                                        class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
-                                    >
-                                        <router-link to="/" class="nav-link"
-                                            >홈</router-link
-                                        >
-                                    </li>
                                     <li
                                         class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                     >
@@ -47,6 +37,15 @@
                                             to="/mate/list"
                                             class="nav-link"
                                             >동행 찾기</router-link
+                                        >
+                                    </li>
+                                    <li
+                                        class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
+                                    >
+                                        <router-link
+                                            to="/attractions"
+                                            class="nav-link"
+                                            >관광지 검색하기</router-link
                                         >
                                     </li>
 
@@ -82,12 +81,8 @@
 </template>
 
 <script>
-import TheSearchBoxItem from "@/components/item/TheSearchBoxItem.vue";
-
 export default {
-    components: {
-        TheSearchBoxItem,
-    },
+    components: {},
 };
 </script>
 
