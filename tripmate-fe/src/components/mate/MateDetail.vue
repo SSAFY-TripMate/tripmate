@@ -6,16 +6,18 @@
             </b-col>
         </b-row>
         <mate-input-item type="detail" />
+        <comment-input-item></comment-input-item>
     </b-container>
 </template>
 
 <script>
 import MateInputItem from "@/components/mate/item/MateInputItem.vue";
+import CommentInputItem from "@/components/comment/item/CommentInputItem.vue";
 // import axios from "axios";
 
 export default {
     name: "MateDetail",
-    components: { MateInputItem },
+    components: { MateInputItem, CommentInputItem },
     data() {
         return {
             mateItem: {},
