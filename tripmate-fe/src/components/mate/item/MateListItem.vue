@@ -4,7 +4,7 @@
         :to="'/mate/detail/' + mate.mateNo"
     >
         <div class="card-container d-flex justify-content-center mt-3">
-            <div class="card">
+            <div class="card-item">
                 <div class="top-container">
                     <div class="head-text middle-container">
                         {{ mate.sidoCode }}
@@ -119,9 +119,9 @@ body {
 }
 
 .card-container {
-    margin: auto 3px;
+    margin: auto 5px;
 }
-.card {
+.card-item {
     background-color: #fff;
     width: 250px;
     border-radius: 33px;
