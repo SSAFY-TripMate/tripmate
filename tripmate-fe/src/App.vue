@@ -2,16 +2,20 @@
     <div id="app">
         <the-header-navbar></the-header-navbar>
         <router-view></router-view>
+
+        <the-footer></the-footer>
     </div>
 </template>
 
 <script>
-import TheHeaderNavbar from "@/components/TheHeaderNavbar.vue";
+import TheHeaderNavbar from "@/components/common/TheHeaderNavbar.vue";
+import TheFooter from "./components/common/TheFooter.vue";
 
 export default {
     name: "App",
     components: {
         TheHeaderNavbar,
+        TheFooter,
     },
 };
 </script>

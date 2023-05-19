@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import TheSearchBoxItem from "./item/TheSearchBoxItem.vue";
+import TheSearchBoxItem from "@/components/item/TheSearchBoxItem.vue";
 
 export default {
     components: {
