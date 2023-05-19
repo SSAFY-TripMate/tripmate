@@ -20,8 +20,16 @@
                                     class="m-1 radiobtn"
                                 >
                                     <b-badge
+                                        v-if="sido.sidoCode !== mate.sidoCode"
                                         variant="light"
                                         class="badge-color"
+                                        >{{ sido.sidoName }}</b-badge
+                                    >
+                                    <b-badge
+                                        v-else
+                                        variant="light"
+                                        class="badge-color"
+                                        active
                                         >{{ sido.sidoName }}</b-badge
                                     >
                                 </b-form-radio>
@@ -225,20 +233,52 @@ export default {
         // mate: Object,
     },
     created() {
+        this.readSido();
+        this.readPreference();
         if (this.type === "modify") {
             let param = this.$route.params.mateno;
             axios
                 .get(`http://localhost:9999/mate/${param}`)
                 .then(({ data }) => {
                     this.mate = data;
+                    // TODO: axios로 변경
+                    this.mate = {
+                        mateNo: 1,
+                        sidoCode: 3, // code를 서울로 변환해야함
+                        startDate: "2023-05-10 09:00:00",
+                        endDate: "2023-05-18 18:00:00",
+                        preferenceNo: 2,
+                        capacity: 10,
+                        contact: "example@gmail.com",
+                        title: "테스트 제목",
+                        content:
+                            "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
+                        hit: 1,
+                        commentCount: 5,
+                        createdTime: "2023-05-18 18:00:00",
+                        thumbnail: {
+                            imageFolder: "src/upload",
+                            imageOriginName: "dog",
+                            imageSaveName: "1235323dog",
+                            imageType: ".png",
+                        },
+                        member: {
+                            nickname: "김싸피",
+                            birth: "1998-05-18 09:00:00",
+                            gender: "M",
+                        },
+                    };
+                    this.selectedDate = [
+                        this.mate.startDate,
+                        this.mate.endDate,
+                    ];
+
+                    // TODO: 파일 연결
                 })
                 .catch((error) => {
                     console.log(error);
                 });
             this.isUserid = true;
-        } else if (this.type === "register") {
-            this.readSido();
-            this.readPreference();
         }
     },
     methods: {
@@ -325,7 +365,7 @@ export default {
                 });
         },
         readSido() {
-            // TODO: sido axios 작성
+            // TODO: sido axios 작성 -> map으로 바꿔야하나
             this.sidos = [
                 {
                     sidoCode: 1,
