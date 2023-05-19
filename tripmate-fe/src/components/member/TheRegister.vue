@@ -46,15 +46,21 @@
                                 onblur="this.placeholder='이메일'"
                             />
                         </div>
+
+                        <b-form-select
+                            class="register-gender"
+                            v-model="selected"
+                            :options="options"
+                        ></b-form-select>
+
+                        <datepicker-ui
+                            class="register-birth"
+                            lang="KOR"
+                            firstDayOfWeek="sunday"
+                            placeholder="생년월일"
+                            v-model="birth"
+                        ></datepicker-ui>
                     </div>
-
-                    <b-form-select
-                        class="register-gender"
-                        v-model="selected"
-                        :options="options"
-                    ></b-form-select>
-
-                    <!-- 생년월일 -->
                 </div>
 
                 <b-button
@@ -84,6 +90,8 @@ export default {
                 { value: "M", text: "남" },
                 { value: "F", text: "여" },
             ],
+
+            birth: null,
         };
     },
 };
@@ -110,13 +118,13 @@ export default {
     border: 1px solid #ced4da;
     padding: 20px;
     background: rgb(248, 248, 248);
+    border-radius: 15px;
 }
 
 .register-input {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 15px;
 }
 
 .register-input :focus {
@@ -145,22 +153,14 @@ input[type="number"] {
     padding: 6px 25px 6px 20px;
 }
 
-.checkbox {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.v-calendar .input-field input {
+    padding-right: 128px;
 }
 
-input[type="checkbox"] {
-    display: flex;
-    max-width: 20px;
-}
-
-.checkbox span {
-    font-size: 15px;
-    line-height: 22px;
-    box-sizing: border-box;
-    color: var(--color-lightGray);
+.v-calendar .calendar .days-selection,
+.v-calendar .calendar .selected-field {
+    padding-left: 52px;
+    padding-right: 59px;
 }
 
 .register-btn {
