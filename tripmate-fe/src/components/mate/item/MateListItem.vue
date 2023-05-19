@@ -3,7 +3,7 @@
         style="text-decoration: none; color: #000000"
         :to="'/mate/detail/' + mate.mateNo"
     >
-        <div class="container d-flex justify-content-center mt-5">
+        <div class="card-container d-flex justify-content-center mt-3">
             <div class="card">
                 <div class="top-container">
                     <div class="head-text middle-container">
@@ -117,12 +117,16 @@ export default {
 body {
     background-color: #eee;
 }
+
+.card-container {
+    margin: auto 3px;
+}
 .card {
     background-color: #fff;
-    width: 280px;
+    width: 250px;
     border-radius: 33px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 2rem !important;
+    padding: 1rem !important;
 }
 .top-container {
     display: flex;

@@ -234,7 +234,11 @@ export default {
     max-width: 1180px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    /* gap: 24px; */
     box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 </style>
