@@ -9,8 +9,10 @@
                         <input
                             type="text"
                             name="userAccount"
-                            class="inp"
-                            placeholder="이메일 / 전화번호"
+                            class="id"
+                            placeholder="아이디"
+                            onfocus="this.placeholder = ''"
+                            onblur="this.placeholder='아이디'"
                         />
                     </div>
 
@@ -19,6 +21,8 @@
                             type="password"
                             name="userPassword"
                             placeholder="비밀번호"
+                            onfocus="this.placeholder = ''"
+                            onblur="this.placeholder='비밀번호'"
                         />
                     </div>
                 </div>
@@ -57,7 +61,7 @@
 export default {};
 </script>
 
-<style>
+<style scope>
 .login-form {
     width: 400px;
     margin: 0px auto;
@@ -80,6 +84,10 @@ export default {};
     gap: 15px;
 }
 
+.login-input :focus {
+    border: 3px solid green;
+}
+
 input[type="text"],
 input[type="password"],
 input[type="number"] {
@@ -89,7 +97,7 @@ input[type="number"] {
     line-height: 20px;
     padding: 30px 20px;
     background: rgb(255, 255, 255);
-    border: 1px solid;
+    border: 1px solid #ced4da;
     border-radius: 5px;
     box-sizing: border-box;
     vertical-align: top;
