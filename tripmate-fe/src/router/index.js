@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "@/views/HomeView";
 import MateView from "@/views/MateView";
 import MemberView from "@/views/MemberView";
+import AttractionView from "@/views/AttractionView";
 
 Vue.use(VueRouter);
 
@@ -74,6 +75,20 @@ const routes = [
                 path: "register",
                 name: "register",
                 component: () => import("@/components/member/TheRegister"),
+            },
+        ],
+    },
+    {
+        path: "/attractions",
+        name: "attraction",
+        component: AttractionView,
+        redirect: "/attractions/list",
+        children: [
+            {
+                path: "list",
+                name: "list",
+                component: () =>
+                    import("@/components/attraction/AttractionList"),
             },
         ],
     },
