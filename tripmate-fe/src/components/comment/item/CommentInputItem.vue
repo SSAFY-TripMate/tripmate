@@ -11,6 +11,7 @@
                     rows="3"
                     type="text"
                     @keyup.enter="registComment"
+                    v-model="comment.content"
                 ></textarea>
                 <button
                     type="button"
@@ -30,7 +31,10 @@ export default {
     components: {},
     data() {
         return {
-            sampleData: "",
+            comment: {
+                content: "",
+                memberNo: 0,
+            },
         };
     },
     setup() {},

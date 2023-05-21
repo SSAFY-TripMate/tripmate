@@ -1,29 +1,33 @@
 <template>
     <div class="d-flex">
         <div class="p-2">
-            <i class="mt-3 fa fa-reply fa fa-rotate-180" aria-hidden="true"></i>
+            <font-awesome-icon icon="fa-solid fa-share" flip="vertical" />
         </div>
         <div class="flex-fill">
             <div class="card mt-2">
                 <div class="card-header">
-                    <table>
-                        <tbody>
-                            <tr class="align-middle">
-                                <td rowspan="2" class="pr-2">
-                                    <i class="fa fa-user-o fa-2x"></i>
-                                </td>
-                                <td class="ml">11</td>
-                            </tr>
-                            <tr>
+                    <div style="display: flex">
+                        <div class="mr-3">
+                            <font-awesome-icon icon="fa-solid fa-user" />
+                        </div>
+                        <div class="ml">
+                            {{ comment.member.nickname }}
+                        </div>
+                        <div style="margin-left: auto">
+                            <font size="2">{{ comment.createdTime }}</font>
+                        </div>
+                    </div>
+                    <!-- <tr>
                                 <td>
                                     <font size="2">2020-09-14 22:41:11</font>
                                 </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </tr> -->
                 </div>
                 <div class="card-body">
-                    <p class="card-text">삭제된 댓글입니다.</p>
+                    <p class="card-text">{{ comment.content }}</p>
+                </div>
+                <div class="card-footer comment-footer">
+                    <font-awesome-icon icon="fa-solid fa-trash" />
                 </div>
             </div>
         </div>
@@ -32,21 +36,25 @@
 
 <script>
 export default {
-    name: "CommentInputItem",
+    name: "CommentListItem",
     components: {},
     data() {
-        return {
-            sampleData: "",
-        };
+        return {};
+    },
+    props: {
+        comment: Object,
     },
     setup() {},
     created() {},
     mounted() {},
     unmounted() {},
-    methods: {
-        registComment() {},
-    },
+    methods: {},
 };
 </script>
 
-<style></style>
+<style>
+.comment-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+</style>

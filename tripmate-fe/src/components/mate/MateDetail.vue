@@ -7,25 +7,33 @@
         </b-row>
         <mate-input-item type="detail" />
         <comment-input-item></comment-input-item>
+        <comment-list-item
+            v-for="(comment, index) in comments"
+            :key="index"
+            :comment="comment"
+        ></comment-list-item>
     </b-container>
 </template>
 
 <script>
 import MateInputItem from "@/components/mate/item/MateInputItem.vue";
 import CommentInputItem from "@/components/comment/item/CommentInputItem.vue";
+import CommentListItem from "../comment/item/CommentListItem.vue";
 // import axios from "axios";
 
 export default {
     name: "MateDetail",
-    components: { MateInputItem, CommentInputItem },
+    components: { MateInputItem, CommentInputItem, CommentListItem },
     data() {
         return {
             mateItem: {},
+            comments: {},
         };
     },
 
     created() {
         // this.getMateItem();
+        this.getComments();
     },
     methods: {
         // async getMateItem() {
@@ -44,6 +52,47 @@ export default {
         //         params: { mateno: this.$route.params.mateno },
         //     });
         // },
+        getComments() {
+            // TODO: 댓글 axios
+            this.comments = [
+                {
+                    mateCommentNo: 1,
+                    mateNo: 1,
+                    content: "내용1",
+                    memberNo: 1,
+                    createdTime: "2023-05-18 18:00:00",
+                    member: {
+                        nickname: "김싸피",
+                        birth: "2023-05-18 09:00:00",
+                        gender: "M",
+                    },
+                },
+                {
+                    mateCommentNo: 2,
+                    mateNo: 2,
+                    content: "내용2",
+                    memberNo: 1,
+                    createdTime: "2023-05-18 18:00:00",
+                    member: {
+                        nickname: "김싸피",
+                        birth: "2023-05-18 09:00:00",
+                        gender: "F",
+                    },
+                },
+                {
+                    mateCommentNo: 3,
+                    mateNo: 3,
+                    content: "내용3",
+                    memberNo: 3,
+                    createdTime: "2023-05-18 18:00:00",
+                    member: {
+                        nickname: "김싸피",
+                        birth: "2023-05-18 09:00:00",
+                        gender: "F",
+                    },
+                },
+            ];
+        },
     },
 };
 </script>
