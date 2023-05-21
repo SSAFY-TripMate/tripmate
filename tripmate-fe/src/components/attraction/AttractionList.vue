@@ -18,12 +18,63 @@
                                                 class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4"
                                             >
                                                 <select
-                                                    name=""
+                                                    v-model.number="sidoCode"
                                                     id="search-area"
                                                     class="form-control custom-select"
                                                 >
-                                                    <option value="0">
+                                                    <option value="0" selected>
                                                         지역
+                                                    </option>
+                                                    <option value="1">
+                                                        서울
+                                                    </option>
+                                                    <option value="2">
+                                                        인천
+                                                    </option>
+                                                    <option value="3">
+                                                        대전
+                                                    </option>
+                                                    <option value="4">
+                                                        대구
+                                                    </option>
+                                                    <option value="5">
+                                                        광주
+                                                    </option>
+                                                    <option value="6">
+                                                        부산
+                                                    </option>
+                                                    <option value="7">
+                                                        울산
+                                                    </option>
+                                                    <option value="8">
+                                                        세종특별자치시
+                                                    </option>
+                                                    <option value="31">
+                                                        경기도
+                                                    </option>
+                                                    <option value="32">
+                                                        강원도
+                                                    </option>
+                                                    <option value="33">
+                                                        충청북도
+                                                    </option>
+                                                    <option value="34">
+                                                        충청남도
+                                                    </option>
+                                                    <option value="35">
+                                                        경상북도
+                                                    </option>
+                                                    <option value="36">
+                                                        경상남도
+                                                    </option>
+                                                    <option value="37">
+                                                        전라북도
+                                                    </option>
+                                                    <option value="38">
+                                                        전라남도
+                                                    </option>
+                                                    <option value="39">
+                                                        제주도
                                                     </option>
                                                 </select>
                                             </div>
@@ -31,6 +82,9 @@
                                                 class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5"
                                             >
                                                 <select
+                                                    v-model.number="
+                                                        contentTypeId
+                                                    "
                                                     id="search-content-id"
                                                     class="form-control custom-select"
                                                 >
@@ -72,6 +126,7 @@
                                                     type="search"
                                                     placeholder="검색어"
                                                     aria-label="검색어"
+                                                    v-model="keyword"
                                                 />
                                             </div>
                                         </div>
@@ -79,12 +134,15 @@
                                             <div
                                                 class="col-sm-12 col-md-12 mb-3 mb-lg-0 col-lg-12"
                                             >
-                                                <a href="#map"
+                                                <a href="#attraction-res"
                                                     ><input
                                                         id="btn-search"
                                                         type="button"
                                                         class="btn btn-primary btn-block text-white"
                                                         value="검색"
+                                                        @click="
+                                                            searchAttraction
+                                                        "
                                                     />
                                                 </a>
                                             </div>
@@ -128,7 +186,7 @@
         </div>
 
         <div class="untree_co-section">
-            <div class="container">
+            <div id="attraction-res" class="container">
                 <div class="row justify-content-center text-center mb-5">
                     <div class="col-lg-6">
                         <h2
@@ -137,19 +195,37 @@
                         >
                             전국 관광지 정보
                         </h2>
-                        <P>검색 결과가 아래에 표시됩니다.</P>
+                        <p style="justify-content: center">
+                            검색 결과가 아래에 표시됩니다.
+                        </p>
                     </div>
                 </div>
 
-                <!-- 지도 -->
-                <div
-                    class="mb-5"
-                    id="map"
-                    style="width: 100%; height: 350px"
-                ></div>
-
                 <div class="row" id="trip-list">
-                    <!-- 관광지 검색 결과 붙이기 -->
+                    <!-- 관광지 검색 결과 START -->
+                    <div
+                        class="col-6 col-sm-6 col-md-6 col-lg-3 mb-5 mb-lg-0"
+                        v-for="(area, index) in areas"
+                        :key="index"
+                    >
+                        <div class="media-1">
+                            <a href="#" class="d-block mb-3"
+                                ><img class="img-fluid" :src="area.firstimage"
+                            /></a>
+                            <span class="d-flex align-items-center loc mb-2">
+                                <span class="icon-room mr-3"></span>
+                                <span>{{ area.addr1 }} {{ area.addr2 }}</span>
+                            </span>
+                            <div class="d-flex align-items-center mb-3">
+                                <div>
+                                    <h3>
+                                        <a href="#">{{ area.title }}</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 관광지 검색 결과 END -->
                 </div>
             </div>
         </div>
@@ -157,24 +233,41 @@
 </template>
 
 <script>
-// import "@/assets/attraction/js/template/jquery-3.4.1.min.js";
-// import "@/assets/attraction/js/template/popper.min.js";
-// import "@/assets/attraction/js/template/bootstrap.min.js";
-// import "@/assets/attraction/js/template/owl.carousel.min.js";
-// import "@/assets/attraction/js/template/jquery.animateNumber.min.js";
-// import "@/assets/attraction/js/template/jquery.waypoints.min.js";
-// import "@/assets/attraction/js/template/jquery.fancybox.min.js";
-// import "@/assets/attraction/js/template/aos.js";
-// import "@/assets/attraction/js/template/moment.min.js";
-// import "@/assets/attraction/js/template/daterangepicker.js";
-// import "@/assets/attraction/js/template/typed.js";
-// import "@/assets/attraction/js/template/text_slide.js";
-// import "@/assets/attraction/js/template/custom.js";
+import axios from "axios";
 
-export default {};
+export default {
+    data() {
+        return {
+            areas: [],
+            sidoCode: 0,
+            contentTypeId: 0,
+            keyword: "",
+        };
+    },
+    methods: {
+        searchAttraction() {
+            // serviceKey는 나중에 숨기거나 백엔드DB 에서 가져오는걸로 수정
+            let serviceKey =
+                "vKKSsesm6iGMFkc4UrpA3ZhHEWcSVEpqWq7khYNH4V%2BeGJEDFoLgz%2FoTyMONZficXHTEDlXGJ%2BiCRgA6VijxbQ%3D%3D";
+            let searchUrl = `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${serviceKey}&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
+
+            if (this.sidoCode) searchUrl += `&areaCode=${this.sidoCode}`;
+            if (this.contentTypeId)
+                searchUrl += `&contentTypeId=${this.contentTypeId}`;
+            if (!this.keyword) {
+                alert("검색어를 입력해주세요.");
+                return;
+            } else searchUrl += `&keyword=${this.keyword}`;
+            axios.get(searchUrl).then((res) => {
+                this.areas = res.data.response.body.items.item;
+            });
+            this.showMap();
+        },
+    },
+};
 </script>
 
-<style>
+<style scoped>
 @import "@/assets/attraction/css/bootstrap.min.css";
 @import "@/assets/attraction/css/owl.carousel.min.css";
 @import "@/assets/attraction/css/owl.theme.default.min.css";
