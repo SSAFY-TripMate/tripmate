@@ -3,11 +3,12 @@
         <b-col style="text-align: left">
             <b-form @submit="onSubmit" @reset="onReset">
                 <b-row class="mb-3" v-if="type == 'detail'">
-                    <b-col cols="10" class="menu-select">
+                    <b-col>
                         <b-img
                             src="https://picsum.photos/1024/400/?image=41"
                             fluid
                             alt="Responsive image"
+                            class="thumbnail"
                         ></b-img>
                     </b-col>
                 </b-row>
@@ -597,5 +598,10 @@ export default {
 *.disabled,
 *:disabled {
     opacity: 1 !important;
+}
+
+.thumbnail {
+    width: 100%;
+    object-fit: cover;
 }
 </style>
