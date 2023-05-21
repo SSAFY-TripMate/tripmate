@@ -97,30 +97,30 @@
                     <div class="col-lg-5">
                         <div class="slides">
                             <img
-                                src="@/assets/images/attraction/hero-slider-1.jpg"
+                                src="@/assets/attraction/images/hero-slider-3.jpg"
                                 alt="Image"
                                 class="img-fluid active"
                             />
-                            <img
-                                src="@/assets/images/attraction/hero-slider-2.jpg"
+                            <!-- <img
+                                src="@/assets/attraction/images/hero-slider-2.jpg"
                                 alt="Image"
                                 class="img-fluid"
                             />
                             <img
-                                src="@/assets/images/attraction/hero-slider-3.jpg"
+                                src="@/assets/attraction/images/hero-slider-3.jpg"
                                 alt="Image"
                                 class="img-fluid"
                             />
                             <img
-                                src="@/assets/images/attraction/hero-slider-4.jpg"
+                                src="@/assets/attraction/images/hero-slider-4.jpg"
                                 alt="Image"
                                 class="img-fluid"
                             />
                             <img
-                                src="@/assets/images/attraction/hero-slider-5.jpg"
+                                src="@/assets/attraction/images/hero-slider-5.jpg"
                                 alt="Image"
                                 class="img-fluid"
-                            />
+                            /> -->
                         </div>
                     </div>
                 </div>
@@ -157,21 +157,31 @@
 </template>
 
 <script>
+// import "@/assets/attraction/js/template/jquery-3.4.1.min.js";
+// import "@/assets/attraction/js/template/popper.min.js";
+// import "@/assets/attraction/js/template/bootstrap.min.js";
+// import "@/assets/attraction/js/template/owl.carousel.min.js";
+// import "@/assets/attraction/js/template/jquery.animateNumber.min.js";
+// import "@/assets/attraction/js/template/jquery.waypoints.min.js";
+// import "@/assets/attraction/js/template/jquery.fancybox.min.js";
+// import "@/assets/attraction/js/template/aos.js";
+// import "@/assets/attraction/js/template/moment.min.js";
+// import "@/assets/attraction/js/template/daterangepicker.js";
+// import "@/assets/attraction/js/template/typed.js";
+// import "@/assets/attraction/js/template/text_slide.js";
+// import "@/assets/attraction/js/template/custom.js";
+
 export default {};
 </script>
 
 <style>
-@import "@/assets/js/template/jquery-3.4.1.min.js";
-@import "@/assets/js/template/popper.min.js";
-@import "@/assets/js/template/bootstrap.min.js";
-@import "@/assets/js/template/owl.carousel.min.js";
-@import "@/assets/js/template/jquery.animateNumber.min.js";
-@import "@/assets/js/template/jquery.waypoints.min.js";
-@import "@/assets/js/template/jquery.fancybox.min.js";
-@import "@/assets/js/template/aos.js";
-@import "@/assets/js/template/moment.min.js";
-@import "@/assets/js/template/daterangepicker.js";
-@import "@/assets/js/template/typed.js";
-@import "@/assets/js/template/text_slide.js";
-@import "@/assets/js/template/custom.js";
+@import "@/assets/attraction/css/bootstrap.min.css";
+@import "@/assets/attraction/css/owl.carousel.min.css";
+@import "@/assets/attraction/css/owl.theme.default.min.css";
+@import "@/assets/attraction/css/jquery.fancybox.min.css";
+@import "@/assets/attraction/fonts/icomoon/style.css";
+@import "@/assets/attraction/fonts/flaticon/font/flaticon.css";
+@import "@/assets/attraction/css/daterangepicker.css";
+@import "@/assets/attraction/css/aos.css";
+@import "@/assets/attraction/css/style.css";
 </style>
