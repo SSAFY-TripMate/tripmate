@@ -228,7 +228,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .mate-list {
     margin: auto;
     max-width: 1040px;

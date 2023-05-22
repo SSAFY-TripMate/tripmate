@@ -50,7 +50,7 @@
                             >비밀번호 찾기</a
                         >
                     </div>
-                    <a href="/member/register">회원가입</a>
+                    <router-link to="/member/register">회원가입</router-link>
                 </div>
             </fieldset>
         </div>
@@ -61,7 +61,7 @@
 export default {};
 </script>
 
-<style scope>
+<style scoped>
 .login-form {
     width: 400px;
     margin: 0px auto;
@@ -95,7 +95,7 @@ input[type="number"] {
     width: 100%;
     font-size: 15px;
     line-height: 20px;
-    padding: 30px 20px;
+    padding: 20px 20px;
     background: rgb(255, 255, 255);
     border: 1px solid #ced4da;
     border-radius: 5px;

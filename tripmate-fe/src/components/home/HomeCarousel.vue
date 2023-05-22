@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .carousel {
     display: flex;
     max-width: 1200px;
