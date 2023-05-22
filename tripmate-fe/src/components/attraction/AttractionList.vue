@@ -5,7 +5,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <div class="intro-wrap">
-                            <h1 class="mb-5">
+                            <h1 class="next-trip-title mb-5">
                                 <span class="d-block">다음 여행지는</span>
                                 어디인가요? <span class="typed-words"></span>
                             </h1>
@@ -268,13 +268,282 @@ export default {
 </script>
 
 <style scoped>
-@import "@/assets/attraction/css/bootstrap.min.css";
-@import "@/assets/attraction/css/owl.carousel.min.css";
-@import "@/assets/attraction/css/owl.theme.default.min.css";
-@import "@/assets/attraction/css/jquery.fancybox.min.css";
-@import "@/assets/attraction/fonts/icomoon/style.css";
-@import "@/assets/attraction/fonts/flaticon/font/flaticon.css";
-@import "@/assets/attraction/css/daterangepicker.css";
-@import "@/assets/attraction/css/aos.css";
-@import "@/assets/attraction/css/style.css";
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+    background: #ffffff;
+    overflow-x: hidden;
+    font-size: 14px;
+}
+body:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+}
+body.offcanvas-menu:before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.bg-primary {
+    background-color: #1a374d !important;
+}
+
+.text-black {
+    color: #000000 !important;
+}
+
+a {
+    color: #1a374d;
+    -webkit-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+}
+a:hover {
+    color: #1a374d;
+    text-decoration: none;
+}
+
+::-moz-selection {
+    background: #000000;
+    color: #ffffff;
+}
+
+::selection {
+    background: #000000;
+    color: #ffffff;
+}
+
+.text-primary {
+    color: #1a374d !important;
+}
+
+a.text-primary {
+    color: #1a374d !important;
+}
+a.text-primary:hover {
+    color: #1a374d !important;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
+    font-family: "Source Serif Pro", serif;
+}
+
+.btn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+.btn:active,
+.btn:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.btn.btn-primary {
+    background: #1a374d;
+    border-color: #1a374d;
+}
+.btn.btn-primary:hover {
+    border-color: #1f425c;
+    background: #1f425c;
+}
+.btn.btn-outline-white {
+    border: 2px solid #ffffff;
+}
+.btn.btn-outline-white:hover {
+    background: #ffffff;
+    color: #1a374d !important;
+}
+
+.text-white-opacity {
+    opacity: 0.7;
+}
+
+.form-control,
+.custom-select {
+    border: 2px solid #e9ecef;
+    font-size: 16px;
+    height: 45px;
+}
+.form-control:active,
+.form-control:focus,
+.custom-select:active,
+.custom-select:focus {
+    border-color: #1a374d;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/*PRELOADING------------ */
+.position-relative {
+    position: relative;
+}
+
+.hero {
+    padding: 7rem 0 10rem 0;
+    background: #6998ab;
+    margin-bottom: 100px;
+}
+.hero.hero-inner {
+    padding: 9rem 0 7rem 0;
+    margin-bottom: auto;
+    background: #1a374d;
+}
+.hero h1 {
+    color: #ffffff;
+    font-size: 60px;
+}
+@media (max-width: 991.98px) {
+    .hero h1 {
+        font-size: 45px;
+    }
+}
+.hero h1 .typed-words {
+    position: relative;
+}
+.hero h1 .typed-words:before {
+    position: absolute;
+    height: 7px;
+    background-color: #b1d0e0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "";
+}
+.hero .intro-wrap {
+    position: relative;
+    z-index: 1;
+}
+.hero .slides {
+    background: #ffffff;
+    max-width: 800px;
+    left: -100px;
+    z-index: 0;
+    position: relative;
+    border-radius: 200px;
+    -webkit-box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
+    box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
+    height: 608px;
+    margin-bottom: -200px;
+}
+@media (max-width: 991.98px) {
+    .hero .slides {
+        left: 0;
+    }
+}
+.hero .slides img {
+    /* position: absolute; */
+    border-radius: 200px;
+    opacity: 0;
+    -webkit-transition: 4s opacity ease;
+    -o-transition: 4s opacity ease;
+    transition: 4s opacity ease;
+    background: #ffffff;
+}
+.hero .slides img.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.untree_co-section {
+    padding: 70px 0;
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 20px;
+    display: inline-block;
+}
+.section-title:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px;
+    height: 2px;
+    background: #1a374d;
+}
+.section-title.text-center:before {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.media-1 {
+    text-align: left;
+}
+.media-1 img {
+    border-radius: 20px;
+}
+.media-1 .loc .icon-room {
+    position: relative;
+}
+.media-1 .loc .icon-room:after {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: rgba(26, 55, 77, 0.1);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.media-1 .deal {
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: block;
+}
+.media-1 h3 {
+    font-size: 20px;
+}
+.media-1 h3 a {
+    color: #000000;
+}
+.media-1 .price {
+    font-size: 15px;
+    color: #1a374d;
+    font-weight: 700;
+    position: relative;
+    top: -2px;
+}
+.media-1 .price sup {
+    font-weight: 400;
+    font-size: 16px;
+    top: -7px;
+}
+
+.form {
+    position: relative;
+    -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 9;
+    padding: 30px;
+    background: #ffffff;
+}
 </style>

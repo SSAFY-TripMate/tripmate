@@ -250,7 +250,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 :root {
     --color-reset-button: #f0f8ff;
     --color-active-button: #42b983;

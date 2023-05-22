@@ -242,7 +242,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style>
 p {
     font-weight: bold;
 }
