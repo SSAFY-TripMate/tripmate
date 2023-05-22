@@ -25,7 +25,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 input {
     width: fit-content !important;
     height: 2.5rem;
