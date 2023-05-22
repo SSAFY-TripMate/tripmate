@@ -135,22 +135,6 @@
                 <br />
                 <br />
 
-                <!-- <b-form-group
-                    id="userid-group"
-                    label="작성자 id:"
-                    label-for="userid"
-                    description="작성자를 입력하세요."
-                >
-                    <b-form-input
-                        id="userid"
-                        :disabled="isUserid"
-                        v-model="article.id"
-                        type="text"
-                        required
-                        placeholder="작성자 입력..."
-                    ></b-form-input>
-                </b-form-group> -->
-
                 <b-form-group id="title-group" label="제목:" label-for="title">
                     <b-form-input
                         id="title"
@@ -219,6 +203,7 @@
 import axios from "axios";
 import sidoList from "@/api/sidoList";
 import preferenceList from "@/api/preferenceList";
+import http from "@/api/http";
 
 export default {
     name: "MateInputItem",
@@ -244,7 +229,7 @@ export default {
             isUserid: false,
             sidos: {},
             preferences: {},
-            selectedDate: [new Date(), ""],
+            selectedDate: ["", ""],
             fileRecords: [],
         };
     },
@@ -329,20 +314,20 @@ export default {
         onReset(event) {
             event.preventDefault();
             this.mate = {
-                sidoCode: "",
-                startDate: "",
-                endDate: "",
-                preferenceNo: "",
-                capacity: "",
-                contact: "",
-                title: "",
-                content: "",
-                memberNo: "",
+                sidoCode: null,
+                startDate: null,
+                endDate: null,
+                preferenceNo: null,
+                capacity: null,
+                contact: null,
+                title: null,
+                content: null,
+                memberNo: null,
                 thumbnail: {
-                    imageFolder: "",
-                    imageOriginName: "",
-                    imageSaveName: "",
-                    imageType: "",
+                    imageFolder: null,
+                    imageOriginName: null,
+                    imageSaveName: null,
+                    imageType: null,
                 },
             };
             this.isUserid = false;
@@ -350,26 +335,48 @@ export default {
             this.fileRecords = [];
         },
         registArticle() {
+            const formData = new FormData();
+            if (this.selectedDate[0] != null && this.selectedDate[0] != "") {
+                let date = new Date(this.selectedDate[0]);
+                this.mate.startDate =
+                    date.getFullYear() +
+                    "-" +
+                    (date.getMonth() + 1) +
+                    "-" +
+                    date.getDate();
+            }
+            if (this.selectedDate[1] != null && this.selectedDate[1] != "") {
+                let date = new Date(this.selectedDate[1]);
+                this.mate.endDate =
+                    date.getFullYear() +
+                    "-" +
+                    (date.getMonth() + 1) +
+                    "-" +
+                    date.getDate();
+            }
+            console.log(this.mate);
+
             // TODO: 작성자 넣기
-            this.memberNo = 1;
+            this.mate.memberNo = 1;
             // TODO: 파일 정보 추가
+            formData.append("mate", JSON.stringify(this.mate));
+            formData.append(
+                "thumbnail",
+                this.fileRecords.length > 0 ? this.fileRecords[0].file : null
+            );
 
-            this.mate.startDate = this.selectedDate.startDate;
-            this.mate.endDate = this.selectedDate.endDate;
-
-            axios
-                .post("http://localhost:9999/mate", this.mate)
-                .then(({ data }) => {
-                    let msg = "등록 처리시 문제가 발생했습니다.";
-                    if (data === "success") {
-                        msg = "등록이 완료되었습니다.";
-                    }
-                    alert(msg);
-                    this.$router.push({ name: "matelist" });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            http.post("/mate", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }).then(({ data }) => {
+                let msg = "등록 처리시 문제가 발생했습니다.";
+                if (data === "success") {
+                    msg = "등록이 완료되었습니다.";
+                }
+                alert(msg);
+                this.$router.push({ name: "matelist" });
+            });
         },
         modifyArticle() {
             // let param = {
@@ -417,12 +424,10 @@ export default {
 };
 </script>
 
+<style type="text/css">
+@import url("/public/css/common.css");
+</style>
 <style scoped>
-:root {
-    --color-reset-button: #f0f8ff;
-    --color-active-button: #42b983;
-}
-
 .flex-form {
     display: flex;
     margin-bottom: 0;

@@ -19,33 +19,36 @@
     </resultMap>
 
 
-    <insert id="writeMate" parameterType="NewMateRequest">
-        insert into mate (member_no, title, content)
-        values (#{memberNo}, #{title}, #{content})
+    <insert id="write" parameterType="MateDto">
+        insert into mate (sido_code, start_date, end_date, preference_no, capacity, contact, title, content, member_no)
+        values (#{sidoCode},#{startDate, jdbcType=TIMESTAMP},#{endDate, jdbcType=TIMESTAMP},#{preferenceNo},#{capacity},#{contact}, #{title}, #{content}, #{memberNo})
+        <selectKey resultType="int" keyProperty="mateNo" order="AFTER">
+            select last_insert_id()
+        </selectKey>
     </insert>
-    <select id="selectAll" resultMap="mate">
-        select *
-        from mate;
-    </select>
-    <select id="getMate" parameterType="int" resultMap="mate">
-        select *
-        from mate
-        where mate_no = #{mateno}
-    </select>
-    <update id="modifyMate" parameterType="ModifyMateRequest">
-        update mate
-        set
-        <if test='sidoCode!=null'>
-            sido_code = #{sidoCode},
-        </if>
-        start_date = #{startDate}, end_date = #{endDate}, preference_no = #{preferenceNo}, capacity = #{capacity}, contact = #{contact}, title = #{title}, content = #{content}
-        where mate_no = #{mateNo}
-    </update>
+<!--    <select id="selectAll" resultMap="mate">-->
+<!--        select *-->
+<!--        from mate;-->
+<!--    </select>-->
+<!--    <select id="getMate" parameterType="int" resultMap="mate">-->
+<!--        select *-->
+<!--        from mate-->
+<!--        where mate_no = #{mateno}-->
+<!--    </select>-->
+<!--    <update id="modifyMate" parameterType="ModifyMateRequest">-->
+<!--        update mate-->
+<!--        set-->
+<!--        <if test='sidoCode!=null'>-->
+<!--            sido_code = #{sidoCode},-->
+<!--        </if>-->
+<!--        start_date = #{startDate}, end_date = #{endDate}, preference_no = #{preferenceNo}, capacity = #{capacity}, contact = #{contact}, title = #{title}, content = #{content}-->
+<!--        where mate_no = #{mateNo}-->
+<!--    </update>-->
 
-    <delete id="deleteMate" parameterType="int">
-        delete from mate
-        where mate_no = #{mateNo}
-    </delete>
+<!--    <delete id="deleteMate" parameterType="int">-->
+<!--        delete from mate-->
+<!--        where mate_no = #{mateNo}-->
+<!--    </delete>-->
 
 
 </mapper>
