@@ -2,17 +2,6 @@
     <b-row class="mb-1">
         <b-col style="text-align: left">
             <b-form @submit="onSubmit" @reset="onReset">
-                <b-row class="mb-3" v-if="type == 'detail'">
-                    <b-col>
-                        <b-img
-                            src="https://picsum.photos/1024/400/?image=41"
-                            fluid
-                            alt="Responsive image"
-                            class="thumbnail"
-                        ></b-img>
-                    </b-col>
-                </b-row>
-
                 <b-row class="mb-3">
                     <b-col class="menu"> 도시 </b-col>
                     <b-col cols="11" class="menu-select">
@@ -29,7 +18,6 @@
                                     :key="sido.sidoCode"
                                     :value="sido.sidoCode"
                                     class="m-1 radiobtn"
-                                    :disabled="type == 'detail'"
                                 >
                                     <b-badge
                                         v-if="sido.sidoCode !== mate.sidoCode"
@@ -66,7 +54,6 @@
                                     :key="preference.preferenceNo"
                                     :value="preference.preferenceNo"
                                     class="m-1 radiobtn"
-                                    :disabled="type == 'detail'"
                                 >
                                     <b-badge
                                         variant="light"
@@ -88,7 +75,6 @@
                             firstDayOfWeek="sunday"
                             placeholder="여행 기간을 선택해주세요."
                             v-model="selectedDate"
-                            :disabled="type == 'detail'"
                         ></datepicker-ui>
                     </b-col>
                 </b-row>
@@ -103,7 +89,6 @@
                             v-model="mate.capacity"
                             min="0"
                             class="number-form"
-                            :disabled="type == 'detail'"
                         ></b-form-spinbutton>
                     </b-col>
                 </b-row>
@@ -117,12 +102,11 @@
                             v-model="mate.contact"
                             type="text"
                             placeholder="동행과 연결될 방법을 입력해주세요.(ex. 카카오톡 링크)"
-                            :disabled="type == 'detail'"
                         ></b-form-input>
                     </b-col>
                 </b-row>
 
-                <b-row class="mb-3" v-if="type != 'detail'">
+                <b-row class="mb-3">
                     <b-col class="menu">
                         <label for="capacity-form">썸네일</label>
                     </b-col>
@@ -174,7 +158,6 @@
                         type="text"
                         required
                         placeholder="제목을 입력하세요."
-                        :disabled="type == 'detail'"
                     ></b-form-input>
                 </b-form-group>
 
@@ -190,7 +173,6 @@
                         rows="10"
                         max-rows="15"
                         required
-                        :disabled="type == 'detail'"
                     ></b-form-textarea>
                 </b-form-group>
 
@@ -202,18 +184,6 @@
                         v-if="this.type === 'register'"
                         >작성 완료</b-button
                     >
-
-                    <!-- TODO:글 작성자와 유저가 같으면 수정하기 보이기로 수정 -->
-                    <router-link :to="'/mate/modify/' + mate.mateNo"
-                        ><b-button
-                            type="button"
-                            variant="primary"
-                            v-if="this.type === 'detail'"
-                            class="m-1"
-                        >
-                            수정하기
-                        </b-button>
-                    </router-link>
 
                     <b-button
                         type="submit"
@@ -285,7 +255,7 @@ export default {
     created() {
         this.sidos = sidoList();
         this.preferences = preferenceList();
-        if (this.type === "modify" || this.type === "detail") {
+        if (this.type === "modify") {
             let param = this.$route.params.mateno;
             axios
                 .get(`http://localhost:9999/mate/${param}`)
