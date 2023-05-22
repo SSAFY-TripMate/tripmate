@@ -53,7 +53,7 @@
                 <div class="hashtag-border pt-2">
                     <span class="hashtag">
                         #휴양
-                        <!-- {{ mate.preferenceNo|hasttag }} --></span
+                        <!-- {{ mate.preferenceNo|hashtag }} --></span
                     >
                 </div>
             </div>
@@ -62,53 +62,16 @@
 </template>
 
 <script>
+import { yyyyMMdd, age, gender, hashtag } from "@/api/mateFilters";
 export default {
     props: {
         mate: Object,
     },
     filters: {
-        yyyyMMdd: function (value) {
-            // 들어오는 value 값이 공백이면 그냥 공백으로 돌려줌
-            if (value == "") return "";
-
-            // 현재 Date 혹은 DateTime 데이터를 javaScript date 타입화
-            var js_date = new Date(value);
-
-            // 연도, 월, 일 추출
-            var year = js_date.getFullYear();
-            var month = js_date.getMonth() + 1;
-            var day = js_date.getDate();
-
-            // 월, 일의 경우 한자리 수 값이 있기 때문에 공백에 0 처리
-            if (month < 10) {
-                month = "0" + month;
-            }
-
-            if (day < 10) {
-                day = "0" + day;
-            }
-
-            // 최종 포맷 (ex - '2021/10/08')
-            return year.toString().substring(2, 4) + "/" + month + "/" + day;
-        },
-        age: function (value) {
-            // 들어오는 value 값이 공백이면 그냥 공백으로 돌려줌
-            if (value == "") return "";
-
-            // 현재 Date 혹은 DateTime 데이터를 javaScript date 타입화
-            var today = new Date();
-            var js_date = new Date(value);
-
-            let age = today.getFullYear() - js_date.getFullYear() + 1;
-
-            return parseInt(age / 10) * 10 + " 대";
-        },
-        gender: function (value) {
-            return value == "M" ? "남성" : value == "F" ? "여성" : "";
-        },
-        hasttag: function (value) {
-            return "#" + value;
-        },
+        yyyyMMdd: yyyyMMdd,
+        age: age,
+        gender: gender,
+        hashtag: hashtag,
     },
 };
 </script>
