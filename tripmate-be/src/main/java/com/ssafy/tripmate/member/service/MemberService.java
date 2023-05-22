@@ -2,7 +2,7 @@ package com.ssafy.tripmate.member.service;
 
 import com.ssafy.tripmate.member.domain.Member;
 import com.ssafy.tripmate.member.dto.LoginRequest;
-import com.ssafy.tripmate.member.dto.MemberInfo;
+import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.member.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +28,11 @@ public class MemberService {
         memberMapper.save(member);
     }
 
-    public MemberInfo login(LoginRequest loginRequest) throws SQLException {
+    public AuthMember login(LoginRequest loginRequest) throws SQLException {
         System.out.println(loginRequest.getId());
         Member member = memberMapper.findByIdAndPassword(loginRequest.getId(), loginRequest.getPassword())
                 .orElseThrow(NullPointerException::new);
-        return new MemberInfo(member.getId(), member.getPassword());
+        return new AuthMember(member.getMemberNo(), member.getId(), member.getPassword(), member.getNickname());
 
     }
 

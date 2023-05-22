@@ -2,8 +2,9 @@ package com.ssafy.tripmate.member.controller;
 
 import com.ssafy.tripmate.member.domain.Member;
 import com.ssafy.tripmate.member.dto.LoginRequest;
-import com.ssafy.tripmate.member.dto.MemberInfo;
+import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.member.service.MemberService;
+import com.ssafy.tripmate.token.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -24,10 +24,12 @@ public class MemberController {
     private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     private final MemberService memberService;
+    private final TokenManager tokenManager;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, TokenManager tokenManager) {
         this.memberService = memberService;
+        this.tokenManager = tokenManager;
     }
 
     @PostMapping("/join")
@@ -39,7 +41,12 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity<Optional<Member>> login(@Valid @RequestBody LoginRequest loginRequest) throws SQLException {
-        MemberInfo memberInfo = memberService.login(loginRequest);
+        AuthMember authMember = memberService.login(loginRequest);
+
+        String accessToken = tokenManager.createAccessToken(authMember);
+        String refreshToken = tokenManager.createRefreshToken();
+        System.out.println("엑세스 : " + accessToken);
+        System.out.println("리프레시 : " + refreshToken);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
