@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style>
 /* #Primary
 ================================================== */
 @font-face {
