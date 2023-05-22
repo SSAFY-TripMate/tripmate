@@ -1,12 +1,31 @@
 <template>
     <div>
-        <form>
-            <input placeholder="Search" />
-            <b-button type="submit">검색</b-button>
-        </form>
-        <b-button variant="outline-primary" @click="moveWrite()"
-            >글쓰기</b-button
-        >
+        <div class="header-btn">
+            <the-search-box-item
+                :searchHolder="'검색할 키워드를 적어주세요'"
+            ></the-search-box-item>
+            <b-form-group id="order-group" class="flex-form">
+                <b-form-radio-group
+                    buttons
+                    button-variant="primary"
+                    class="radio-group"
+                    style="display: block"
+                    v-model="order"
+                >
+                    <b-form-radio value="id" class="m-1 radiobtn">
+                        <b-badge variant="light" class="badge-color">
+                            최신순
+                        </b-badge>
+                    </b-form-radio>
+                    <b-form-radio value="start_date" class="m-1 radiobtn">
+                        <b-badge variant="light" class="badge-color">
+                            여행 출발 순
+                        </b-badge>
+                    </b-form-radio>
+                </b-form-radio-group>
+            </b-form-group>
+            <b-button class="btn" @click="moveWrite()">글쓰기</b-button>
+        </div>
         <div class="mate-list">
             <mate-list-item
                 v-for="(mate, index) in mateList"
@@ -18,16 +37,19 @@
 </template>
 
 <script>
+import TheSearchBoxItem from "../item/TheSearchBoxItem.vue";
 import MateListItem from "./item/MateListItem.vue";
 // import axios from "axios";
 
 export default {
     components: {
         MateListItem,
+        TheSearchBoxItem,
     },
     data() {
         return {
             mateList: [],
+            order: "id",
         };
     },
 
@@ -229,6 +251,22 @@ export default {
 </script>
 
 <style scoped>
+:root {
+    --color-reset-button: #f0f8ff;
+    --color-active-button: #42b983;
+}
+
+.header-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1em;
+    margin-top: 3em;
+}
+.btn {
+    margin-left: auto;
+}
+
 .mate-list {
     margin: auto;
     max-width: 1040px;
@@ -240,5 +278,40 @@ export default {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+}
+
+.flex-form {
+    display: flex;
+    margin-bottom: 0;
+}
+.radiobtn {
+    outline: none;
+    border-radius: 5px !important;
+    border-color: var(--color-reset-button);
+    background: var(--color-reset-button) !important;
+}
+
+.badge-color {
+    background: none;
+}
+/* .btn-primary.disabled,
+.btn-primary:disabled {
+    border-color: var(--color-reset-button);
+} */
+*.disabled,
+*:disabled {
+    opacity: 1 !important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+    border-color: var(--color-active-button);
+    background: var(--color-active-button) !important;
+}
+.btn-primary:not(.active),
+.btn-primary:not(:active) {
+    border-color: var(--color-reset-button);
+    background: var(--color-reset-button) !important;
 }
 </style>

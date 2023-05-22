@@ -1,5 +1,5 @@
 <template>
-    <div class="card mb-2 mt-5">
+    <div class="card mb-2">
         <div class="card-header bg-light">
             <i class="fa fa-comment fa"></i> 댓글
         </div>

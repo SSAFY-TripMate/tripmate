@@ -5,7 +5,113 @@
                 <h3>동행 찾기 Detail</h3>
             </b-col>
         </b-row>
-        <mate-input-item type="detail" />
+        <!-- <mate-input-item type="detail" /> -->
+
+        <b-row class="mb-1">
+            <b-col style="text-align: left">
+                <b-row class="mb-3">
+                    <b-col>
+                        <b-img
+                            src="https://picsum.photos/1024/400/?image=41"
+                            fluid
+                            alt="Responsive image"
+                            class="thumbnail"
+                        ></b-img>
+                    </b-col>
+                </b-row>
+
+                <div class="mt-5 mb-5">
+                    <h2>{{ mate.title }}</h2>
+                </div>
+
+                <b-row class="mb-3">
+                    <b-col class="menu">
+                        <div>도시</div>
+                    </b-col>
+                    <b-col cols="10" class="menu-select">
+                        <div>{{ mate.sidoCode | sidoName(this.sidos) }}</div>
+                    </b-col>
+                </b-row>
+
+                <b-row class="mb-3">
+                    <b-col class="menu">
+                        <div>여행 테마</div>
+                    </b-col>
+                    <b-col cols="10" class="menu-select">
+                        <div>
+                            {{
+                                mate.preferenceNo
+                                    | preferenceName(this.preferences)
+                            }}
+                        </div>
+                    </b-col>
+                </b-row>
+
+                <b-row class="mb-3">
+                    <b-col class="menu">
+                        <div>여행 기간</div>
+                    </b-col>
+                    <b-col cols="10" class="menu-select">
+                        <datepicker-ui
+                            range
+                            lang="KOR"
+                            firstDayOfWeek="sunday"
+                            placeholder="여행 기간을 선택해주세요."
+                            v-model="selectedDate"
+                            disabled
+                        ></datepicker-ui>
+                    </b-col>
+                </b-row>
+
+                <b-row class="mb-3">
+                    <b-col class="menu">
+                        <div for="capacity-form">모집 인원</div>
+                    </b-col>
+                    <b-col cols="10" class="menu-select">
+                        {{ mate.capacity | personCnt }}
+                    </b-col>
+                </b-row>
+
+                <b-row class="mb-3">
+                    <b-col class="menu">
+                        <div for="capacity-form">연결 방법</div>
+                    </b-col>
+                    <b-col cols="10" class="menu-select">
+                        <div class="text">{{ mate.contact }}</div>
+                    </b-col>
+                </b-row>
+
+                <br />
+                <br />
+
+                <div id="content-group" label-for="content">
+                    <div class="text">
+                        {{ mate.content }}
+                    </div>
+                </div>
+
+                <br />
+                <br />
+
+                <div class="bottom-right mt-5 mb-3">
+                    <!-- TODO:글 작성자와 유저가 같으면 수정하기 보이기로 수정 -->
+                    <router-link :to="'/mate/modify/' + mate.mateNo"
+                        ><b-button type="button" variant="primary" class="m-1">
+                            수정하기
+                        </b-button>
+                    </router-link>
+
+                    <b-button
+                        type="submit"
+                        variant="primary"
+                        class="m-1"
+                        :to="'/mate/'"
+                        >목록</b-button
+                    >
+                </div>
+            </b-col>
+        </b-row>
+
         <comment-input-item></comment-input-item>
         <comment-list-item
             v-for="(comment, index) in comments"
@@ -16,24 +122,66 @@
 </template>
 
 <script>
-import MateInputItem from "@/components/mate/item/MateInputItem.vue";
 import CommentInputItem from "@/components/comment/item/CommentInputItem.vue";
 import CommentListItem from "../comment/item/CommentListItem.vue";
+import sidoList from "@/api/sidoList";
+import preferenceList from "@/api/preferenceList";
+import {
+    yyyyMMdd,
+    age,
+    gender,
+    hashtag,
+    sidoName,
+    preferenceName,
+    personCnt,
+} from "@/api/mateFilters";
 // import axios from "axios";
 
 export default {
     name: "MateDetail",
-    components: { MateInputItem, CommentInputItem, CommentListItem },
+    components: { CommentInputItem, CommentListItem },
     data() {
         return {
-            mateItem: {},
-            comments: {},
+            mate: {
+                sidoCode: "",
+                startDate: "",
+                endDate: "",
+                preferenceNo: "",
+                capacity: "",
+                contact: "",
+                title: "",
+                content: "",
+                memberNo: "",
+                thumbnail: {
+                    imageFolder: "",
+                    imageOriginName: "",
+                    imageSaveName: "",
+                    imageType: "",
+                },
+            },
+            isUserid: false,
+            sidos: [],
+            preferences: [],
+            selectedDate: [new Date(), ""],
+            fileRecords: [],
+            comments: [],
         };
     },
 
     created() {
-        // this.getMateItem();
+        this.getMate();
         this.getComments();
+        this.sidos = sidoList();
+        this.preferences = preferenceList();
+    },
+    filters: {
+        yyyyMMdd: yyyyMMdd,
+        age: age,
+        gender: gender,
+        hashtag: hashtag,
+        sidoName: sidoName,
+        preferenceName: preferenceName,
+        personCnt: personCnt,
     },
     methods: {
         // async getMateItem() {
@@ -52,6 +200,38 @@ export default {
         //         params: { mateno: this.$route.params.mateno },
         //     });
         // },
+        getMate() {
+            // let param = this.$route.params.mateno;
+            // TODO: axios로 변경
+            this.mate = {
+                mateNo: 1,
+                sidoCode: 3, // code를 서울로 변환해야함
+                startDate: "2023-05-10 09:00:00",
+                endDate: "2023-05-18 18:00:00",
+                preferenceNo: 2,
+                capacity: 10,
+                contact: "example@gmail.com",
+                title: "테스트 제목",
+                content:
+                    "내용입니다. 내용입니다.   내용입니다. 내용입니다. 내용입니다.\n 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
+                hit: 1,
+                commentCount: 5,
+                createdTime: "2023-05-18 18:00:00",
+                thumbnail: {
+                    imageFolder: "src/upload",
+                    imageOriginName: "dog",
+                    imageSaveName: "1235323dog",
+                    imageType: ".png",
+                },
+                member: {
+                    nickname: "김싸피",
+                    birth: "1998-05-18 09:00:00",
+                    gender: "M",
+                },
+            };
+            this.selectedDate = [this.mate.startDate, this.mate.endDate];
+            this.isUserid = true;
+        },
         getComments() {
             // TODO: 댓글 axios
             this.comments = [
@@ -97,4 +277,37 @@ export default {
 };
 </script>
 
-<style></style>
+<style scope>
+.flex-form {
+    display: flex;
+    margin-bottom: 0;
+}
+.menu {
+    margin: auto 1rem auto 0px;
+    text-align: left;
+}
+.menu > div {
+    margin: 0px;
+    /* text-align: center; */
+}
+.menu-select {
+    text-align: left;
+    margin: auto;
+}
+.bottom-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.v-calendar .input-field.long {
+    min-width: 320px;
+}
+.text {
+    white-space: break-spaces;
+}
+
+.v-calendar .input-field input:disabled {
+    color: black;
+    background-color: white;
+}
+</style>
