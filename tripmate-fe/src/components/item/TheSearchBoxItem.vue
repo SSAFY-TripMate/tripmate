@@ -3,12 +3,12 @@
         <font-awesome-icon
             class="mr-2"
             icon="fa-solid fa-magnifying-glass"
-            beat
+            size="xl"
         />
         <input
             id="search-box-input"
             class="search-form"
-            :placeholder="placeholder"
+            :placeholder="searchHolder"
             value=""
         />
     </div>
@@ -17,16 +17,17 @@
 <script>
 export default {
     data() {
-        return {
-            placeholder: "검색키워드 지정",
-        };
+        return {};
+    },
+    props: {
+        searchHolder: String,
     },
 };
 </script>
 
 <style>
 input {
-    width: 20rem;
+    width: fit-content !important;
     height: 2.5rem;
     outline: none;
     font-size: 1rem;
