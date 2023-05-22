@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { login } from "@/api/member";
+import { login } from "@/api/member.js";
 
 export default {
     data() {
@@ -74,6 +74,7 @@ export default {
             this.$router.push("/");
         },
         loginMember() {
+            console.log(this.id, this.password);
             let member = {
                 id: this.id,
                 password: this.password,
@@ -84,7 +85,7 @@ export default {
                 (res) => {
                     if (res.status == 200) {
                         alert("로그인 성공");
-                        this.moveHome();
+                        // this.moveHome();
                         return;
                     } else {
                         alert(res);
