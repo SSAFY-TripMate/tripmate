@@ -62,7 +62,7 @@ const routes = [
         ],
     },
     {
-        path: "/member",
+        path: "/members",
         name: "member",
         component: MemberView,
         children: [
@@ -72,9 +72,9 @@ const routes = [
                 component: () => import("@/components/member/TheLogin"),
             },
             {
-                path: "register",
-                name: "register",
-                component: () => import("@/components/member/TheRegister"),
+                path: "join",
+                name: "join",
+                component: () => import("@/components/member/TheJoin"),
             },
         ],
     },
