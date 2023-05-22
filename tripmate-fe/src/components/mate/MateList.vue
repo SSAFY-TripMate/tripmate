@@ -250,12 +250,10 @@ export default {
 };
 </script>
 
+<style type="text/css">
+@import url("/public/css/common.css");
+</style>
 <style scoped>
-:root {
-    --color-reset-button: #f0f8ff;
-    --color-active-button: #42b983;
-}
-
 .header-btn {
     display: flex;
     flex-direction: row;
@@ -290,20 +288,23 @@ export default {
     border-color: var(--color-reset-button);
     background: var(--color-reset-button) !important;
 }
-
+.radiobtn.active {
+    border-color: var(--color-active-button);
+    background: var(--color-active-button) !important;
+}
 .badge-color {
     background: none;
 }
-/* .btn-primary.disabled,
+.btn-primary.disabled,
 .btn-primary:disabled {
     border-color: var(--color-reset-button);
-} */
+}
 *.disabled,
 *:disabled {
     opacity: 1 !important;
 }
 
-.btn-primary:not(:disabled):not(.disabled):active,
+/* .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
     border-color: var(--color-active-button);
@@ -313,5 +314,5 @@ export default {
 .btn-primary:not(:active) {
     border-color: var(--color-reset-button);
     background: var(--color-reset-button) !important;
-}
+} */
 </style>
