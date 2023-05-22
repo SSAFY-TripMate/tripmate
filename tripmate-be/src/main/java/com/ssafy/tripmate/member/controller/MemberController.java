@@ -48,6 +48,9 @@ public class MemberController {
         System.out.println("엑세스 : " + accessToken);
         System.out.println("리프레시 : " + refreshToken);
 
+        memberService.saveToken(refreshToken, authMember.getId());
+
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

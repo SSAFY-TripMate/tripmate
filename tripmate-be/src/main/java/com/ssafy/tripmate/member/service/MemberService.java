@@ -37,4 +37,13 @@ public class MemberService {
     }
 
 
+    public void saveToken(String token, String id) throws SQLException {
+        memberMapper.saveToken(token, id);
+    }
+
+    public void deleteToken(String id) throws SQLException {
+        memberMapper.deleteToken(id);
+    }
+
+
 }

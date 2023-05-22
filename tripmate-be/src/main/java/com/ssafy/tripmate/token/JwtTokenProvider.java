@@ -3,12 +3,16 @@ package com.ssafy.tripmate.token;
 import com.ssafy.tripmate.member.dto.AuthMember;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Component
+@Slf4j
 public class JwtTokenProvider implements TokenManager{
+
+
     private static final long ACCESS_TOKEN_VALIDITY = 60 * 60 * 1000;
     private static final long REFRESH_TOKEN_VALIDITY = 30 * 24 * 60 * 60 * 1000;
 
@@ -47,4 +51,8 @@ public class JwtTokenProvider implements TokenManager{
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
+
+
+
+
 }

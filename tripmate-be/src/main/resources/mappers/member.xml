@@ -33,6 +33,17 @@
         where id = #{id} and password = #{password}
     </select>
 
+    <update id="saveToken" parameterType="String">
+        update member
+        set token = #{token}
+        where id = #{id}
+    </update>
+
+    <update id="deleteToken" parameterType="String">
+        update member
+        set token = null
+        where id = #{id}
+    </update>
 
 
 </mapper>

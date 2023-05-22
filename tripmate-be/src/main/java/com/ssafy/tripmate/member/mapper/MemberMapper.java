@@ -14,4 +14,7 @@ public interface MemberMapper {
 
     Optional<Member> findByIdAndPassword(@Param("id") String id, @Param("password") String password) throws SQLException;
 
+    void saveToken(@Param("token") String token, @Param("id") String id) throws SQLException;
+    void deleteToken(String id) throws SQLException;
+
 }
