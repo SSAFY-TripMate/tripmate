@@ -5,7 +5,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <div class="intro-wrap">
-                            <h1 class="mb-5">
+                            <h1 class="next-trip-title mb-5">
                                 <span class="d-block">다음 여행지는</span>
                                 어디인가요? <span class="typed-words"></span>
                             </h1>
@@ -277,4 +277,8 @@ export default {
 @import "@/assets/attraction/css/daterangepicker.css";
 @import "@/assets/attraction/css/aos.css";
 @import "@/assets/attraction/css/style.css";
+
+.next-trip-title {
+    font-family: "Source Serif Pro", serif;
+}
 </style>

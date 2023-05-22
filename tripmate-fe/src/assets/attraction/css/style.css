@@ -65,7 +65,7 @@ a.text-primary:hover {
     color: #1a374d !important;
 }
 
-h1,
+/* h1,
 .h1,
 h2,
 .h2,
@@ -74,7 +74,7 @@ h3,
 h4,
 .h4 {
     font-family: "Source Serif Pro", serif;
-}
+} */
 
 .btn {
     padding-top: 12px;
