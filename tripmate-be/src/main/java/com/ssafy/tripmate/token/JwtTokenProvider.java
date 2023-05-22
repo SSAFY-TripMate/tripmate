@@ -10,12 +10,13 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider implements TokenManager{
     private static final long ACCESS_TOKEN_VALIDITY = 60 * 60 * 1000;
+    private static final long REFRESH_TOKEN_VALIDITY = 30 * 24 * 60 * 60 * 1000;
 
 
     @Override
     public String createAccessToken(AuthMember authMember) {
         // 비밀 키 설정
-        String secretKey = "qwrjkopjxcopvjpzxcovjpoaiwefjpoiwefksadlfnldasvnkoxczhvohweoqrfsdfdsfszvcasdf";
+        String secretKey = "tmEANHrP0oW5q9cFxVhO63MSaIl8GKJYyv7TnXBfdLB";
 
         // Access Token 만료 시간 설정
         Date expirationDate = new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY);
@@ -33,6 +34,17 @@ public class JwtTokenProvider implements TokenManager{
 
     @Override
     public String createRefreshToken() {
-        return null;
+        // 비밀 키 설정
+        String secretKey = "OshQ0DF2zT7CXuKn4VLy6PJdc35xHkej1N89ptGgBaY";
+
+        // Refresh Token 만료 시간 설정
+        Date expirationDate = new Date(System.currentTimeMillis() + REFRESH_TOKEN_VALIDITY);
+
+        // Refresh Token 생성
+        return Jwts.builder()
+                .setIssuedAt(new Date())
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 }
