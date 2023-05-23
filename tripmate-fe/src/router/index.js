@@ -76,6 +76,11 @@ const routes = [
                 name: "join",
                 component: () => import("@/components/member/TheJoin"),
             },
+            {
+                path: "logout",
+                name: "logout",
+                component: () => import("@/components/member/TheLogout"),
+            },
         ],
     },
     {

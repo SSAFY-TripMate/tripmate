@@ -49,7 +49,18 @@
                                         >
                                     </li>
 
-                                    <div class="member-item">
+                                    <li
+                                        v-if="accessToken"
+                                        class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
+                                    >
+                                        <router-link
+                                            to="/members/logout"
+                                            class="nav-link"
+                                            >로그아웃</router-link
+                                        >
+                                    </li>
+
+                                    <div class="member-item" v-else>
                                         <li
                                             class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                         >
@@ -82,7 +93,23 @@
 
 <script>
 export default {
+    data() {
+        return {
+            accessToken: null,
+        };
+    },
+    created() {
+        this.accessToken = sessionStorage.getItem("accessToken");
+    },
+
     components: {},
+
+    methods: {
+        logout() {
+            console.log("로그아웃");
+            sessionStorage.clear;
+        },
+    },
 };
 </script>
 
