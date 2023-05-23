@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.mate.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.tripmate.mate.domain.MateComment;
 import com.ssafy.tripmate.mate.domain.MateDto;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
@@ -82,9 +83,16 @@ public class MateController {
 //        }
 //    }
 
+    @GetMapping("{mateId}/comments")
+    public ResponseEntity<List<MateComment>> commentList(){
+
+    }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {
         e.printStackTrace();
         return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+
 }

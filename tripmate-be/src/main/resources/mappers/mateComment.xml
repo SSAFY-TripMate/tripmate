@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.tripmate.mate.mapper.MateCommentMapper">
+    <resultMap type="MateComment" id="mateComment">
+        <result column="mate_comment_no" property="mateCommentNo"/>
+        <result column="mate_no" property="mateNo"/>
+        <result column="content" property="content"/>
+        <result column="member_no" property="memberNo"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+
+
+</mapper>
