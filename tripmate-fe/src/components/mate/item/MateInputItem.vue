@@ -117,8 +117,8 @@
                             multiple="false"
                             deletable="true"
                             meta="true"
-                            accept="'.jpg, .png, .gif'"
-                            maxSize="'10MB'"
+                            accept="', .jpeg, .jpg, .png, .gif'"
+                            maxSize="'1MB'"
                             helpText="'썸네일 사진을 등록해주세요'"
                             errorText="{
                             type: 'Invalid file type. Only images or zip Allowed',
@@ -203,7 +203,7 @@
 import axios from "axios";
 import sidoList from "@/api/sidoList";
 import preferenceList from "@/api/preferenceList";
-import http from "@/api/http";
+import { write } from "@/api/mate";
 
 export default {
     name: "MateInputItem",
@@ -354,29 +354,32 @@ export default {
                     "-" +
                     date.getDate();
             }
-            console.log(this.mate);
 
-            // TODO: 작성자 넣기
-            this.mate.memberNo = 1;
-            // TODO: 파일 정보 추가
             formData.append("mate", JSON.stringify(this.mate));
             formData.append(
                 "thumbnail",
                 this.fileRecords.length > 0 ? this.fileRecords[0].file : null
             );
 
-            http.post("/mate", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
+            write(
+                formData,
+                (res) => {
+                    if (res.status == 200) {
+                        let msg = "등록 처리시 문제가 발생했습니다.";
+                        if (res.data === "success") {
+                            msg = "등록이 완료되었습니다.";
+                        }
+                        alert(msg);
+                        this.$router.push({ name: "matelist" });
+                        return;
+                    } else {
+                        alert("동행 등록 에러");
+                    }
                 },
-            }).then(({ data }) => {
-                let msg = "등록 처리시 문제가 발생했습니다.";
-                if (data === "success") {
-                    msg = "등록이 완료되었습니다.";
+                (error) => {
+                    alert("동행 등록 에러" + error);
                 }
-                alert(msg);
-                this.$router.push({ name: "matelist" });
-            });
+            );
         },
         modifyArticle() {
             // let param = {
