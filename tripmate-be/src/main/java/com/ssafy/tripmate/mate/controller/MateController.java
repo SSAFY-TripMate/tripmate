@@ -5,6 +5,8 @@ import com.ssafy.tripmate.mate.domain.MateDto;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
 import com.ssafy.tripmate.mate.service.MateService;
+import com.ssafy.tripmate.member.dto.AuthMember;
+import com.ssafy.tripmate.token.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,12 @@ public class MateController {
     private static final String FAIL = "fail";
 
     private final MateService mateService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public MateController(MateService mateService) {
+    public MateController(MateService mateService, JwtTokenProvider jwtTokenProvider) {
         this.mateService = mateService;
+        this.jwtTokenProvider=jwtTokenProvider;
     }
 
     @GetMapping("")
@@ -54,10 +58,12 @@ public class MateController {
 //    }
 
     @PostMapping(value="", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> writeMate(@RequestParam("mate") String mate, @RequestParam(value="thumbnail", required = false) MultipartFile file) throws Exception {
+    public ResponseEntity<String> writeMate(HttpServletRequest request, @RequestParam("mate") String mate, @RequestParam(value="thumbnail", required = false) MultipartFile file) throws Exception {
         logger.info("writeMate - 호출");
+        String token = request.getHeader("Authorization");
+        AuthMember authMember=jwtTokenProvider.getParsedClaims(token);
 
-        if (mateService.write(mate, file)) {
+        if (mateService.write(mate, file, authMember)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

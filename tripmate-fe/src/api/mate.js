@@ -7,6 +7,8 @@ async function list(success, fail) {
 }
 
 async function write(formData, success, fail) {
+    api.defaults.headers["Authorization"] =
+        sessionStorage.getItem("accessToken");
     await api
         .post("/mates", formData, {
             headers: {

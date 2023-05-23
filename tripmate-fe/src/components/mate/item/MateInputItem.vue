@@ -117,7 +117,7 @@
                             multiple="false"
                             deletable="true"
                             meta="true"
-                            accept="'.jpg, .png, .gif'"
+                            accept="', .jpg, .png, .gif'"
                             maxSize="'10MB'"
                             helpText="'썸네일 사진을 등록해주세요'"
                             errorText="{
@@ -354,11 +354,7 @@ export default {
                     "-" +
                     date.getDate();
             }
-            console.log(this.mate);
 
-            // TODO: 작성자 넣기
-            this.mate.memberNo = 1;
-            // TODO: 파일 정보 추가
             formData.append("mate", JSON.stringify(this.mate));
             formData.append(
                 "thumbnail",
@@ -382,7 +378,6 @@ export default {
                 },
                 (error) => {
                     alert("동행 등록 에러" + error);
-                    this.$router.push({ name: "home" });
                 }
             );
         },

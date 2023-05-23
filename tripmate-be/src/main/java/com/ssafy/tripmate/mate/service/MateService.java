@@ -8,6 +8,7 @@ import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
 import com.ssafy.tripmate.mate.mapper.MateMapper;
 import com.ssafy.tripmate.mate.mapper.ThumbnailMapper;
 import com.ssafy.tripmate.mate.util.FileHandler;
+import com.ssafy.tripmate.member.dto.AuthMember;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -69,11 +70,12 @@ public class MateService {
 //    public MateDto findByMateno(int mateno) throws SQLException {
 //        return mateMapper.getMate(mateno);
 //    }
-    public boolean write(String mate, MultipartFile file) throws Exception {
+    public boolean write(String mate, MultipartFile file, AuthMember authMember) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         MateDto mateDto = objectMapper.readValue(mate, MateDto.class);
-
         if (mateDto == null) throw new Exception();
+
+        mateDto.setMemberNo(authMember.getMemberNo());
 
         //textarea안에서 사용할 줄바꿈은 db에 저장할 때 치환을 해야한다 replaceAll이 없어 정규화로 대체
         mateDto.setContent(mateDto.getContent().replaceAll("\r\n","<br/>"));
