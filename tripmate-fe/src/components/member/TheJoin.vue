@@ -85,7 +85,6 @@
 
 <script>
 import { join } from "@/api/member.js";
-// import axios from "axios";
 
 export default {
     data() {
@@ -108,6 +107,9 @@ export default {
         moveLogin() {
             this.$router.push("/members/login");
         },
+        moveHome() {
+            this.$router.push("/");
+        },
         joinMember() {
             let member = {
                 id: this.id,
@@ -126,13 +128,16 @@ export default {
                         this.moveLogin();
                         return;
                     } else {
-                        alert(res);
-                        console.log(res);
+                        alert("회원가입 에러: " + res);
                     }
                 },
                 (error) => {
-                    alert("에러 " + error);
-                    console.log(error);
+                    if (error.response.data.message === "Invalid token") {
+                        alert("권한이 없습니다.");
+                        this.moveHome();
+                    } else {
+                        alert("회원가입 실패");
+                    }
                 }
             );
         },

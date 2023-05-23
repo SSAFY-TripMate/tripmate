@@ -24,7 +24,7 @@
                 >
                     <img
                         class="thumbnail"
-                        src="https://picsum.photos/600/300/?image=21"
+                        src="https://picsum.photos/600/300/?image=20"
                         alt=""
                     />
                 </div>
