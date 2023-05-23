@@ -1,16 +1,25 @@
 package com.ssafy.tripmate.mate.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.tripmate.mate.domain.MateDto;
 import com.ssafy.tripmate.mate.domain.ThumbnailDto;
+import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
 import com.ssafy.tripmate.mate.mapper.MateMapper;
 import com.ssafy.tripmate.mate.mapper.ThumbnailMapper;
 import com.ssafy.tripmate.mate.util.FileHandler;
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -28,15 +37,46 @@ public class MateService {
         this.fileHandler = fileHandler;
     }
 
-//    public List<MateDto> findAll() throws SQLException {
-//        return mateMapper.selectAll();
-//    }
+    public List<ListMateResponse> findAll(String rootPath) throws SQLException, IOException {
+        List<ListMateResponse> list=mateMapper.findAll();
+            for(ListMateResponse mate:list) {
+                mate.setContent(parseTextarea(mate.getContent()));
+                if(mate.getThumbnail().getImageFolder()==null ||mate.getThumbnail().getImageFolder()=="") {
+                    mate.setThumbnailUrl(rootPath+File.separator+"images"+File.separator+"default.png");
+                    continue;
+                }
+                mate.setThumbnailUrl(rootPath+File.separator+"images"+File.separator+mate.getThumbnail().getImageFolder() + File.separator + mate.getThumbnail().getImageSaveName());
+            }
+//        for(ListMateResponse mate:list) {
+//            if(mate.getThumbnail().getImageFolder()==null || mate.getThumbnail().getImageSaveName()==null) continue;
+//            String path=mate.getThumbnail().getImageFolder() + File.separator + mate.getThumbnail().getImageSaveName();
+//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+path);
+//            // 이미지 파일 로드
+//            ClassPathResource resource = new ClassPathResource(path);
+//            if(resource==null) continue;
+//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+resource);
+//            InputStream inputStream = resource.getInputStream();
+//
+//            // 이미지를 Base64로 인코딩
+//            byte[] imageBytes = IOUtils.toByteArray(inputStream);
+//            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+//
+//            mate.setThumbnailFile(base64Image);
+//        }
+
+        return list;
+    }
 //    public MateDto findByMateno(int mateno) throws SQLException {
 //        return mateMapper.getMate(mateno);
 //    }
-    public boolean write(MateDto mateDto, MultipartFile file) throws Exception {
+    public boolean write(String mate, MultipartFile file) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        MateDto mateDto = objectMapper.readValue(mate, MateDto.class);
+
         if (mateDto == null) throw new Exception();
 
+        //textarea안에서 사용할 줄바꿈은 db에 저장할 때 치환을 해야한다 replaceAll이 없어 정규화로 대체
+        mateDto.setContent(mateDto.getContent().replaceAll("\r\n","<br/>"));
         if(mateDto.getStartDate()=="") mateDto.setStartDate(null);
         if(mateDto.getEndDate()=="") mateDto.setEndDate(null);
         int res=mateMapper.write(mateDto);
@@ -67,4 +107,7 @@ public class MateService {
 //    public int deleteMate(int mateno) throws SQLException{
 //        return mateMapper.deleteMate(mateno);
 //    }
+    public String parseTextarea(String origin){
+        return origin.replaceAll("/<br/>/g","\r\n");
+    }
 }

@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.mate.util;
 
 import com.ssafy.tripmate.mate.domain.ThumbnailDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,8 @@ import java.util.Date;
 
 @Component
 public class FileHandler {
+    @Value("${resource.imgPath}")
+    private String resourcePath;
     public ThumbnailDto parseFileInfo(Integer mateNo, MultipartFile multipartFile) throws Exception {
 
         // 파일이 빈 것이 들어오면 빈 것을 반환
@@ -23,10 +26,10 @@ public class FileHandler {
         String current_date = simpleDateFormat.format(new Date());
 
         // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
-        String absolutePath = new File("").getAbsolutePath() + "\\";
+//        String absolutePath = new File("").getAbsolutePath() + "\\";
 
         // 경로를 지정하고 그곳에다가 저장할 심산이다
-        String path = "images/"+current_date;
+        String path = resourcePath+"/"+current_date;
         File file = new File(path);
         // 저장할 위치의 디렉토리가 존지하지 않을 경우
         if (!file.exists()) {
@@ -58,13 +61,13 @@ public class FileHandler {
         // 생성 후 리스트에 추가
         ThumbnailDto thumbnail = new ThumbnailDto();
         thumbnail.setMateNo(mateNo);
-        thumbnail.setImageFolder(path);
+        thumbnail.setImageFolder(current_date);
         thumbnail.setImageOriginName(multipartFile.getOriginalFilename());
         thumbnail.setImageSaveName(new_file_name);
         thumbnail.setImageType(originalFileExtension);
 
         // 저장된 파일로 변경하여 이를 보여주기 위함
-        file = new File(absolutePath + path + "/" + new_file_name);
+        file = new File(path + "/" + new_file_name);
         multipartFile.transferTo(file);
 
         return thumbnail;
