@@ -32,7 +32,7 @@ public class MemberService {
         System.out.println(loginRequest.getId());
         Member member = memberMapper.findByIdAndPassword(loginRequest.getId(), loginRequest.getPassword())
                 .orElseThrow(NullPointerException::new);
-        return new AuthMember(member.getMemberNo(), member.getId(), member.getPassword(), member.getNickname());
+        return new AuthMember(member.getMemberNo(), member.getId(), member.getNickname());
 
     }
 

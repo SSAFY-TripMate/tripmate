@@ -8,6 +8,7 @@ import com.ssafy.tripmate.token.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/members")
-@CrossOrigin("*")
+
+@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
 public class MemberController {
     private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
@@ -40,18 +42,16 @@ public class MemberController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Optional<Member>> login(@Valid @RequestBody LoginRequest loginRequest) throws SQLException {
+    public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest loginRequest) throws SQLException {
         AuthMember authMember = memberService.login(loginRequest);
-
         String accessToken = tokenManager.createAccessToken(authMember);
-        String refreshToken = tokenManager.createRefreshToken();
-        System.out.println("엑세스 : " + accessToken);
-        System.out.println("리프레시 : " + refreshToken);
+//        String refreshToken = tokenManager.createRefreshToken();
+//        System.out.println("리프레시 : " + refreshToken);
+//        memberService.saveToken(accessToken, authMember.getId());
 
-        memberService.saveToken(refreshToken, authMember.getId());
-
-
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
+                .build();
     }
 
 }

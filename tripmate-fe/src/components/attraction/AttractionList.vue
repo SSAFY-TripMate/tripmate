@@ -127,6 +127,9 @@
                                                     placeholder="검색어"
                                                     aria-label="검색어"
                                                     v-model="keyword"
+                                                    @keydown.enter="
+                                                        searchAttraction
+                                                    "
                                                 />
                                             </div>
                                         </div>
@@ -137,7 +140,6 @@
                                                 <a href="#attraction-res"
                                                     ><input
                                                         id="btn-search"
-                                                        type="button"
                                                         class="btn btn-primary btn-block text-white"
                                                         value="검색"
                                                         @click="
@@ -210,7 +212,9 @@
                     >
                         <div class="media-1">
                             <a href="#" class="d-block mb-3"
-                                ><img class="img-fluid" :src="area.firstimage"
+                                ><img
+                                    class="attraction_img"
+                                    :src="area.firstimage"
                             /></a>
                             <span class="d-flex align-items-center loc mb-2">
                                 <span class="icon-room mr-3"></span>
@@ -261,7 +265,6 @@ export default {
             axios.get(searchUrl).then((res) => {
                 this.areas = res.data.response.body.items.item;
             });
-            this.showMap();
         },
     },
 };
@@ -444,7 +447,6 @@ h4,
     border-radius: 200px;
     -webkit-box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
     box-shadow: 0 25px 50px -10px rgba(26, 55, 77, 0.4);
-    height: 608px;
     margin-bottom: -200px;
 }
 @media (max-width: 991.98px) {
@@ -545,5 +547,10 @@ h4,
     z-index: 9;
     padding: 30px;
     background: #ffffff;
+}
+
+.attraction_img {
+    width: 100%;
+    height: 144px;
 }
 </style>
