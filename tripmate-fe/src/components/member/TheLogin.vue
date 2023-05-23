@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { login } from "@/api/member";
+import { login } from "@/api/member.js";
 
 export default {
     data() {
@@ -82,20 +82,20 @@ export default {
             login(
                 member,
                 (res) => {
-                    if (res.status == 200) {
-                        alert("로그인 성공");
-                        this.moveHome();
-                        return;
-                    } else {
-                        alert(res);
-                        console.log(res);
-                    }
+                    let accessToken = res.headers.authorization;
+                    alert("로그인 성공");
+                    this.tokenSave(accessToken);
+                    this.moveHome();
                 },
                 (error) => {
-                    alert("에러 " + error);
                     console.log(error);
+                    alert("로그인 실패");
                 }
             );
+        },
+
+        tokenSave(accessToken) {
+            sessionStorage.setItem("accessToken", accessToken);
         },
     },
 };

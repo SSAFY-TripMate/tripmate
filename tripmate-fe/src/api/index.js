@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // member Instance
-function myApiInstance() {
+function apiInstance() {
     const instance = axios.create({
         baseURL: "http://localhost:9999",
         headers: {
@@ -11,4 +11,4 @@ function myApiInstance() {
     return instance;
 }
 
-export { myApiInstance };
+export { apiInstance };
