@@ -8,8 +8,17 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
-library.add(fasHeart, farHeart, faMagnifyingGlass, faShare, faUser, faTrash);
+library.add(
+    fasHeart,
+    farHeart,
+    faMagnifyingGlass,
+    faShare,
+    faUser,
+    faTrash,
+    faLocationDot
+);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;

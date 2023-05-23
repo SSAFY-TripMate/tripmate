@@ -1,6 +1,6 @@
 export function yyyyMMdd(value) {
     // 들어오는 value 값이 공백이면 그냥 공백으로 돌려줌
-    if (value == "") return "";
+    if (value == "" || value == null) return "";
 
     // 현재 Date 혹은 DateTime 데이터를 javaScript date 타입화
     var js_date = new Date(value);
@@ -22,9 +22,17 @@ export function yyyyMMdd(value) {
     // 최종 포맷 (ex - '2021/10/08')
     return year.toString().substring(2, 4) + "/" + month + "/" + day;
 }
+
+export function period(value, endDate) {
+    let start = yyyyMMdd(value);
+    let end = yyyyMMdd(endDate);
+    if (start == "" && end == "") return "";
+    return start + "~" + end;
+}
+
 export function age(value) {
     // 들어오는 value 값이 공백이면 그냥 공백으로 돌려줌
-    if (value == "") return "";
+    if (value == "" || value == null) return "";
 
     // 현재 Date 혹은 DateTime 데이터를 javaScript date 타입화
     var today = new Date();
@@ -38,17 +46,22 @@ export function gender(value) {
     return value == "M" ? "남성" : value == "F" ? "여성" : "";
 }
 export function hashtag(value) {
+    if (value == "" || value == null) return "\n";
     return "#" + value;
 }
 export function personCnt(value) {
+    if (value == "" || value == null) return "";
     return value + " 명";
 }
 
 export function sidoName(value, sidos) {
+    if (value == "" || value == null) return "";
     let findSido = sidos.filter((sido) => sido.sidoCode == value);
+    if (findSido.length <= 0) return "";
     return findSido[0].sidoName;
 }
 export function preferenceName(value, preferences) {
+    if (value == "" || value == null) return "";
     let findPf = preferences.filter(
         (preference) => preference.preferenceNo == value
     );
