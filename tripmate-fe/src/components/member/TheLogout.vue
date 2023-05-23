@@ -6,6 +6,8 @@
 export default {
     created() {
         sessionStorage.removeItem("accessToken");
+
+        alert("로그아웃이 완료되었습니다.");
         this.moveHome();
     },
 

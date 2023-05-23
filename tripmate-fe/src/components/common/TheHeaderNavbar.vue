@@ -53,11 +53,13 @@
                                         v-if="accessToken"
                                         class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                     >
-                                        <router-link
+                                        <button
                                             to="/members/logout"
-                                            class="nav-link"
-                                            >로그아웃</router-link
+                                            class="logout-btn nav-link"
+                                            @click="logout"
                                         >
+                                            로그아웃
+                                        </button>
                                     </li>
 
                                     <div class="member-item" v-else>
@@ -98,16 +100,25 @@ export default {
             accessToken: null,
         };
     },
-    created() {
-        this.accessToken = sessionStorage.getItem("accessToken");
-    },
-
-    components: {},
 
     methods: {
+        moveHome() {
+            const path = "/";
+            if (this.$route.path !== path) this.$router.push(path);
+        },
         logout() {
-            console.log("로그아웃");
-            sessionStorage.clear;
+            sessionStorage.removeItem("accessToken");
+            this.accessToken = sessionStorage.getItem("accessToken");
+            alert("로그아웃이 완료되었습니다.");
+            this.moveHome();
+        },
+    },
+
+    watch: {
+        $route(to, from) {
+            if (to.path != from.path) {
+                this.accessToken = sessionStorage.getItem("accessToken");
+            }
         },
     },
 };
@@ -639,5 +650,10 @@ body.dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .member-item {
     display: flex;
+}
+
+.logout-btn {
+    border: none;
+    background: none;
 }
 </style>
