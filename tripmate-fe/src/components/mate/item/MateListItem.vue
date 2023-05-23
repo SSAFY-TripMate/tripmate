@@ -7,11 +7,13 @@
             <div class="card-item">
                 <div class="top-container">
                     <div class="head-text middle-container">
-                        {{ mate.sidoCode }}
+                        <font-awesome-icon
+                            icon="fa-sharp fa-list fa-location-dot"
+                        />
+                        {{ mate.sidoCode | sidoName(sidos) }}
                     </div>
                     <div class="head-date">
-                        {{ mate.startDate | yyyyMMdd }} ~
-                        {{ mate.endDate | yyyyMMdd }}
+                        {{ mate.startDate | period(mate.endDate) }}
                     </div>
                 </div>
 
@@ -22,11 +24,7 @@
                 <div
                     class="thumbnail-box d-flex justify-content-between align-items-center mt-3"
                 >
-                    <img
-                        class="thumbnail"
-                        src="https://picsum.photos/600/300/?image=20"
-                        alt=""
-                    />
+                    <img class="thumbnail" :src="mate.thumbnailUrl" alt="" />
                 </div>
 
                 <div class="top-container">
@@ -52,8 +50,7 @@
                 </div>
                 <div class="hashtag-border pt-2">
                     <span class="hashtag">
-                        #휴양
-                        <!-- {{ mate.preferenceNo|hashtag }} --></span
+                        {{ mate.preferenceNo | hashtag }}</span
                     >
                 </div>
             </div>
@@ -62,16 +59,19 @@
 </template>
 
 <script>
-import { yyyyMMdd, age, gender, hashtag } from "@/api/mateFilters";
+import { period, age, gender, hashtag, sidoName } from "@/api/mateFilters";
 export default {
     props: {
         mate: Object,
+        sidos: Array,
+        preferences: Array,
     },
     filters: {
-        yyyyMMdd: yyyyMMdd,
-        age: age,
-        gender: gender,
-        hashtag: hashtag,
+        period,
+        age,
+        gender,
+        hashtag,
+        sidoName,
     },
 };
 </script>
@@ -112,6 +112,10 @@ body {
     color: #272727;
     position: relative;
     top: 8px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 .head-date {
     font-size: 13px;
@@ -126,11 +130,16 @@ body {
     color: #272727;
     position: relative;
     top: 8px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .thumbnail-box {
     overflow: hidden;
     margin: 10px auto;
+    height: 150px;
 }
 .thumbnail {
     width: 100%;
@@ -144,6 +153,7 @@ body {
     color: #272727;
     position: relative;
     top: 8px;
+    white-space: break-spaces;
 }
 
 .ellipsis {
