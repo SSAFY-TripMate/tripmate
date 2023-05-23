@@ -9,14 +9,16 @@
             img-height="350"
         >
             <b-carousel-slide
-                img-src="https://picsum.photos/1200/350/?image=10"
+                caption="마음의 안식"
+                img-src="https://picsum.photos/1200/350/?image=128"
             ></b-carousel-slide>
             <b-carousel-slide
-                caption="두번째 슬라이드"
-                img-src="https://picsum.photos/1200/350/?image=12"
+                caption="쉼터"
+                img-src="https://picsum.photos/1200/350/?image=126"
             ></b-carousel-slide>
             <b-carousel-slide
-                img-src="https://picsum.photos/1200/350/?image=22"
+                caption="세번째 슬라이드"
+                img-src="https://picsum.photos/1200/350/?image=125"
             ></b-carousel-slide>
         </b-carousel>
     </div>

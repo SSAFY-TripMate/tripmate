@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-//@MapperScan(basePackages = {"com.ssafy.**.mapper"})
+@MapperScan(basePackages = {"com.ssafy.**.mapper"})
 public class WebMvcConfiguration implements WebMvcConfigurer {
     @Value("${resource.imgPath}")
     private String resourcePath;

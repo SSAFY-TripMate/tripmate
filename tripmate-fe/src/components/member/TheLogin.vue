@@ -8,21 +8,21 @@
                     <div>
                         <input
                             type="text"
-                            name="userAccount"
                             class="id"
                             placeholder="아이디"
                             onfocus="this.placeholder = ''"
                             onblur="this.placeholder='아이디'"
+                            v-model="id"
                         />
                     </div>
 
                     <div>
                         <input
                             type="password"
-                            name="userPassword"
                             placeholder="비밀번호"
                             onfocus="this.placeholder = ''"
                             onblur="this.placeholder='비밀번호'"
+                            v-model="password"
                         />
                     </div>
                 </div>
@@ -38,6 +38,7 @@
                     type="button"
                     size="lg"
                     variant="success"
+                    @click="loginMember"
                 >
                     로그인
                 </b-button>
@@ -50,7 +51,7 @@
                             >비밀번호 찾기</a
                         >
                     </div>
-                    <router-link to="/member/register">회원가입</router-link>
+                    <router-link to="/members/join">회원가입</router-link>
                 </div>
             </fieldset>
         </div>
@@ -58,7 +59,46 @@
 </template>
 
 <script>
-export default {};
+import { login } from "@/api/member.js";
+
+export default {
+    data() {
+        return {
+            id: null,
+            password: null,
+        };
+    },
+
+    methods: {
+        moveHome() {
+            this.$router.push("/");
+        },
+        loginMember() {
+            let member = {
+                id: this.id,
+                password: this.password,
+            };
+
+            login(
+                member,
+                (res) => {
+                    let accessToken = res.headers.authorization;
+                    alert("로그인 성공");
+                    this.tokenSave(accessToken);
+                    this.moveHome();
+                },
+                (error) => {
+                    console.log(error);
+                    alert("로그인 실패");
+                }
+            );
+        },
+
+        tokenSave(accessToken) {
+            sessionStorage.setItem("accessToken", accessToken);
+        },
+    },
+};
 </script>
 
 <style scoped>

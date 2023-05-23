@@ -1,60 +1,62 @@
 <template>
     <div>
-        <div class="register-form">
+        <div class="join-form">
             <fieldset>
-                <h3 class="register-title">회원가입</h3>
+                <h3 class="join-title">회원가입</h3>
                 <b class="mb-2" style="display: flex">입력사항</b>
-                <div class="register-input-outline">
-                    <div class="register-input">
+                <div class="join-input-outline">
+                    <div class="join-input">
                         <div>
                             <input
                                 type="text"
-                                name="id"
                                 class="inp"
                                 placeholder="아이디"
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='아이디'"
+                                v-model="id"
                             />
                         </div>
 
                         <div>
                             <input
                                 type="password"
-                                name="password"
                                 placeholder="비밀번호"
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='비밀번호'"
+                                v-model="password"
                             />
                         </div>
 
                         <div>
                             <input
-                                type="password"
-                                name="nickname"
+                                type="text"
                                 placeholder="닉네임"
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='닉네임'"
+                                v-model="nickname"
                             />
                         </div>
 
                         <div>
                             <input
-                                type="password"
-                                name="email"
+                                type="email"
+                                maxlength="64"
+                                pattern=".+@bestcnd\.co\.kr"
                                 placeholder="이메일"
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='이메일'"
+                                v-model="email"
                             />
                         </div>
 
                         <b-form-select
-                            class="register-gender"
-                            v-model="selected"
+                            class="join-gender"
+                            v-model="gender"
                             :options="options"
                         ></b-form-select>
 
                         <datepicker-ui
-                            class="register-birth"
+                            class="join-birth"
                             lang="KOR"
                             firstDayOfWeek="sunday"
                             placeholder="생년월일"
@@ -64,16 +66,17 @@
                 </div>
 
                 <b-button
-                    class="register-btn mb-2"
+                    class="join-btn mb-2"
                     type="button"
                     size="lg"
                     variant="success"
+                    @click="joinMember"
                 >
                     회원가입
                 </b-button>
 
-                <div class="register-option">
-                    <router-link to="/member/login">로그인</router-link>
+                <div class="join-option">
+                    <router-link to="/members/login">로그인</router-link>
                 </div>
             </fieldset>
         </div>
@@ -81,24 +84,69 @@
 </template>
 
 <script>
+import { join } from "@/api/member.js";
+
 export default {
     data() {
         return {
-            selected: null,
             options: [
                 { value: null, text: "성별" },
                 { value: "M", text: "남" },
                 { value: "F", text: "여" },
             ],
 
+            id: null,
+            password: null,
+            nickname: null,
+            email: null,
+            gender: null,
             birth: null,
         };
+    },
+    methods: {
+        moveLogin() {
+            this.$router.push("/members/login");
+        },
+        moveHome() {
+            this.$router.push("/");
+        },
+        joinMember() {
+            let member = {
+                id: this.id,
+                password: this.password,
+                nickname: this.nickname,
+                email: this.email,
+                gender: this.gender,
+                birth: this.birth,
+            };
+
+            join(
+                member,
+                (res) => {
+                    if (res.status == 201) {
+                        alert("회원가입 성공");
+                        this.moveLogin();
+                        return;
+                    } else {
+                        alert("회원가입 에러: " + res);
+                    }
+                },
+                (error) => {
+                    if (error.response.data.message === "Invalid token") {
+                        alert("권한이 없습니다.");
+                        this.moveHome();
+                    } else {
+                        alert("회원가입 실패");
+                    }
+                }
+            );
+        },
     },
 };
 </script>
 
 <style>
-.register-form {
+.join-form {
     width: 400px;
     margin: 0px auto;
     padding: 146px 0px 0px;
@@ -106,7 +154,7 @@ export default {
     margin-bottom: 200px;
 }
 
-.register-title {
+.join-title {
     font-size: 28px;
     font-weight: 600;
     color: var(--color-black);
@@ -114,26 +162,26 @@ export default {
     margin-bottom: 52px;
 }
 
-.register-input-outline {
+.join-input-outline {
     border: 1px solid #ced4da;
     padding: 20px;
     background: rgb(248, 248, 248);
     border-radius: 15px;
 }
 
-.register-input {
+.join-input {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.register-input :focus {
+.join-input :focus {
     border: 3px solid green;
 }
 
 input[type="text"],
 input[type="password"],
-input[type="number"] {
+input[type="email"] {
     display: inline-block;
     width: 100%;
     font-size: 15px;
@@ -146,7 +194,7 @@ input[type="number"] {
     vertical-align: top;
 }
 
-.register-gender {
+.join-gender {
     height: 62px;
     font-weight: 700;
     padding: 0.375rem 1.75rem 0.375rem 20px;
@@ -163,14 +211,14 @@ input[type="number"] {
     padding-right: 59px;
 }
 
-.register-btn {
+.join-btn {
     display: flex;
     width: 100%;
     justify-content: center;
     margin-top: 20px;
 }
 
-.register-option {
+.join-option {
     display: flex;
     flex-direction: row-reverse;
 }
