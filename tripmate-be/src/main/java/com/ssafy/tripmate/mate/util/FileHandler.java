@@ -46,7 +46,10 @@ public class FileHandler {
         } else {
             if (contentType.contains("image/jpeg")) {
                 originalFileExtension = ".jpg";
-            } else if (contentType.contains("image/png")) {
+            } else if (contentType.contains("image/jpg")) {
+                originalFileExtension = ".jpg";
+            }
+            else if (contentType.contains("image/png")) {
                 originalFileExtension = ".png";
             } else if (contentType.contains("image/gif")) {
                 originalFileExtension = ".gif";

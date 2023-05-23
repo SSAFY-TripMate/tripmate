@@ -73,14 +73,6 @@ export default {
                 (res) => {
                     if (res.status == 200) {
                         this.mateList = res.data;
-                        // // TODO: 회원 데이터도 받아오기
-                        // this.mateList.forEach((element) => {
-                        //     element.member = {
-                        //         nickname: "김싸피",
-                        //         birth: "1998-05-18 09:00:00",
-                        //         gender: "M",
-                        //     };
-                        // });
                         return;
                     } else {
                         alert("동행 리스트 에러");

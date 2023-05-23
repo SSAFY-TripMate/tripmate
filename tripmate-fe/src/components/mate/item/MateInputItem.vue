@@ -117,8 +117,8 @@
                             multiple="false"
                             deletable="true"
                             meta="true"
-                            accept="', .jpg, .png, .gif'"
-                            maxSize="'10MB'"
+                            accept="', .jpeg, .jpg, .png, .gif'"
+                            maxSize="'1MB'"
                             helpText="'썸네일 사진을 등록해주세요'"
                             errorText="{
                             type: 'Invalid file type. Only images or zip Allowed',
