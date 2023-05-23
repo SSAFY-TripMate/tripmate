@@ -43,7 +43,7 @@ import TheSearchBoxItem from "../item/TheSearchBoxItem.vue";
 import MateListItem from "./item/MateListItem.vue";
 import sidoList from "@/api/sidoList";
 import preferenceList from "@/api/preferenceList";
-import http from "@/api/http";
+import { list } from "@/api/mate";
 
 export default {
     components: {
@@ -68,19 +68,29 @@ export default {
         moveWrite() {
             this.$router.push({ name: "matewrite" });
         },
-        async getMateList() {
-            let res = await http.get("/mate");
-            this.mateList = await res.data;
-
-            // TODO: 회원 데이터도 받아오기
-            this.mateList.forEach((element) => {
-                element.member = {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                };
-            });
-            console.log(this.mateList);
+        getMateList() {
+            list(
+                (res) => {
+                    if (res.status == 200) {
+                        this.mateList = res.data;
+                        // TODO: 회원 데이터도 받아오기
+                        this.mateList.forEach((element) => {
+                            element.member = {
+                                nickname: "김싸피",
+                                birth: "1998-05-18 09:00:00",
+                                gender: "M",
+                            };
+                        });
+                        return;
+                    } else {
+                        alert("동행 리스트 에러");
+                    }
+                },
+                (error) => {
+                    alert("동행 리스트 에러" + error);
+                    // this.$router.push({ name: "home" });
+                }
+            );
         },
     },
 };

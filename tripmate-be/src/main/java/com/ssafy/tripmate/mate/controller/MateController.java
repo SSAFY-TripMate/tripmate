@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mate")
+@RequestMapping("/mates")
 @CrossOrigin("*")
 public class MateController {
     private static final Logger logger = LoggerFactory.getLogger(MateController.class);

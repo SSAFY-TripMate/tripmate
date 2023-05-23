@@ -203,7 +203,7 @@
 import axios from "axios";
 import sidoList from "@/api/sidoList";
 import preferenceList from "@/api/preferenceList";
-import http from "@/api/http";
+import { write } from "@/api/mate";
 
 export default {
     name: "MateInputItem",
@@ -365,18 +365,26 @@ export default {
                 this.fileRecords.length > 0 ? this.fileRecords[0].file : null
             );
 
-            http.post("/mate", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
+            write(
+                formData,
+                (res) => {
+                    if (res.status == 200) {
+                        let msg = "등록 처리시 문제가 발생했습니다.";
+                        if (res.data === "success") {
+                            msg = "등록이 완료되었습니다.";
+                        }
+                        alert(msg);
+                        this.$router.push({ name: "matelist" });
+                        return;
+                    } else {
+                        alert("동행 등록 에러");
+                    }
                 },
-            }).then(({ data }) => {
-                let msg = "등록 처리시 문제가 발생했습니다.";
-                if (data === "success") {
-                    msg = "등록이 완료되었습니다.";
+                (error) => {
+                    alert("동행 등록 에러" + error);
+                    this.$router.push({ name: "home" });
                 }
-                alert(msg);
-                this.$router.push({ name: "matelist" });
-            });
+            );
         },
         modifyArticle() {
             // let param = {
