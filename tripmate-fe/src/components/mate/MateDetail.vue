@@ -1,18 +1,13 @@
 <template>
     <b-container class="bv-example-row mt-3">
-        <b-row>
-            <b-col>
-                <h3>동행 찾기 Detail</h3>
-            </b-col>
-        </b-row>
         <!-- <mate-input-item type="detail" /> -->
 
         <b-row class="mb-1">
             <b-col style="text-align: left">
                 <b-row class="mb-3">
-                    <b-col>
+                    <b-col class="center">
                         <b-img
-                            src="https://picsum.photos/1024/400/?image=41"
+                            :src="mate.thumbnailUrl"
                             fluid
                             alt="Responsive image"
                             class="thumbnail"
@@ -135,30 +130,14 @@ import {
     preferenceName,
     personCnt,
 } from "@/api/mateFilters";
-// import axios from "axios";
+import { detail } from "@/api/mate";
 
 export default {
     name: "MateDetail",
     components: { CommentInputItem, CommentListItem },
     data() {
         return {
-            mate: {
-                sidoCode: "",
-                startDate: "",
-                endDate: "",
-                preferenceNo: "",
-                capacity: "",
-                contact: "",
-                title: "",
-                content: "",
-                memberNo: "",
-                thumbnail: {
-                    imageFolder: "",
-                    imageOriginName: "",
-                    imageSaveName: "",
-                    imageType: "",
-                },
-            },
+            mate: {},
             isUserid: false,
             sidos: [],
             preferences: [],
@@ -201,34 +180,24 @@ export default {
         //     });
         // },
         getMate() {
-            // let param = this.$route.params.mateno;
-            // TODO: axios로 변경
-            this.mate = {
-                mateNo: 1,
-                sidoCode: 3, // code를 서울로 변환해야함
-                startDate: "2023-05-10 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 2,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다.   내용입니다. 내용입니다. 내용입니다.\n 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
+            let data = {
+                mateNo: this.$route.params.mateno,
             };
+            detail(
+                data,
+                (res) => {
+                    if (res.status == 200) {
+                        this.mate = res.data;
+                        return;
+                    } else {
+                        alert("동행 detail 에러");
+                    }
+                },
+                (error) => {
+                    alert("동행 detail 에러" + error);
+                    // this.$router.push({ name: "home" });
+                }
+            );
             this.selectedDate = [this.mate.startDate, this.mate.endDate];
             this.isUserid = true;
         },
@@ -309,5 +278,13 @@ export default {
 .v-calendar .input-field input:disabled {
     color: black;
     background-color: white;
+}
+
+.center {
+    text-align: center;
+}
+.thumbnail {
+    max-width: 100%;
+    max-height: 500px;
 }
 </style>

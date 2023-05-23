@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.mate.util;
 
 import com.ssafy.tripmate.mate.domain.ThumbnailDto;
+import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -74,5 +75,34 @@ public class FileHandler {
         multipartFile.transferTo(file);
 
         return thumbnail;
+    }
+
+    public void setMateData(ListMateResponse mate, String rootPath){
+        mate.setContent(parseTextarea(mate.getContent()));
+        if(mate.getThumbnail().getImageFolder()==null ||mate.getThumbnail().getImageFolder()=="") {
+            mate.setThumbnailUrl(rootPath+File.separator+"images"+File.separator+"default.png");
+            return;
+        }
+        mate.setThumbnailUrl(rootPath+File.separator+"images"+File.separator+mate.getThumbnail().getImageFolder() + File.separator + mate.getThumbnail().getImageSaveName());
+
+//        for(ListMateResponse mate:list) {
+//            if(mate.getThumbnail().getImageFolder()==null || mate.getThumbnail().getImageSaveName()==null) continue;
+//            String path=mate.getThumbnail().getImageFolder() + File.separator + mate.getThumbnail().getImageSaveName();
+//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+path);
+//            // 이미지 파일 로드
+//            ClassPathResource resource = new ClassPathResource(path);
+//            if(resource==null) continue;
+//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+resource);
+//            InputStream inputStream = resource.getInputStream();
+//
+//            // 이미지를 Base64로 인코딩
+//            byte[] imageBytes = IOUtils.toByteArray(inputStream);
+//            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+//
+//            mate.setThumbnailFile(base64Image);
+//        }
+    }
+    public String parseTextarea(String origin){
+        return origin.replaceAll("/<br/>/g","\r\n");
     }
 }

@@ -52,10 +52,12 @@ public class MateController {
         return new ResponseEntity<>(mateService.findAll(rootPath), HttpStatus.OK);
     }
 
-//    @GetMapping("/{mateno}")
-//    private ResponseEntity<MateDto> getMate(@PathVariable("mateno") int mateno) throws SQLException {
-//        return new ResponseEntity<>(mateService.findByMateno(mateno), HttpStatus.OK);
-//    }
+    @GetMapping("/{mateNo}")
+    private ResponseEntity<ListMateResponse> getMate(HttpServletRequest request, @PathVariable("mateNo") int mateNo) throws SQLException {
+        String rootPath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
+
+        return new ResponseEntity<>(mateService.findByMateNo(rootPath,mateNo), HttpStatus.OK);
+    }
 
     @PostMapping(value="", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> writeMate(HttpServletRequest request, @RequestParam("mate") String mate, @RequestParam(value="thumbnail", required = false) MultipartFile file) throws Exception {

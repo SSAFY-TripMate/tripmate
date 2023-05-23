@@ -5,6 +5,9 @@ const api = apiInstance();
 async function list(success, fail) {
     await api.get("/mates", null).then(success).catch(fail);
 }
+async function detail(data, success, fail) {
+    await api.get(`/mates/${data.mateNo}`, null).then(success).catch(fail);
+}
 
 async function write(formData, success, fail) {
     api.defaults.headers["Authorization"] =
@@ -19,4 +22,4 @@ async function write(formData, success, fail) {
         .catch(fail);
 }
 
-export { list, write };
+export { list, detail, write };

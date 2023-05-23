@@ -12,7 +12,7 @@ import java.util.List;
 public interface MateMapper {
     public int write(MateDto mateDto) throws SQLException;
     public List<ListMateResponse> findAll() throws SQLException;
-    public MateDto getMate(int mateno) throws SQLException;
+    public ListMateResponse findByMateNo(int mateNo) throws SQLException;
     public int modifyMate(ModifyMateRequest modifyMateRequest) throws SQLException;
     public int deleteMate(int mateno) throws SQLException;
 }

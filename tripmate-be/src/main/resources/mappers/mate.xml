@@ -30,7 +30,7 @@
         <result column="birth" property="birth"/>
         <result column="gender" property="gender"/>
     </resultMap>
-    <resultMap id="mateList" type="ListMateResponse" extends="mate">
+    <resultMap id="mateResponse" type="ListMateResponse" extends="mate">
         <collection property="thumbnail" resultMap="thumbnail"></collection>
         <collection property="member" resultMap="mateMember"></collection>
     </resultMap>
@@ -43,7 +43,7 @@
             select last_insert_id()
         </selectKey>
     </insert>
-    <select id="findAll" resultMap="mateList">
+    <select id="findAll" resultMap="mateResponse">
         WITH mateMember AS (
             SELECT mate_no, sido_code, start_date, end_date, preference_no, capacity, contact, title, content, member_no, hit, mate.created_time,nickname, birth, gender
             FROM mate LEFT JOIN member
@@ -53,11 +53,16 @@
         FROM mateMember LEFT JOIN mate_thumbnail
         Using (mate_no);
     </select>
-<!--    <select id="getMate" parameterType="int" resultMap="mate">-->
-<!--        select *-->
-<!--        from mate-->
-<!--        where mate_no = #{mateno}-->
-<!--    </select>-->
+    <select id="findByMateNo" parameterType="int" resultMap="mateResponse">
+        WITH mateMember AS (
+        SELECT mate_no, sido_code, start_date, end_date, preference_no, capacity, contact, title, content, member_no, hit, m.created_time,nickname, birth, gender
+        FROM (select * from mate where mate_no = #{mateNo}) m LEFT JOIN member
+        Using (member_no)
+        )
+        SELECT *
+        FROM mateMember LEFT JOIN mate_thumbnail
+        Using (mate_no)
+    </select>
 <!--    <update id="modifyMate" parameterType="ModifyMateRequest">-->
 <!--        update mate-->
 <!--        set-->
