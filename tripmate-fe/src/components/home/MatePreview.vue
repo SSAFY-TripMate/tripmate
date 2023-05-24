@@ -6,239 +6,29 @@
         </div>
 
         <div class="mate-list">
-            <mate-list-item
+            <!-- <mate-list-item
                 v-for="(mate, index) in mateList"
                 :key="index"
                 :mate="mate"
-            ></mate-list-item>
+            ></mate-list-item> -->
+            <mate-list></mate-list>
         </div>
     </div>
 </template>
 
 <script>
-import MateListItem from "@/components/mate/item/MateListItem.vue";
+import MateList from "@/components/mate/MateList.vue";
 
 export default {
     components: {
-        MateListItem,
+        MateList,
     },
     data() {
         return {
-            mateList: [],
+            mates: [],
         };
     },
-    created() {
-        this.mateList = [
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-            {
-                mateNo: 1,
-                sidoCode: "서울", // code를 서울로 변환해야함
-                startDate: "2023-05-18 09:00:00",
-                endDate: "2023-05-18 18:00:00",
-                preferenceNo: 1,
-                capacity: 10,
-                contact: "example@gmail.com",
-                title: "테스트 제목",
-                content:
-                    "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                hit: 1,
-                commentCount: 5,
-                createdTime: "2023-05-18 18:00:00",
-                thumbnail: {
-                    imageFolder: "src/upload",
-                    imageOriginName: "dog",
-                    imageSaveName: "1235323dog",
-                    imageType: ".png",
-                },
-                member: {
-                    nickname: "김싸피",
-                    birth: "1998-05-18 09:00:00",
-                    gender: "M",
-                },
-            },
-        ];
-    },
+    created() {},
 };
 </script>
 

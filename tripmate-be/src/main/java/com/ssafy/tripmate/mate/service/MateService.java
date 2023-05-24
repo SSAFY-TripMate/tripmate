@@ -8,6 +8,7 @@ import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
 import com.ssafy.tripmate.mate.mapper.MateMapper;
 import com.ssafy.tripmate.mate.mapper.ThumbnailMapper;
 import com.ssafy.tripmate.mate.util.FileHandler;
+import com.ssafy.tripmate.member.dto.AuthMember;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -39,41 +40,22 @@ public class MateService {
 
     public List<ListMateResponse> findAll(String rootPath) throws SQLException, IOException {
         List<ListMateResponse> list=mateMapper.findAll();
-            for(ListMateResponse mate:list) {
-                mate.setContent(parseTextarea(mate.getContent()));
-                if(mate.getThumbnail().getImageFolder()==null ||mate.getThumbnail().getImageFolder()=="") {
-                    mate.setThumbnailUrl(rootPath+File.separator+"images"+File.separator+"default.png");
-                    continue;
-                }
-                mate.setThumbnailUrl(rootPath+File.separator+"images"+File.separator+mate.getThumbnail().getImageFolder() + File.separator + mate.getThumbnail().getImageSaveName());
-            }
-//        for(ListMateResponse mate:list) {
-//            if(mate.getThumbnail().getImageFolder()==null || mate.getThumbnail().getImageSaveName()==null) continue;
-//            String path=mate.getThumbnail().getImageFolder() + File.separator + mate.getThumbnail().getImageSaveName();
-//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+path);
-//            // 이미지 파일 로드
-//            ClassPathResource resource = new ClassPathResource(path);
-//            if(resource==null) continue;
-//            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+resource);
-//            InputStream inputStream = resource.getInputStream();
-//
-//            // 이미지를 Base64로 인코딩
-//            byte[] imageBytes = IOUtils.toByteArray(inputStream);
-//            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-//
-//            mate.setThumbnailFile(base64Image);
-//        }
-
+        for(ListMateResponse mate:list) {
+            fileHandler.setMateData(mate, rootPath);
+        }
         return list;
     }
-//    public MateDto findByMateno(int mateno) throws SQLException {
-//        return mateMapper.getMate(mateno);
-//    }
-    public boolean write(String mate, MultipartFile file) throws Exception {
+    public ListMateResponse findByMateNo(String rootPath, int mateno) throws SQLException {
+        ListMateResponse mate=mateMapper.findByMateNo(mateno);
+        fileHandler.setMateData(mate, rootPath);
+        return mate;
+    }
+    public boolean write(String mate, MultipartFile file, AuthMember authMember) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         MateDto mateDto = objectMapper.readValue(mate, MateDto.class);
-
         if (mateDto == null) throw new Exception();
+
+        mateDto.setMemberNo(authMember.getMemberNo());
 
         //textarea안에서 사용할 줄바꿈은 db에 저장할 때 치환을 해야한다 replaceAll이 없어 정규화로 대체
         mateDto.setContent(mateDto.getContent().replaceAll("\r\n","<br/>"));
@@ -107,7 +89,4 @@ public class MateService {
 //    public int deleteMate(int mateno) throws SQLException{
 //        return mateMapper.deleteMate(mateno);
 //    }
-    public String parseTextarea(String origin){
-        return origin.replaceAll("/<br/>/g","\r\n");
-    }
 }
