@@ -70,19 +70,8 @@
         WHERE mate_no = #{mateNo}
     </update>
 
-<!--    <delete id="deleteMate" parameterType="int">-->
-<!--        delete from mate-->
-<!--        where mate_no = #{mateNo}-->
-<!--    </delete>-->
-    <!--        <trim prefix="SET" suffixOverrides=",">-->
-    <!--            <if test="sidoCode != null">sido_code = #{sidoCode},</if>-->
-    <!--            <if test="startDate != null">start_date = #{startDate},</if>-->
-    <!--            <if test="endDate != null">end_date = #{endDate},</if>-->
-    <!--            <if test="preferenceNo != null">preference_no = #{preferenceNo},</if>-->
-    <!--            <if test="capacity != null">capacity = #{capacity},</if>-->
-    <!--            <if test="contact != null">contact = #{contact},</if>-->
-    <!--            <if test="title != null">title = #{title},</if>-->
-    <!--            <if test="content != null">content = #{content},</if>-->
-    <!--        </trim>-->
-
+    <delete id="deleteMate" parameterType="int">
+        delete from mate
+        where mate_no = #{mateNo}
+    </delete>
 </mapper>

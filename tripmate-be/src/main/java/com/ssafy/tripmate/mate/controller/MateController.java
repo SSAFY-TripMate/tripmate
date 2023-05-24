@@ -77,16 +77,16 @@ public class MateController {
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
-//
-//    @DeleteMapping("/{mateno}")
-//    private ResponseEntity<String> deleteMate(@PathVariable("mateno") int mateno){
-//        try {
-//            int res = mateService.deleteMate(mateno);
-//            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-//        }catch (Exception e){
-//            return exceptionHandling(e);
-//        }
-//    }
+
+    @DeleteMapping("/{mateNo}")
+    private ResponseEntity<String> deleteMate(@PathVariable("mateNo") int mateNo){
+        try {
+            int res = mateService.deleteMate(mateNo);
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }catch (Exception e){
+            return exceptionHandling(e);
+        }
+    }
 
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

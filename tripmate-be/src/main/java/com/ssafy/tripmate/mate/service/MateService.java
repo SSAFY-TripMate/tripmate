@@ -107,8 +107,8 @@ public class MateService {
 
         return res == 1;
     }
-//
-//    public int deleteMate(int mateno) throws SQLException{
-//        return mateMapper.deleteMate(mateno);
-//    }
+
+    public int deleteMate(int mateNo) throws SQLException{
+        return mateMapper.deleteMate(mateNo);
+    }
 }
