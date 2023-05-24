@@ -54,4 +54,8 @@ public class MemberService {
             return null;
         return jwtTokenProvider.getParsedClaims(token);
     }
+
+    public void deleteMember(int memberNo) throws SQLException{
+        memberMapper.deleteMember(memberNo);
+    }
 }

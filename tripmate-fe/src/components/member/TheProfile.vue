@@ -2,9 +2,9 @@
     <div class="profile-container">
         <b-container class="bv-example-row mt-5">
             <div class="my-mates">
-                <p class="title">내 동행 글</p>
+                <p class="title">내 게시글</p>
             </div>
-            동행글이 오는 곳
+            게시글이 없습니다.
         </b-container>
 
         <b-container class="bv-example-row mt-5">

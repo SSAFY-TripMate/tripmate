@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/members")
@@ -54,6 +53,14 @@ public class MemberController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .build();
+    }
+
+    @DeleteMapping("{memberNo}")
+    public ResponseEntity<Void> delete(@PathVariable int memberNo) throws SQLException {
+        System.out.println(memberNo);
+        memberService.deleteMember(memberNo);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -17,4 +17,6 @@ public interface MemberMapper {
     void saveToken(@Param("token") String token, @Param("id") String id) throws SQLException;
     void deleteToken(String id) throws SQLException;
 
+    void deleteMember(int memberNo) throws SQLException;
+
 }

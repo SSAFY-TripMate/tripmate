@@ -4,6 +4,7 @@
             <div class="contents">
                 <home-carousel></home-carousel>
                 <mate-preview></mate-preview>
+                <hr />
                 <sns-preview></sns-preview>
             </div>
         </div>

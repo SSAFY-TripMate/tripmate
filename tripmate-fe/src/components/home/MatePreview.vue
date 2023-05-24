@@ -77,5 +77,6 @@ p {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 </style>

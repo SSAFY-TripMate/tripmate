@@ -6,7 +6,7 @@
         </div>
 
         <div class="sns-list">
-            <div class="temp_items"></div>
+            <div class="temp_items">게시글이 없습니다.</div>
         </div>
     </div>
 </template>
@@ -43,9 +43,11 @@ p {
 
 .temp_items {
     width: 100%;
-    height: 500px;
-    background-color: #ffc1073d;
+    height: 300px;
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
     border-radius: 33px;
 }
 </style>
