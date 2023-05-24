@@ -28,8 +28,8 @@ public class MateCommentService {
         mateCommentMapper.save(mateComment);
     }
 
-    public void deleteById(int commentNo) throws SQLException {
-        mateCommentMapper.deleteById(commentNo);
+    public void deleteById(int mateCommentNo) throws SQLException {
+        mateCommentMapper.deleteById(mateCommentNo);
     }
 
 }

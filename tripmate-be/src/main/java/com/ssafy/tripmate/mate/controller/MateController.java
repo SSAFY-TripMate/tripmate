@@ -85,11 +85,17 @@ public class MateController {
 //        }
 //    }
 
-    @GetMapping("{mateId}/comments")
-    public ResponseEntity<List<ListCommentResponse>> commentList(@PathVariable int mateId) throws SQLException {
-        System.out.println(mateId);
-        List<ListCommentResponse> listCommentResponse = mateCommentService.findAll(mateId);
+    @GetMapping("/{mateNo}/comments")
+    public ResponseEntity<List<ListCommentResponse>> getComment(@PathVariable int mateNo) throws SQLException {
+        List<ListCommentResponse> listCommentResponse = mateCommentService.findAll(mateNo);
         return new ResponseEntity<>(listCommentResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{mateNo}/comments/{commentNo}")
+    public ResponseEntity<Void> deleteComment(@PathVariable int mateNo, @PathVariable int commentNo) throws SQLException {
+        System.out.println(commentNo);
+        mateCommentService.deleteById(commentNo);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

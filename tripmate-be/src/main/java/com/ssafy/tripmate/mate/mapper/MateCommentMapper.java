@@ -13,6 +13,6 @@ public interface MateCommentMapper {
 
     List<ListCommentResponse> findAll(int mateNo) throws SQLException;
     void save(MateComment mateComment) throws SQLException;
-    void deleteById(int commentNo) throws  SQLException;
+    void deleteById(int mateCommentNo) throws  SQLException;
 
 }

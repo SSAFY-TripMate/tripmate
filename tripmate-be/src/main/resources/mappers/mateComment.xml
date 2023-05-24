@@ -42,5 +42,10 @@
         WHERE mc.mate_no = #{mateNo}
     </select>
 
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from mate_comment
+        where mate_comment_no = #{mateCommentNo}
+    </delete>
+
 
 </mapper>
