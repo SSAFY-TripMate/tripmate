@@ -46,7 +46,7 @@
     </update>
 
 
-    <delete id="deleteMember" parameterType="java.lang.Integer">
+    <delete id="deleteMember" parameterType="int">
         delete from member
         where member_no = #{memberNo}
     </delete>

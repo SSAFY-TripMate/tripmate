@@ -55,11 +55,10 @@ public class MemberController {
                 .build();
     }
 
-    @DeleteMapping("{memberNo}")
+    @DeleteMapping("/{memberNo}")
     public ResponseEntity<Void> delete(@PathVariable int memberNo) throws SQLException {
         System.out.println(memberNo);
         memberService.deleteMember(memberNo);
-
         return ResponseEntity.noContent().build();
     }
 

@@ -14,4 +14,10 @@ async function login(member, success, fail) {
     await api.post(`/members/login`, member).then(success).catch(fail);
 }
 
-export { join, login };
+async function deleteMember(memberNo, success, fail) {
+    api.defaults.headers["Authorization"] =
+        sessionStorage.getItem("accessToken");
+    await api.delete(`/members/${memberNo}`).then(success).catch(fail);
+}
+
+export { join, login, deleteMember };

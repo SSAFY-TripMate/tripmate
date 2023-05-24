@@ -30,14 +30,46 @@
 
             <div class="btn">
                 <b-button class="btn-done">완료</b-button>
-                <b-button class="btn-quit">회원탈퇴</b-button>
+                <b-button class="btn-quit" @click="removeMember"
+                    >회원탈퇴</b-button
+                >
             </div>
         </b-container>
     </div>
 </template>
 
 <script>
-export default {};
+import { deleteMember } from "@/api/member";
+
+export default {
+    data() {
+        return {
+            member: {},
+        };
+    },
+
+    methods: {
+        removeMember() {
+            if (confirm("정말로 회원을 탈퇴하시겠습니까?")) {
+                deleteMember(
+                    this.member.memberNo,
+                    () => {
+                        alert("회원이 탈퇴되었습니다.");
+                        this.$router.push("/");
+                    },
+                    (error) => {
+                        if (error.response.data.message == "권한없음") {
+                            alert("권한이 없습니다.");
+                            this.$router.push("/members/login");
+                            return;
+                        }
+                        alert("회원 탈퇴 실패" + error);
+                    }
+                );
+            }
+        },
+    },
+};
 </script>
 
 <style>
