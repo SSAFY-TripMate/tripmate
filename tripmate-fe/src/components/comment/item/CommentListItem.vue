@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .comment-footer {
     display: flex;
     justify-content: flex-end;

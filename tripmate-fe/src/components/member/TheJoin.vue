@@ -145,7 +145,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .join-form {
     width: 400px;
     margin: 0px auto;

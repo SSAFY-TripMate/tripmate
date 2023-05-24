@@ -29,7 +29,7 @@
 
 <script></script>
 
-<style>
+<style scoped>
 .footer-items {
     height: 180px;
     background-color: #f9f9f9;
