@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="profile-container">
         <b-container class="bv-example-row mt-5">
             <div class="my-mates">
                 <p class="title">내 동행 글</p>
@@ -77,5 +77,10 @@ input {
 }
 .btn-quit {
     background: #ff3217;
+}
+
+.profile-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 </style>
