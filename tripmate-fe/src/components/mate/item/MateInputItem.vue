@@ -357,6 +357,11 @@ export default {
                     }
                 },
                 (error) => {
+                    if (error.response.data.message == "권한없음") {
+                        alert("권한이 없습니다.");
+                        this.$router.push("/members/login");
+                        return;
+                    }
                     alert("동행 등록 에러" + error);
                 }
             );
@@ -413,6 +418,11 @@ export default {
                     }
                 },
                 (error) => {
+                    if (error.response.data.message == "권한없음") {
+                        alert("권한이 없습니다.");
+                        this.$router.push("/members/login");
+                        return;
+                    }
                     alert("동행 수정 에러" + error);
                 }
             );

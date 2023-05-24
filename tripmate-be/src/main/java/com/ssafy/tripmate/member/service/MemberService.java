@@ -50,6 +50,8 @@ public class MemberService {
 
     public AuthMember getAuthMember(HttpServletRequest request){
         String token = request.getHeader("Authorization");
+        if(token == null)
+            return null;
         return jwtTokenProvider.getParsedClaims(token);
     }
 }
