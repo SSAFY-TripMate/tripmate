@@ -5,13 +5,16 @@ import com.ssafy.tripmate.mate.domain.MateDto;
 import com.ssafy.tripmate.mate.domain.ThumbnailDto;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
+import com.ssafy.tripmate.mate.dto.PageMateResponse;
 import com.ssafy.tripmate.mate.mapper.MateMapper;
 import com.ssafy.tripmate.mate.mapper.ThumbnailMapper;
 import com.ssafy.tripmate.mate.util.FileHandler;
 import com.ssafy.tripmate.member.dto.AuthMember;
+import com.ssafy.tripmate.util.PageNavigation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,12 +41,18 @@ public class MateService {
         this.fileHandler = fileHandler;
     }
 
-    public List<ListMateResponse> findAll(String rootPath) throws SQLException, IOException {
-        List<ListMateResponse> list=mateMapper.findAll();
-        for(ListMateResponse mate:list) {
+    public PageMateResponse findAll(String rootPath, PageNavigation pageNav) throws SQLException, IOException {
+        int start = pageNav.getPg() == 0 ? 0 : (pageNav.getPg() - 1) * pageNav.getSpp();
+        pageNav.setStart(start);
+
+        List<ListMateResponse> mates=mateMapper.findAll(pageNav);
+        for(ListMateResponse mate:mates) {
             fileHandler.setMateData(mate, rootPath);
         }
-        return list;
+
+        pageNav.setTotal(mateMapper.countAll());
+        PageMateResponse pageMateResponse = new PageMateResponse(mates, pageNav);
+        return pageMateResponse;
     }
     public ListMateResponse findByMateNo(String rootPath, int mateno, AuthMember authMember) throws SQLException {
         ListMateResponse mate=mateMapper.findByMateNo(mateno);

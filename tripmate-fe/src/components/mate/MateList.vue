@@ -35,6 +35,15 @@
                 :preferences="preferences"
             ></mate-list-item>
         </div>
+        <div class="page-nav">
+            <b-pagination
+                v-model="page.pg"
+                :total-rows="page.total"
+                :per-page="page.spp"
+                pills
+                @page-click="pageClick"
+            ></b-pagination>
+        </div>
     </div>
 </template>
 
@@ -56,6 +65,15 @@ export default {
             sidos: [],
             preferences: [],
             order: "id",
+
+            page: {
+                pg: 1,
+                spp: 12,
+                total: 0,
+                start: 0,
+                order: "mate_no",
+                word: "",
+            },
         };
     },
     created() {
@@ -70,9 +88,11 @@ export default {
         },
         getMateList() {
             list(
+                this.page,
                 (res) => {
                     if (res.status == 200) {
-                        this.mateList = res.data;
+                        this.mateList = res.data.mates;
+                        this.page = res.data.pageNav;
                         return;
                     } else {
                         alert("동행 리스트 에러");
@@ -83,6 +103,10 @@ export default {
                     // this.$router.push({ name: "home" });
                 }
             );
+        },
+        pageClick(button, page) {
+            this.page.pg = page;
+            this.getMateList();
         },
     },
 };
@@ -140,6 +164,12 @@ export default {
 *.disabled,
 *:disabled {
     opacity: 1 !important;
+}
+.page-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px;
 }
 
 /* .btn-primary:not(:disabled):not(.disabled):active,

@@ -30,15 +30,25 @@ export default {
             mates: [],
             sidos: [],
             preferences: [],
+            page: {
+                pg: 1,
+                spp: 8,
+                total: 0,
+                start: 0,
+                order: "mate_no",
+                word: "",
+            },
         };
     },
     created() {
         this.sidos = sidoList();
         this.preferences = preferenceList();
         list(
+            this.page,
             (res) => {
                 if (res.status == 200) {
-                    this.mates = res.data;
+                    this.mates = res.data.mates;
+                    this.page = res.data.pageNav;
                     return;
                 } else {
                     alert("동행 리스트 에러");

@@ -4,15 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.tripmate.mate.domain.MateDto;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
+import com.ssafy.tripmate.mate.dto.PageMateResponse;
 import com.ssafy.tripmate.mate.service.MateService;
 import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.member.service.MemberService;
 import com.ssafy.tripmate.token.JwtTokenProvider;
+import com.ssafy.tripmate.util.PageNavigation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,10 +51,10 @@ public class MateController {
     }
 
     @GetMapping("")
-    private ResponseEntity<List<ListMateResponse>> list(HttpServletRequest request) throws SQLException, IOException {
+    private ResponseEntity<PageMateResponse> list(HttpServletRequest request, PageNavigation pageNav) throws SQLException, IOException {
         String rootPath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
-
-        return new ResponseEntity<>(mateService.findAll(rootPath), HttpStatus.OK);
+        
+        return new ResponseEntity<>(mateService.findAll(rootPath, pageNav), HttpStatus.OK);
     }
 
     @GetMapping("/{mateNo}")

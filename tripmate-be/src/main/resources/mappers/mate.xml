@@ -31,7 +31,7 @@
         <result column="gender" property="gender"/>
     </resultMap>
     <resultMap id="mateResponse" type="ListMateResponse" extends="mate">
-        <collection property="thumbnail" resultMap="thumbnail"></collection>
+        <collection property="thumbnail" resultMap="thumbnail" ></collection>
         <collection property="member" resultMap="mateMember"></collection>
     </resultMap>
 
@@ -43,11 +43,29 @@
             select last_insert_id()
         </selectKey>
     </insert>
+
+    <select id="countAll" resultType="int">
+        SELECT count(*)
+        FROM mate;
+    </select>
+
     <select id="findAll" resultMap="mateResponse">
         WITH mateMember AS (
             SELECT mate_no, sido_code, start_date, end_date, preference_no, capacity, contact, title, content, member_no, hit, mate.created_time,nickname, birth, gender
             FROM mate LEFT JOIN member
             Using (member_no)
+            <if test="word != null and word != ''">
+                WHERE title like concat('%', #{word}, '%')
+            </if>
+            <if test="order != null and order != ''">
+                <if test="order == 'mate_no'">
+                    ORDER BY ${order} desc
+                </if>
+                <if test="order == 'start_date'">
+                    ORDER BY ${order} asc
+                </if>
+            </if>
+            limit #{start}, #{spp}
         )
         SELECT *
         FROM mateMember LEFT JOIN mate_thumbnail
@@ -63,6 +81,7 @@
         FROM mateMember LEFT JOIN mate_thumbnail
         Using (mate_no)
     </select>
+
     <update id="modifyMate" parameterType="ModifyMateRequest">
         UPDATE mate
         SET
