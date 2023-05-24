@@ -119,7 +119,7 @@
                             deletable="true"
                             meta="true"
                             accept="', .jpeg, .jpg, .png, .gif'"
-                            maxSize="'2MB'"
+                            maxSize="'20MB'"
                             helpText="'썸네일 사진을 등록해주세요'"
                             errorText="{
                             type: 'Invalid file type. Only images or zip Allowed',
