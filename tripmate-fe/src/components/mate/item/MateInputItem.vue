@@ -505,7 +505,8 @@ export default {
 }
 
 .v-calendar .input-field input {
-    min-width: 320px;
+    min-width: 320px !important;
+    max-width: 400px !important;
 }
 
 .number-form {

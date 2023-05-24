@@ -145,7 +145,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .join-form {
     width: 400px;
     margin: 0px auto;
@@ -209,6 +209,9 @@ input[type="email"] {
 .v-calendar .calendar .selected-field {
     padding-left: 52px;
     padding-right: 59px;
+}
+.v-calendar {
+    min-width: -webkit-fill-available;
 }
 
 .join-btn {
