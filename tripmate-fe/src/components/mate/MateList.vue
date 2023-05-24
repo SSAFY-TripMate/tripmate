@@ -204,7 +204,7 @@ export default {
     margin: 50px;
 }
 
-/* .btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
     border-color: var(--color-active-button);
@@ -214,5 +214,5 @@ export default {
 .btn-primary:not(:active) {
     border-color: var(--color-reset-button);
     background: var(--color-reset-button) !important;
-} */
+}
 </style>

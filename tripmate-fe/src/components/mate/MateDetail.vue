@@ -341,7 +341,8 @@ export default {
     text-align: center;
 }
 .thumbnail {
-    max-width: 100%;
-    max-height: 500px;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
 }
 </style>
