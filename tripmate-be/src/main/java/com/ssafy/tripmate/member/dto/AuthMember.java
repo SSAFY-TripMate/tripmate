@@ -1,8 +1,10 @@
 package com.ssafy.tripmate.member.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class AuthMember {
 
     private int memberNo;

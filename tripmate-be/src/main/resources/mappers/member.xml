@@ -15,6 +15,14 @@
         <result column="token" property="token"/>
     </resultMap>
 
+    <resultMap type="ChangeMemberRequest" id="ChangeMemberRequest">
+        <result column="member_no" property="memberNo"/>
+        <result column="id" property="id"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+
     <select id="findById" parameterType="String" resultMap="member">
         select *
         from member
@@ -50,6 +58,13 @@
         delete from member
         where member_no = #{memberNo}
     </delete>
+
+
+    <update id="updateMember" parameterType="ChangeMemberRequest">
+        update member
+        set nickname = #{nickname}, password = #{password}
+        where member_no = #{memberNo}
+    </update>
 
 
 </mapper>

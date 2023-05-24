@@ -14,7 +14,7 @@
 
             <div class="profile">
                 <h5>닉네임</h5>
-                <input type="text" name="nickNameInput" value="" />
+                <input type="text" value="" v-model="myInfo.nickname" />
             </div>
 
             <p class="description">TripMate에서 사용되는 이름입니다.</p>
@@ -22,14 +22,14 @@
 
             <div class="profile">
                 <h5>비밀번호</h5>
-                <input type="text" name="nickNameInput" value="" />
+                <input type="text" value="" v-model="password" />
             </div>
 
             <p class="description">비밀번호를 변경할 수 있습니다.</p>
             <hr />
 
             <div class="btn">
-                <b-button class="btn-done">완료</b-button>
+                <b-button class="btn-done" @click="update">완료</b-button>
                 <b-button class="btn-quit" @click="removeMember"
                     >회원탈퇴</b-button
                 >
@@ -39,13 +39,26 @@
 </template>
 
 <script>
-import { deleteMember } from "@/api/member";
+import { deleteMember, findMemberByToken, updateMember } from "@/api/member";
 
 export default {
     data() {
         return {
-            member: {},
+            myInfo: {},
+            password: "",
         };
+    },
+
+    created() {
+        findMemberByToken(
+            (res) => {
+                this.myInfo = res.data;
+            },
+            (error) => {
+                alert("내 정보 불러오기 실패" + error);
+                this.$router.push("/");
+            }
+        );
     },
 
     methods: {
@@ -67,6 +80,36 @@ export default {
                     }
                 );
             }
+        },
+        update() {
+            if (confirm("회원을 수정하시겠습니까?")) {
+                let member = {
+                    memberNo: this.myInfo.memberNo,
+                    nickname: this.myInfo.nickname,
+                    password: this.password,
+                };
+                updateMember(
+                    member,
+                    (res) => {
+                        let accessToken = res.headers.authorization;
+                        this.tokenSave(accessToken);
+                        alert("정보 변경 완료");
+                        this.$router.go();
+                    },
+                    (error) => {
+                        if (error.response.data.message == "권한없음") {
+                            alert("권한이 없습니다.");
+                            this.$router.push("/members/login");
+                            return;
+                        }
+                        alert("내 정보 변경 실패" + error);
+                    }
+                );
+            }
+        },
+
+        tokenSave(accessToken) {
+            sessionStorage.setItem("accessToken", accessToken);
         },
     },
 };

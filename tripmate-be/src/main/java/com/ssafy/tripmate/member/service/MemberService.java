@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.member.service;
 
 import com.ssafy.tripmate.member.domain.Member;
+import com.ssafy.tripmate.member.dto.ChangeMemberRequest;
 import com.ssafy.tripmate.member.dto.LoginRequest;
 import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.member.mapper.MemberMapper;
@@ -32,7 +33,6 @@ public class MemberService {
     }
 
     public AuthMember login(LoginRequest loginRequest) throws SQLException {
-        System.out.println(loginRequest.getId());
         Member member = memberMapper.findByIdAndPassword(loginRequest.getId(), loginRequest.getPassword())
                 .orElseThrow(NullPointerException::new);
         return new AuthMember(member.getMemberNo(), member.getId(), member.getNickname());
@@ -57,5 +57,13 @@ public class MemberService {
 
     public void deleteMember(int memberNo) throws SQLException{
         memberMapper.deleteMember(memberNo);
+    }
+
+
+    public void updateMember(ChangeMemberRequest changeMemberRequest) throws SQLException{
+        memberMapper.updateMember(changeMemberRequest);
+
+
+
     }
 }

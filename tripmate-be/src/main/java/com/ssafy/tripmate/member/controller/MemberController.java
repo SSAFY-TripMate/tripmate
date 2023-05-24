@@ -1,10 +1,12 @@
 package com.ssafy.tripmate.member.controller;
 
 import com.ssafy.tripmate.member.domain.Member;
+import com.ssafy.tripmate.member.dto.ChangeMemberRequest;
 import com.ssafy.tripmate.member.dto.LoginRequest;
 import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.member.service.MemberService;
 import com.ssafy.tripmate.token.TokenManager;
+import org.apache.ibatis.annotations.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/members")
@@ -31,7 +35,7 @@ public class MemberController {
         this.tokenManager = tokenManager;
     }
 
-    @PostMapping("/join")
+    @PostMapping("join")
     public ResponseEntity<Void> join(@RequestBody Member member) throws SQLException {
         memberService.join(member);
         logger.debug("회원가입 성공");
@@ -39,15 +43,12 @@ public class MemberController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest loginRequest) throws SQLException {
         logger.debug("로그인 API 호출");
 
         AuthMember authMember = memberService.login(loginRequest);
         String accessToken = tokenManager.createAccessToken(authMember);
-//        String refreshToken = tokenManager.createRefreshToken();
-        
-//        memberService.saveToken(accessToken, authMember.getId());
 
         logger.debug("로그인 성공");
         return ResponseEntity.ok()
@@ -55,11 +56,30 @@ public class MemberController {
                 .build();
     }
 
-    @DeleteMapping("/{memberNo}")
+    @DeleteMapping("{memberNo}")
     public ResponseEntity<Void> delete(@PathVariable int memberNo) throws SQLException {
-        System.out.println(memberNo);
         memberService.deleteMember(memberNo);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("")
+    public ResponseEntity<AuthMember> findMemberByToken(HttpServletRequest request){
+        AuthMember authMember = memberService.getAuthMember(request);
+        return new ResponseEntity<>(authMember, HttpStatus.OK);
+    }
+
+    @PutMapping("{memberNo}")
+    public ResponseEntity<Void> update(@PathVariable int memberNo, @RequestBody ChangeMemberRequest changeMemberRequest, HttpServletRequest request) throws SQLException {
+        memberService.updateMember(changeMemberRequest);
+
+        AuthMember authMember = memberService.getAuthMember(request);
+        authMember.setNickname(changeMemberRequest.getNickname());
+        String newAccessToken = tokenManager.createAccessToken(authMember);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, newAccessToken)
+                .build();
     }
 
 }
