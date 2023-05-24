@@ -54,8 +54,8 @@
 <script>
 import TheSearchBoxItem from "../item/TheSearchBoxItem.vue";
 import MateListItem from "./item/MateListItem.vue";
-import sidoList from "@/api/sidoList";
-import preferenceList from "@/api/preferenceList";
+import { sidoList } from "@/api/area";
+import { preferenceList } from "@/api/preference";
 import { list } from "@/api/mate";
 
 export default {
@@ -81,8 +81,33 @@ export default {
         };
     },
     created() {
-        this.sidos = sidoList();
-        this.preferences = preferenceList();
+        sidoList(
+            (res) => {
+                if (res.status == 200) {
+                    this.sidos = res.data;
+                    return;
+                } else {
+                    alert("sido 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("sido 리스트 에러" + error);
+            }
+        );
+        preferenceList(
+            (res) => {
+                if (res.status == 200) {
+                    this.preferences = res.data;
+                    return;
+                } else {
+                    alert("preferences 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("preferences 리스트 에러" + error);
+            }
+        );
+
         this.getMateList();
     },
     methods: {

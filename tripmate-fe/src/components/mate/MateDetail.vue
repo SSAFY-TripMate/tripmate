@@ -131,8 +131,8 @@
 <script>
 import CommentInputItem from "@/components/comment/item/CommentInputItem.vue";
 import CommentListItem from "../comment/item/CommentListItem.vue";
-import sidoList from "@/api/sidoList";
-import preferenceList from "@/api/preferenceList";
+import { sidoList } from "@/api/area";
+import { preferenceList } from "@/api/preference";
 import {
     yyyyMMdd,
     age,
@@ -163,8 +163,32 @@ export default {
     created() {
         this.getMate();
         this.getComments();
-        this.sidos = sidoList();
-        this.preferences = preferenceList();
+        sidoList(
+            (res) => {
+                if (res.status == 200) {
+                    this.sidos = res.data;
+                    return;
+                } else {
+                    alert("sido 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("sido 리스트 에러" + error);
+            }
+        );
+        preferenceList(
+            (res) => {
+                if (res.status == 200) {
+                    this.preferences = res.data;
+                    return;
+                } else {
+                    alert("preferences 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("preferences 리스트 에러" + error);
+            }
+        );
     },
     filters: {
         yyyyMMdd: yyyyMMdd,
