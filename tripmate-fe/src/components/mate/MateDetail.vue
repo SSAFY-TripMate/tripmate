@@ -72,7 +72,7 @@
                         <div for="capacity-form">연결 방법</div>
                     </b-col>
                     <b-col cols="10" class="menu-select">
-                        <div class="text">{{ mate.contact }}</div>
+                        <div>{{ mate.contact }}</div>
                     </b-col>
                 </b-row>
 
@@ -80,9 +80,7 @@
                 <br />
 
                 <div id="content-group" label-for="content">
-                    <div class="text">
-                        {{ mate.content }}
-                    </div>
+                    <div class="text">{{ mate.content }}</div>
                 </div>
 
                 <br />
@@ -304,7 +302,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .flex-form {
     display: flex;
     margin-bottom: 0;
@@ -331,6 +329,7 @@ export default {
 }
 .text {
     white-space: break-spaces;
+    font-size: larger;
 }
 
 .v-calendar .input-field input:disabled {

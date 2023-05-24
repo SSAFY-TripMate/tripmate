@@ -22,7 +22,7 @@
                 </div>
 
                 <div
-                    class="thumbnail-box d-flex justify-content-between align-items-center mt-3"
+                    class="thumbnail-box d-flex justify-content-between align-items-center"
                 >
                     <img class="thumbnail" :src="mate.thumbnailUrl" alt="" />
                 </div>
@@ -45,12 +45,12 @@
                     </div>
                 </div>
 
-                <div class="member-text ellipsis">
+                <div class="member-text ellipsis mt-1 content">
                     {{ mate.content }}
                 </div>
                 <div class="hashtag-border pt-2">
                     <span class="hashtag">
-                        {{ mate.preferenceNo | hashtag }}</span
+                        {{ mate.preferenceNo | hashtag(preferences) }}</span
                     >
                 </div>
             </div>
@@ -83,18 +83,19 @@ body {
 
 .card-container {
     margin: auto 5px;
+    height: 350px;
 }
 .card-item {
     background-color: #fff;
     width: 250px;
     border-radius: 33px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 1rem !important;
+    padding: 10px !important;
 }
 .top-container {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    height: 30px;
 }
 .profile-image {
     border-radius: 10px;
@@ -117,6 +118,9 @@ body {
     flex-direction: row;
     align-items: center;
 }
+.head-text > svg {
+    margin-right: 5px;
+}
 .head-date {
     font-size: 13px;
     color: #272727;
@@ -138,7 +142,7 @@ body {
 
 .thumbnail-box {
     overflow: hidden;
-    margin: 10px auto;
+    margin: 10px auto 0px auto;
     height: 150px;
 }
 .thumbnail {
@@ -176,8 +180,12 @@ body {
     margin-left: 2px;
 }
 .hashtag {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     color: #272727;
+}
+
+.content {
+    height: 45px;
 }
 </style>

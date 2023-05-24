@@ -70,6 +70,7 @@
                     <b-col class="menu"> 여행 기간 </b-col>
                     <b-col cols="11" class="menu-select">
                         <datepicker-ui
+                            class="datepicker"
                             range
                             lang="KOR"
                             firstDayOfWeek="sunday"
@@ -118,7 +119,7 @@
                             deletable="true"
                             meta="true"
                             accept="', .jpeg, .jpg, .png, .gif'"
-                            maxSize="'2MB'"
+                            maxSize="'20MB'"
                             helpText="'썸네일 사진을 등록해주세요'"
                             errorText="{
                             type: 'Invalid file type. Only images or zip Allowed',
@@ -472,7 +473,7 @@ export default {
 <style type="text/css">
 @import url("/public/css/common.css");
 </style>
-<style scoped>
+<style>
 .flex-form {
     display: flex;
     margin-bottom: 0;
