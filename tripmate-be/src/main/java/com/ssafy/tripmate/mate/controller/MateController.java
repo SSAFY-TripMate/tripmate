@@ -30,7 +30,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/mates")
-@CrossOrigin("*")
 public class MateController {
     private static final Logger logger = LoggerFactory.getLogger(MateController.class);
     private static final String SUCCESS = "success";

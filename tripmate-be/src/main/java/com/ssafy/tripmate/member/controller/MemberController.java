@@ -20,8 +20,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/members")
-
-@CrossOrigin(origins = "*", exposedHeaders = "Authorization")
 public class MemberController {
     private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
