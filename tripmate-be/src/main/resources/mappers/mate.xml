@@ -46,7 +46,15 @@
 
     <select id="countAll" resultType="int">
         SELECT count(*)
-        FROM mate;
+        FROM mate
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="word != null and word != ''">
+                AND title like concat('%', #{word}, '%')
+            </if>
+            <if test="order == 'start_date'">
+                AND start_date is not null
+            </if>
+        </trim>
     </select>
 
     <select id="findAll" resultMap="mateResponse">
@@ -54,9 +62,15 @@
             SELECT mate_no, sido_code, start_date, end_date, preference_no, capacity, contact, title, content, member_no, hit, mate.created_time,nickname, birth, gender
             FROM mate LEFT JOIN member
             Using (member_no)
-            <if test="word != null and word != ''">
-                WHERE title like concat('%', #{word}, '%')
-            </if>
+            <trim prefix="WHERE" prefixOverrides="AND | OR">
+                <if test="word != null and word != ''">
+                    AND title like concat('%', #{word}, '%')
+                </if>
+                <if test="order == 'start_date'">
+                    AND start_date is not null
+                </if>
+            </trim>
+
             <if test="order != null and order != ''">
                 <if test="order == 'mate_no'">
                     ORDER BY ${order} desc

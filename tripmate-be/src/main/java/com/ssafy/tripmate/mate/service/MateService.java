@@ -50,7 +50,7 @@ public class MateService {
             fileHandler.setMateData(mate, rootPath);
         }
 
-        pageNav.setTotal(mateMapper.countAll());
+        pageNav.setTotal(mateMapper.countAll(pageNav));
         PageMateResponse pageMateResponse = new PageMateResponse(mates, pageNav);
         return pageMateResponse;
     }

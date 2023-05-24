@@ -4,12 +4,14 @@
             class="mr-2"
             icon="fa-solid fa-magnifying-glass"
             size="xl"
+            @click="getMateList"
         />
         <input
             id="search-box-input"
             class="search-form"
             :placeholder="searchHolder"
-            value=""
+            v-model="keyword"
+            @keyup.enter="getMateList"
         />
     </div>
 </template>
@@ -17,10 +19,19 @@
 <script>
 export default {
     data() {
-        return {};
+        return {
+            keyword: "",
+        };
     },
     props: {
         searchHolder: String,
+        type: String,
+        page: Object,
+    },
+    methods: {
+        getMateList() {
+            this.$emit("searchMateList", this.keyword);
+        },
     },
 };
 </script>

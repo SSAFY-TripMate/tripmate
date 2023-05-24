@@ -18,6 +18,6 @@ public interface MateMapper {
     public int modifyMate(ModifyMateRequest modifyMateRequest) throws SQLException;
     public int deleteMate(int mateno) throws SQLException;
 
-    public int countAll() throws SQLException;
+    public int countAll(PageNavigation pageNav) throws SQLException;
 }
 
