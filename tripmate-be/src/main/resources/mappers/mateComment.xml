@@ -42,6 +42,12 @@
         WHERE mc.mate_no = #{mateNo}
     </select>
 
+    <insert id="save" parameterType="MateComment">
+        insert into mate_comment(mate_no, content, member_no)
+        values(#{mateNo}, #{content}, #{memberNo})
+    </insert>
+
+
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from mate_comment
         where mate_comment_no = #{mateCommentNo}

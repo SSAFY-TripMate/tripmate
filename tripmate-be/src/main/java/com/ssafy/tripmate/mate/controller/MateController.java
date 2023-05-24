@@ -1,5 +1,6 @@
 package com.ssafy.tripmate.mate.controller;
 
+import com.ssafy.tripmate.mate.domain.MateComment;
 import com.ssafy.tripmate.mate.dto.ListCommentResponse;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.service.MateCommentService;
@@ -83,10 +84,17 @@ public class MateController {
 //        }
 //    }
 
-    @GetMapping("/{mateNo}/comments")
+    @GetMapping("{mateNo}/comments")
     public ResponseEntity<List<ListCommentResponse>> getComment(@PathVariable int mateNo) throws SQLException {
         List<ListCommentResponse> listCommentResponse = mateCommentService.findAll(mateNo);
         return new ResponseEntity<>(listCommentResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("{mateNo}/comments")
+    public ResponseEntity<Void> writeComment(@PathVariable int mateNo, @RequestBody MateComment mateComment) throws SQLException {
+        System.out.println(mateComment.getContent());
+        mateCommentService.save(mateComment);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("{mateNo}/comments/{commentNo}")
