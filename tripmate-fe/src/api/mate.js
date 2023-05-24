@@ -26,10 +26,19 @@ async function write(formData, success, fail) {
         .catch(fail);
 }
 
-async function commentList(mateNo, success, fail) {
+async function getComment(mateNo, success, fail) {
     api.defaults.headers["Authorization"] =
         sessionStorage.getItem("accessToken");
     await api.get(`/mates/${mateNo}/comments`).then(success).catch(fail);
 }
 
-export { list, detail, write, commentList };
+async function deleteComment(data, success, fail) {
+    api.defaults.headers["Authorization"] =
+        sessionStorage.getItem("accessToken");
+    await api
+        .delete(`/mates/${data.mateNo}/comments${data.mateCommentNo}`)
+        .then(success)
+        .catch(fail);
+}
+
+export { list, detail, write, getComment, deleteComment };

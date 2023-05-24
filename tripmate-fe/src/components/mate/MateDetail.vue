@@ -130,7 +130,7 @@ import {
     preferenceName,
     personCnt,
 } from "@/api/mateFilters";
-import { detail, commentList } from "@/api/mate";
+import { detail, getComment } from "@/api/mate";
 
 export default {
     name: "MateDetail",
@@ -203,7 +203,7 @@ export default {
         },
         getComments() {
             // TODO: 댓글 axios
-            commentList(
+            getComment(
                 this.$route.params.mateno,
                 (res) => {
                     if (res.status == 200) {

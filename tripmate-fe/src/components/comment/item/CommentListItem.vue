@@ -27,7 +27,11 @@
                     <p class="card-text">{{ comment.content }}</p>
                 </div>
                 <div class="card-footer comment-footer">
-                    <font-awesome-icon icon="fa-solid fa-trash" />
+                    <font-awesome-icon
+                        icon="fa-solid fa-trash"
+                        @click="delComment"
+                        type="button"
+                    />
                 </div>
             </div>
         </div>
@@ -35,6 +39,8 @@
 </template>
 
 <script>
+import { deleteComment } from "@/api/mate";
+
 export default {
     name: "CommentListItem",
     components: {},
@@ -48,7 +54,26 @@ export default {
     created() {},
     mounted() {},
     unmounted() {},
-    methods: {},
+    methods: {
+        delComment() {
+            if (confirm("정말로 삭제 하시겠어요?")) {
+                console.log(this.comment);
+                let data = {
+                    mateNo: this.comment.mateNo,
+                    mateCommentNo: this.comment.mateCommentNo,
+                };
+                deleteComment(
+                    data,
+                    (res) => {
+                        console.log(res);
+                    },
+                    (error) => {
+                        alert("댓글 삭제 실패" + error);
+                    }
+                );
+            }
+        },
+    },
 };
 </script>
 
