@@ -2,7 +2,7 @@
     <div>
         <div class="mate-preview">
             <p>동행을 찾고있어요</p>
-            <p><router-link to="#">더보기</router-link></p>
+            <p><router-link to="/mate/list">더보기</router-link></p>
         </div>
 
         <div class="mate-list">
@@ -62,7 +62,7 @@ p {
     height: 50px;
     display: flex;
     justify-content: space-between;
-    padding: 0px 37px;
+    padding: 0px 100px;
     margin-top: 50px;
 }
 

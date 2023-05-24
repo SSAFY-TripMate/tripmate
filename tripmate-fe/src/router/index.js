@@ -81,6 +81,11 @@ const routes = [
                 name: "logout",
                 component: () => import("@/components/member/TheLogout"),
             },
+            {
+                path: "profile",
+                name: "profile",
+                component: () => import("@/components/member/TheProfile"),
+            },
         ],
     },
     {
