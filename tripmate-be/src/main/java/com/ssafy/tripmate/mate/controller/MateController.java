@@ -5,6 +5,7 @@ import com.ssafy.tripmate.mate.dto.ListCommentResponse;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.service.MateCommentService;
 import com.ssafy.tripmate.mate.service.MateService;
+import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.member.service.MemberService;
 import com.ssafy.tripmate.token.JwtTokenProvider;
 import org.slf4j.Logger;
@@ -91,8 +92,10 @@ public class MateController {
     }
 
     @PostMapping("{mateNo}/comments")
-    public ResponseEntity<Void> writeComment(@PathVariable int mateNo, @RequestBody MateComment mateComment) throws SQLException {
-        System.out.println(mateComment.getContent());
+    public ResponseEntity<Void> writeComment(@PathVariable int mateNo, @RequestBody MateComment mateComment, HttpServletRequest request) throws SQLException {
+        AuthMember authMember = memberService.getAuthMember(request);
+
+        mateComment.setMemberNo(authMember.getMemberNo());
         mateCommentService.save(mateComment);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

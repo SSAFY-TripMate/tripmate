@@ -89,11 +89,9 @@
                 <br />
 
                 <div class="bottom-right mt-5 mb-3">
-                    <router-link
-                        v-if="this.mate.author == true"
-                        :to="'/mate/modify/' + mate.mateNo"
-                    >
-                        <b-button type="button" variant="primary" class="m-1">
+                    <!-- TODO:글 작성자와 유저가 같으면 수정하기 보이기로 수정 -->
+                    <router-link :to="'/mate/modify/' + mate.mateNo"
+                        ><b-button type="button" variant="primary" class="m-1">
                             수정하기
                         </b-button>
                     </router-link>
@@ -109,7 +107,7 @@
             </b-col>
         </b-row>
 
-        <comment-input-item></comment-input-item>
+        <comment-input-item :mateNo="mate.mateNo"></comment-input-item>
         <comment-list-item
             v-for="(comment, index) in comments"
             :key="index"
@@ -132,7 +130,7 @@ import {
     preferenceName,
     personCnt,
 } from "@/api/mateFilters";
-import { detail, getComment } from "@/api/mate";
+import { detail, commentList } from "@/api/mate";
 
 export default {
     name: "MateDetail",
@@ -188,33 +186,22 @@ export default {
             detail(
                 data,
                 (res) => {
-                    if (res.status == 200) {
-                        this.mate = res.data;
-                        this.selectedDate = [
-                            this.mate.startDate,
-                            this.mate.endDate,
-                        ];
-                        this.isUserid = true;
-                        console.log(this.mate);
-                        return;
-                    } else {
-                        alert("동행 detail 에러");
-                    }
+                    this.mate = res.data;
                 },
                 (error) => {
                     alert("동행 detail 에러" + error);
                     // this.$router.push({ name: "home" });
                 }
             );
+            this.selectedDate = [this.mate.startDate, this.mate.endDate];
+            this.isUserid = true;
         },
         getComments() {
             // TODO: 댓글 axios
-            getComment(
+            commentList(
                 this.$route.params.mateno,
                 (res) => {
-                    if (res.status == 200) {
-                        this.comments = res.data;
-                    }
+                    this.comments = res.data;
                 },
                 (error) => {
                     alert("댓글 불러오기 실패" + error);

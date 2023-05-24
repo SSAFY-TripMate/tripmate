@@ -11,7 +11,7 @@
                     rows="3"
                     type="text"
                     @keyup.enter="registComment"
-                    v-model="comment.content"
+                    v-model="content"
                 ></textarea>
                 <button
                     type="button"
@@ -26,15 +26,17 @@
 </template>
 
 <script>
+import { writeComment } from "@/api/mate";
+
 export default {
     name: "CommentInputItem",
     components: {},
+    props: {
+        mateNo: Number,
+    },
     data() {
         return {
-            comment: {
-                content: "",
-                memberNo: 0,
-            },
+            content: "",
         };
     },
     setup() {},
@@ -42,7 +44,23 @@ export default {
     mounted() {},
     unmounted() {},
     methods: {
-        registComment() {},
+        registComment() {
+            let comment = {
+                mateNo: this.mateNo,
+                content: this.content,
+            };
+            console.log(comment);
+            writeComment(
+                comment,
+                () => {
+                    alert("댓글 쓰기 성공");
+                    this.$router.go(0);
+                },
+                (error) => {
+                    alert("댓글 쓰기 실패" + error);
+                }
+            );
+        },
     },
 };
 </script>
