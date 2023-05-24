@@ -20,8 +20,8 @@
 <script>
 import { list } from "@/api/mate";
 import MateListItem from "../mate/item/MateListItem.vue";
-import sidoList from "@/api/sidoList";
-import preferenceList from "@/api/preferenceList";
+import { sidoList } from "@/api/area";
+import { preferenceList } from "@/api/preference";
 
 export default {
     components: { MateListItem },
@@ -41,8 +41,33 @@ export default {
         };
     },
     created() {
-        this.sidos = sidoList();
-        this.preferences = preferenceList();
+        sidoList(
+            (res) => {
+                if (res.status == 200) {
+                    this.sidos = res.data;
+                    return;
+                } else {
+                    alert("sido 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("sido 리스트 에러" + error);
+                // this.$router.push({ name: "home" });
+            }
+        );
+        preferenceList(
+            (res) => {
+                if (res.status == 200) {
+                    this.preferences = res.data;
+                    return;
+                } else {
+                    alert("preferences 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("preferences 리스트 에러" + error);
+            }
+        );
         list(
             this.page,
             (res) => {

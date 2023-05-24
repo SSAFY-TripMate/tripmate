@@ -52,3 +52,6 @@ CREATE TABLE IF NOT EXISTS `preference` (
   `title` varchar(1000) NOT NULL,
   `description` text
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
+
+INSERT INTO preference (title)
+VALUES ('인생샷'),('맛집탐방'),('활동적'),('계획적'),('자유로움'),('쇼핑'),('자연'),('휴양');

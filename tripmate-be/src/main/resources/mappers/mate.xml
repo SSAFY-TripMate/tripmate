@@ -34,6 +34,11 @@
         <collection property="thumbnail" resultMap="thumbnail" ></collection>
         <collection property="member" resultMap="mateMember"></collection>
     </resultMap>
+    <resultMap id="preferenceResponse" type="Preference">
+        <result column="preference_no" property="preferenceNo"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+    </resultMap>
 
 
     <insert id="write" parameterType="MateDto">
@@ -107,4 +112,10 @@
         delete from mate
         where mate_no = #{mateNo}
     </delete>
+
+    <!--  preference  -->
+    <select id="findAllPreference" resultMap="preferenceResponse">
+        SELECT *
+        FROM preference
+    </select>
 </mapper>

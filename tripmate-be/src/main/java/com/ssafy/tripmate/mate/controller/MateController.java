@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.mate.controller;
 
 import com.ssafy.tripmate.mate.domain.MateComment;
+import com.ssafy.tripmate.mate.domain.Preference;
 import com.ssafy.tripmate.mate.dto.ListCommentResponse;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
@@ -114,6 +115,11 @@ public class MateController {
         System.out.println(commentNo);
         mateCommentService.deleteById(commentNo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/preferences")
+    private ResponseEntity<List<Preference>> preferenceList() throws SQLException {
+        return new ResponseEntity<>(mateService.findAllPreference(), HttpStatus.OK);
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

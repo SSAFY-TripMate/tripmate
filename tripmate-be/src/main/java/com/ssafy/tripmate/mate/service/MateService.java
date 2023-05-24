@@ -2,6 +2,7 @@ package com.ssafy.tripmate.mate.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.tripmate.mate.domain.MateDto;
+import com.ssafy.tripmate.mate.domain.Preference;
 import com.ssafy.tripmate.mate.domain.ThumbnailDto;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
@@ -126,5 +127,10 @@ public class MateService {
             thumbnailMapper.delete(deleteThumbnail.getMateThumbnailNo());
         }
         return mateMapper.deleteMate(mateNo);
+    }
+
+
+    public List<Preference> findAllPreference() throws SQLException{
+        return mateMapper.findAllPreference();
     }
 }

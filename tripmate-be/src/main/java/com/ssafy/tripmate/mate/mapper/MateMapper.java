@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.mate.mapper;
 
 import com.ssafy.tripmate.mate.domain.MateDto;
+import com.ssafy.tripmate.mate.domain.Preference;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
 import com.ssafy.tripmate.mate.dto.PageMateResponse;
@@ -19,5 +20,7 @@ public interface MateMapper {
     public int deleteMate(int mateno) throws SQLException;
 
     public int countAll(PageNavigation pageNav) throws SQLException;
+
+    public List<Preference> findAllPreference() throws SQLException;
 }
 

@@ -199,8 +199,8 @@
 </template>
 
 <script>
-import sidoList from "@/api/sidoList";
-import preferenceList from "@/api/preferenceList";
+import { sidoList } from "@/api/area";
+import { preferenceList } from "@/api/preference";
 import { write, detail, modify } from "@/api/mate";
 import { dateFormat } from "@/util/DateFormatByDatepicker";
 
@@ -237,8 +237,33 @@ export default {
         // mate: Object,
     },
     created() {
-        this.sidos = sidoList();
-        this.preferences = preferenceList();
+        sidoList(
+            (res) => {
+                if (res.status == 200) {
+                    this.sidos = res.data;
+                    return;
+                } else {
+                    alert("sido 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("sido 리스트 에러" + error);
+            }
+        );
+        preferenceList(
+            (res) => {
+                if (res.status == 200) {
+                    this.preferences = res.data;
+                    return;
+                } else {
+                    alert("preferences 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("preferences 리스트 에러" + error);
+            }
+        );
+
         if (this.type === "modify") {
             this.getMate();
         }
