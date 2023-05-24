@@ -6,29 +6,50 @@
         </div>
 
         <div class="mate-list">
-            <!-- <mate-list-item
-                v-for="(mate, index) in mateList"
+            <mate-list-item
+                v-for="(mate, index) in mates"
                 :key="index"
                 :mate="mate"
-            ></mate-list-item> -->
-            <mate-list></mate-list>
+                :sidos="sidos"
+                :preferences="preferences"
+            ></mate-list-item>
         </div>
     </div>
 </template>
 
 <script>
-import MateList from "@/components/mate/MateList.vue";
+import { list } from "@/api/mate";
+import MateListItem from "../mate/item/MateListItem.vue";
+import sidoList from "@/api/sidoList";
+import preferenceList from "@/api/preferenceList";
 
 export default {
-    components: {
-        MateList,
-    },
+    components: { MateListItem },
     data() {
         return {
             mates: [],
+            sidos: [],
+            preferences: [],
         };
     },
-    created() {},
+    created() {
+        this.sidos = sidoList();
+        this.preferences = preferenceList();
+        list(
+            (res) => {
+                if (res.status == 200) {
+                    this.mates = res.data;
+                    return;
+                } else {
+                    alert("동행 리스트 에러");
+                }
+            },
+            (error) => {
+                alert("동행 리스트 에러" + error);
+                // this.$router.push({ name: "home" });
+            }
+        );
+    },
 };
 </script>
 
