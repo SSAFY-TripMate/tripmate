@@ -45,7 +45,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         if (!tokenManager.isValid(token)) {
             // 토큰이 유효하지 않은 경우 예외 처리 또는 인증 실패로 처리
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "권한없음");
             LOGGER.debug("토큰 인증 실패");
             return false;
         }
