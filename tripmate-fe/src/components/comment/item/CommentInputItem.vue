@@ -53,7 +53,6 @@ export default {
             writeComment(
                 comment,
                 () => {
-                    alert("댓글 쓰기 성공");
                     this.$router.go(0);
                 },
                 (error) => {

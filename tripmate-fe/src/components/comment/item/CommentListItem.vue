@@ -57,15 +57,14 @@ export default {
     methods: {
         delComment() {
             if (confirm("정말로 삭제 하시겠어요?")) {
-                console.log(this.comment);
                 let data = {
                     mateNo: this.comment.mateNo,
                     mateCommentNo: this.comment.mateCommentNo,
                 };
                 deleteComment(
                     data,
-                    (res) => {
-                        console.log(res);
+                    () => {
+                        this.$router.go(0);
                     },
                     (error) => {
                         alert("댓글 삭제 실패" + error);
