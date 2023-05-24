@@ -3,6 +3,9 @@
         <div class="header-btn">
             <the-search-box-item
                 :searchHolder="'검색할 키워드를 적어주세요'"
+                :type="'mateList'"
+                :page="page"
+                @searchMateList="searchMateList"
             ></the-search-box-item>
             <b-form-group id="order-group" class="flex-form">
                 <b-form-radio-group
@@ -10,9 +13,10 @@
                     button-variant="primary"
                     class="radio-group"
                     style="display: block"
-                    v-model="order"
+                    v-model="page.order"
+                    @change="pageClick"
                 >
-                    <b-form-radio value="id" class="m-1 radiobtn">
+                    <b-form-radio value="mate_no" class="m-1 radiobtn">
                         <b-badge variant="light" class="badge-color">
                             최신순
                         </b-badge>
@@ -81,7 +85,6 @@ export default {
         this.preferences = preferenceList();
         this.getMateList();
     },
-
     methods: {
         moveWrite() {
             this.$router.push({ name: "matewrite" });
@@ -105,7 +108,11 @@ export default {
             );
         },
         pageClick(button, page) {
-            this.page.pg = page;
+            if (page != null) this.page.pg = page;
+            this.getMateList();
+        },
+        searchMateList(keyword) {
+            this.page.word = keyword;
             this.getMateList();
         },
     },
