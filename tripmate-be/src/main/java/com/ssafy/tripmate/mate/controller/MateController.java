@@ -1,9 +1,9 @@
 package com.ssafy.tripmate.mate.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.tripmate.mate.domain.MateDto;
+import com.ssafy.tripmate.mate.domain.MateComment;
+import com.ssafy.tripmate.mate.dto.ListCommentResponse;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
-import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
+import com.ssafy.tripmate.mate.service.MateCommentService;
 import com.ssafy.tripmate.mate.service.MateService;
 import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.member.service.MemberService;
@@ -11,9 +11,6 @@ import com.ssafy.tripmate.token.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -37,30 +30,34 @@ public class MateController {
     private static final String FAIL = "fail";
 
     private final MateService mateService;
+    private final MateCommentService mateCommentService;
+    private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
 
     @Autowired
-    public MateController(MateService mateService, MemberService memberService) {
+    public MateController(MateService mateService, MateCommentService mateCommentService, JwtTokenProvider jwtTokenProvider, MemberService memberService) {
         this.mateService = mateService;
+        this.mateCommentService = mateCommentService;
+        this.jwtTokenProvider = jwtTokenProvider;
         this.memberService = memberService;
     }
 
     @GetMapping("")
     private ResponseEntity<List<ListMateResponse>> list(HttpServletRequest request) throws SQLException, IOException {
-        String rootPath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
+        String rootPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 
         return new ResponseEntity<>(mateService.findAll(rootPath), HttpStatus.OK);
     }
 
     @GetMapping("/{mateNo}")
     private ResponseEntity<ListMateResponse> getMate(HttpServletRequest request, @PathVariable("mateNo") int mateNo) throws SQLException {
-        String rootPath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
+        String rootPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 
-        return new ResponseEntity<>(mateService.findByMateNo(rootPath,mateNo, memberService.getAuthMember(request)), HttpStatus.OK);
+        return new ResponseEntity<>(mateService.findByMateNo(rootPath, mateNo, memberService.getAuthMember(request)), HttpStatus.OK);
     }
 
-    @PostMapping(value="", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> writeMate(HttpServletRequest request, @RequestParam("mate") String mate, @RequestParam(value="thumbnail", required = false) MultipartFile file) throws Exception {
+    @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> writeMate(HttpServletRequest request, @RequestParam("mate") String mate, @RequestParam(value = "thumbnail", required = false) MultipartFile file) throws Exception {
         logger.info("writeMate - 호출");
 
         if (mateService.write(mate, file, memberService.getAuthMember(request))) {
@@ -88,9 +85,32 @@ public class MateController {
         }
     }
 
+    @GetMapping("{mateNo}/comments")
+    public ResponseEntity<List<ListCommentResponse>> getComment(@PathVariable int mateNo) throws SQLException {
+        List<ListCommentResponse> listCommentResponse = mateCommentService.findAll(mateNo);
+        return new ResponseEntity<>(listCommentResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("{mateNo}/comments")
+    public ResponseEntity<Void> writeComment(@PathVariable int mateNo, @RequestBody MateComment mateComment, HttpServletRequest request) throws SQLException {
+        AuthMember authMember = memberService.getAuthMember(request);
+
+        mateComment.setMemberNo(authMember.getMemberNo());
+        mateCommentService.save(mateComment);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("{mateNo}/comments/{commentNo}")
+    public ResponseEntity<Void> deleteComment(@PathVariable int mateNo, @PathVariable int commentNo) throws SQLException {
+        System.out.println(commentNo);
+        mateCommentService.deleteById(commentNo);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {
         e.printStackTrace();
         return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 }

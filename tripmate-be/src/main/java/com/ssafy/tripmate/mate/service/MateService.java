@@ -34,23 +34,25 @@ public class MateService {
 
     public MateService(MateMapper mateMapper, ThumbnailMapper thumbnailMapper, FileHandler fileHandler) {
         this.mateMapper = mateMapper;
-        this.thumbnailMapper=thumbnailMapper;
+        this.thumbnailMapper = thumbnailMapper;
         this.fileHandler = fileHandler;
     }
 
     public List<ListMateResponse> findAll(String rootPath) throws SQLException, IOException {
-        List<ListMateResponse> list=mateMapper.findAll();
-        for(ListMateResponse mate:list) {
+        List<ListMateResponse> list = mateMapper.findAll();
+        for (ListMateResponse mate : list) {
             fileHandler.setMateData(mate, rootPath);
         }
         return list;
     }
+
     public ListMateResponse findByMateNo(String rootPath, int mateno, AuthMember authMember) throws SQLException {
-        ListMateResponse mate=mateMapper.findByMateNo(mateno);
-        if(authMember.getMemberNo()==mate.getMemberNo()) mate.setAuthor(true);
+        ListMateResponse mate = mateMapper.findByMateNo(mateno);
+        if (authMember != null && authMember.getMemberNo() == mate.getMemberNo()) mate.setAuthor(true);
         fileHandler.setMateData(mate, rootPath);
         return mate;
     }
+
     public boolean write(String mate, MultipartFile file, AuthMember authMember) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         MateDto mateDto = objectMapper.readValue(mate, MateDto.class);
@@ -59,22 +61,22 @@ public class MateService {
         mateDto.setMemberNo(authMember.getMemberNo());
 
         //textarea안에서 사용할 줄바꿈은 db에 저장할 때 치환을 해야한다 replaceAll이 없어 정규화로 대체
-        mateDto.setContent(mateDto.getContent().replaceAll("\r\n","<br/>"));
-        if(mateDto.getStartDate()=="") mateDto.setStartDate(null);
-        if(mateDto.getEndDate()=="") mateDto.setEndDate(null);
-        int res=mateMapper.write(mateDto);
+        mateDto.setContent(mateDto.getContent().replaceAll("\r\n", "<br/>"));
+        if (mateDto.getStartDate() == "") mateDto.setStartDate(null);
+        if (mateDto.getEndDate() == "") mateDto.setEndDate(null);
+        int res = mateMapper.write(mateDto);
 
         // 파일을 저장하고 그 BoardPicture 에 대한 list 를 가지고 있는다
-        ThumbnailDto thumbnailDto=null;
-        if(file!=null) {
+        ThumbnailDto thumbnailDto = null;
+        if (file != null) {
             thumbnailDto = fileHandler.parseFileInfo(mateDto.getMateNo(), file);
         }
 
-        if(thumbnailDto==null){
+        if (thumbnailDto == null) {
             // TODO : 파일이 없을 때
         }
         // 파일에 대해 DB에 저장하고 가지고 있을 것
-        else{
+        else {
             res = thumbnailMapper.write(thumbnailDto);
 //            board.setPictures(pictureBeans);
         }

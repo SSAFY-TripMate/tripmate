@@ -24,14 +24,22 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("인터셉터 IN");
+
         // 요청 헤더에서 토큰 정보 추출
         String token = request.getHeader("Authorization");
-        System.out.println(token);
-        System.out.println(request.getHeader("User-Agent"));
-        System.out.println(request.getHeader("Content-type"));
+        System.out.println("token : " + token);
+
 
         if (CorsUtils.isPreFlightRequest(request)) {
             LOGGER.debug("if request options method is options, return true");
+            return true;
+        }
+
+
+        String requestMethod = request.getMethod();
+        if (requestMethod.equalsIgnoreCase("GET")) {
+            // GET 요청
             return true;
         }
 
