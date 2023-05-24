@@ -6,6 +6,7 @@ import com.ssafy.tripmate.mate.dto.ListMateResponse;
 import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
 import com.ssafy.tripmate.mate.service.MateService;
 import com.ssafy.tripmate.member.dto.AuthMember;
+import com.ssafy.tripmate.member.service.MemberService;
 import com.ssafy.tripmate.token.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,19 +31,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/mates")
-@CrossOrigin("*")
 public class MateController {
     private static final Logger logger = LoggerFactory.getLogger(MateController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
     private final MateService mateService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final MemberService memberService;
 
     @Autowired
-    public MateController(MateService mateService, JwtTokenProvider jwtTokenProvider) {
+    public MateController(MateService mateService, MemberService memberService) {
         this.mateService = mateService;
-        this.jwtTokenProvider=jwtTokenProvider;
+        this.memberService = memberService;
     }
 
     @GetMapping("")
@@ -56,16 +56,14 @@ public class MateController {
     private ResponseEntity<ListMateResponse> getMate(HttpServletRequest request, @PathVariable("mateNo") int mateNo) throws SQLException {
         String rootPath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
 
-        return new ResponseEntity<>(mateService.findByMateNo(rootPath,mateNo), HttpStatus.OK);
+        return new ResponseEntity<>(mateService.findByMateNo(rootPath,mateNo, memberService.getAuthMember(request)), HttpStatus.OK);
     }
 
     @PostMapping(value="", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> writeMate(HttpServletRequest request, @RequestParam("mate") String mate, @RequestParam(value="thumbnail", required = false) MultipartFile file) throws Exception {
         logger.info("writeMate - 호출");
-        String token = request.getHeader("Authorization");
-        AuthMember authMember=jwtTokenProvider.getParsedClaims(token);
 
-        if (mateService.write(mate, file, authMember)) {
+        if (mateService.write(mate, file, memberService.getAuthMember(request))) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

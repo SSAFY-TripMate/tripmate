@@ -89,9 +89,11 @@
                 <br />
 
                 <div class="bottom-right mt-5 mb-3">
-                    <!-- TODO:글 작성자와 유저가 같으면 수정하기 보이기로 수정 -->
-                    <router-link :to="'/mate/modify/' + mate.mateNo"
-                        ><b-button type="button" variant="primary" class="m-1">
+                    <router-link
+                        v-if="this.mate.author == true"
+                        :to="'/mate/modify/' + mate.mateNo"
+                    >
+                        <b-button type="button" variant="primary" class="m-1">
                             수정하기
                         </b-button>
                     </router-link>
@@ -188,6 +190,12 @@ export default {
                 (res) => {
                     if (res.status == 200) {
                         this.mate = res.data;
+                        this.selectedDate = [
+                            this.mate.startDate,
+                            this.mate.endDate,
+                        ];
+                        this.isUserid = true;
+                        console.log(this.mate);
                         return;
                     } else {
                         alert("동행 detail 에러");
@@ -198,8 +206,6 @@ export default {
                     // this.$router.push({ name: "home" });
                 }
             );
-            this.selectedDate = [this.mate.startDate, this.mate.endDate];
-            this.isUserid = true;
         },
         getComments() {
             // TODO: 댓글 axios

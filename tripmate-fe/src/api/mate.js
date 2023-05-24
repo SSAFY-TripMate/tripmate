@@ -6,6 +6,8 @@ async function list(success, fail) {
     await api.get("/mates", null).then(success).catch(fail);
 }
 async function detail(data, success, fail) {
+    api.defaults.headers["Authorization"] =
+        sessionStorage.getItem("accessToken");
     await api.get(`/mates/${data.mateNo}`, null).then(success).catch(fail);
 }
 

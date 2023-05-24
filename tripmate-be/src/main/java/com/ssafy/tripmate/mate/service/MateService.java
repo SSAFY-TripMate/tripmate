@@ -45,8 +45,9 @@ public class MateService {
         }
         return list;
     }
-    public ListMateResponse findByMateNo(String rootPath, int mateno) throws SQLException {
+    public ListMateResponse findByMateNo(String rootPath, int mateno, AuthMember authMember) throws SQLException {
         ListMateResponse mate=mateMapper.findByMateNo(mateno);
+        if(authMember.getMemberNo()==mate.getMemberNo()) mate.setAuthor(true);
         fileHandler.setMateData(mate, rootPath);
         return mate;
     }

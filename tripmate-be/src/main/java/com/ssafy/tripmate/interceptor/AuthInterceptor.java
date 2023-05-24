@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         System.out.println(request.getHeader("User-Agent"));
         System.out.println(request.getHeader("Content-type"));
 
+        if (CorsUtils.isPreFlightRequest(request)) {
+            LOGGER.debug("if request options method is options, return true");
+            return true;
+        }
 
         if (!tokenManager.isValid(token)) {
             // 토큰이 유효하지 않은 경우 예외 처리 또는 인증 실패로 처리
