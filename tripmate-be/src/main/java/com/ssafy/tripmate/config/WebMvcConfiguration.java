@@ -15,8 +15,8 @@ import java.util.List;
 @Configuration
 @MapperScan(basePackages = {"com.ssafy.**.mapper"})
 public class WebMvcConfiguration implements WebMvcConfigurer {
-    private final List<String> addPaths = Arrays.asList("/members/*", "/mates/*");
-    private final List<String> excludePaths = Arrays.asList("/members/login", "/members/join");
+    private final List<String> addPaths = Arrays.asList("/members/*");
+    private final List<String> excludePaths = Arrays.asList("/members/login", "/members/join", "/mate/detail/*");
 
     private final AuthInterceptor authInterceptor;
     @Value("${resource.imgPath}")

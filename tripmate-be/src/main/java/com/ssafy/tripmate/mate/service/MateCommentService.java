@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.mate.service;
 
 import com.ssafy.tripmate.mate.domain.MateComment;
+import com.ssafy.tripmate.mate.dto.ListCommentResponse;
 import com.ssafy.tripmate.mate.mapper.MateCommentMapper;
 import com.ssafy.tripmate.mate.mapper.MateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,16 @@ public class MateCommentService {
         this.mateCommentMapper = mateCommentMapper;
     }
 
-    List<MateComment> findAll(int mateId) throws SQLException {
-        return mateCommentMapper.findAll(mateId);
+    public List<ListCommentResponse> findAll(int mateNo) throws SQLException {
+        return mateCommentMapper.findAll(mateNo);
     }
 
-    void save(MateComment mateComment) throws SQLException {
+    public void save(MateComment mateComment) throws SQLException {
         mateCommentMapper.save(mateComment);
     }
 
-    void delete(int commentId) throws  SQLException{
-        mateCommentMapper.delete(commentId);
+    public void deleteById(int commentNo) throws SQLException {
+        mateCommentMapper.deleteById(commentNo);
     }
 
 }

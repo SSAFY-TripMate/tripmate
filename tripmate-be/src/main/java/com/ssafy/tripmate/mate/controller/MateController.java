@@ -1,19 +1,15 @@
 package com.ssafy.tripmate.mate.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.tripmate.mate.domain.MateComment;
-import com.ssafy.tripmate.mate.domain.MateDto;
+import com.ssafy.tripmate.mate.dto.ListCommentResponse;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
-import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
+import com.ssafy.tripmate.mate.service.MateCommentService;
 import com.ssafy.tripmate.mate.service.MateService;
 import com.ssafy.tripmate.member.dto.AuthMember;
 import com.ssafy.tripmate.token.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,11 +30,13 @@ public class MateController {
     private static final String FAIL = "fail";
 
     private final MateService mateService;
+    private final MateCommentService mateCommentService;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public MateController(MateService mateService, JwtTokenProvider jwtTokenProvider) {
+    public MateController(MateService mateService, MateCommentService mateCommentService, JwtTokenProvider jwtTokenProvider) {
         this.mateService = mateService;
+        this.mateCommentService = mateCommentService;
         this.jwtTokenProvider=jwtTokenProvider;
     }
 
@@ -92,8 +86,10 @@ public class MateController {
 //    }
 
     @GetMapping("{mateId}/comments")
-    public ResponseEntity<List<MateComment>> commentList(){
-
+    public ResponseEntity<List<ListCommentResponse>> commentList(@PathVariable int mateId) throws SQLException {
+        System.out.println(mateId);
+        List<ListCommentResponse> listCommentResponse = mateCommentService.findAll(mateId);
+        return new ResponseEntity<>(listCommentResponse, HttpStatus.OK);
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {
