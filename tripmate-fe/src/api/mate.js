@@ -5,6 +5,7 @@ const api = apiInstance();
 async function list(data, success, fail) {
     api.defaults.headers["Authorization"] =
         sessionStorage.getItem("accessToken");
+
     await api
         .get(
             `/mates?pg=${data.pg}&spp=${data.spp}&start=${data.start}&order=${data.order}&word=${data.word}`,
@@ -82,4 +83,13 @@ async function remove(data, success, fail) {
         .catch(fail);
 }
 
-export { list, detail, write, commentList, deleteComment, writeComment, modify, remove };
+export {
+    list,
+    detail,
+    write,
+    commentList,
+    deleteComment,
+    writeComment,
+    modify,
+    remove,
+};
