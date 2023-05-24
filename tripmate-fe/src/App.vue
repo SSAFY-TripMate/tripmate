@@ -36,6 +36,10 @@ export default {
     font-style: normal;
 }
 
+* {
+    font-family: "NanumSquareNeo-Variable", sans-serif;
+}
+
 #app {
     font-family: "NanumSquareNeo-Variable", sans-serif;
     -webkit-font-smoothing: antialiased;

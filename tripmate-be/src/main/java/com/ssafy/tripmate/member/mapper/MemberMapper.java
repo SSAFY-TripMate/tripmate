@@ -1,6 +1,7 @@
 package com.ssafy.tripmate.member.mapper;
 
 import com.ssafy.tripmate.member.domain.Member;
+import com.ssafy.tripmate.member.dto.ChangeMemberRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,7 @@ public interface MemberMapper {
     void saveToken(@Param("token") String token, @Param("id") String id) throws SQLException;
     void deleteToken(String id) throws SQLException;
 
+    void deleteMember(int memberNo) throws SQLException;
+
+    void updateMember(ChangeMemberRequest changeMemberRequest) throws SQLException;
 }

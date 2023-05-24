@@ -49,18 +49,32 @@
                                         >
                                     </li>
 
-                                    <li
-                                        v-if="accessToken"
-                                        class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
-                                    >
-                                        <button
-                                            to="/members/logout"
-                                            class="logout-btn nav-link"
-                                            @click="logout"
+                                    <div class="member-item" v-if="accessToken">
+                                        <li
+                                            class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
                                         >
-                                            로그아웃
-                                        </button>
-                                    </li>
+                                            <button
+                                                to="/members/logout"
+                                                class="logout-btn nav-link"
+                                                @click="logout"
+                                            >
+                                                로그아웃
+                                            </button>
+                                        </li>
+
+                                        <li
+                                            class="nav-item pl-4 pl-md-0 ml-0 ml-md-4"
+                                        >
+                                            <router-link
+                                                to="/members/profile"
+                                                class="logout-btn nav-link"
+                                            >
+                                                <font-awesome-icon
+                                                    :icon="['fasl', 'user']"
+                                                />
+                                            </router-link>
+                                        </li>
+                                    </div>
 
                                     <div class="member-item" v-else>
                                         <li

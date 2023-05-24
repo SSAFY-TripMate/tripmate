@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .carousel {
     display: flex;
     max-width: 1200px;
@@ -42,7 +42,7 @@ export default {
 }
 
 img {
-    border-radius: 40px 40px 40px 40px;
+    border-radius: 33px;
 }
 
 b-button {

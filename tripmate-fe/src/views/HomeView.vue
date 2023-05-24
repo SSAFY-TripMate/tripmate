@@ -4,6 +4,8 @@
             <div class="contents">
                 <home-carousel></home-carousel>
                 <mate-preview></mate-preview>
+                <hr />
+                <sns-preview></sns-preview>
             </div>
         </div>
     </div>
@@ -12,12 +14,14 @@
 <script>
 import HomeCarousel from "@/components/home/HomeCarousel.vue";
 import MatePreview from "@/components/home/MatePreview.vue";
+import SnsPreview from "@/components/home/SnsPreview.vue";
 
 export default {
     name: "HomeView",
     components: {
         HomeCarousel,
         MatePreview,
+        SnsPreview,
     },
 };
 </script>
