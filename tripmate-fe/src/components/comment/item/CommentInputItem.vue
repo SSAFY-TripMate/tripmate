@@ -49,13 +49,17 @@ export default {
                 mateNo: this.mateNo,
                 content: this.content,
             };
-            console.log(comment);
             writeComment(
                 comment,
                 () => {
                     this.$router.go(0);
                 },
                 (error) => {
+                    if (error.response.data.message == "권한없음") {
+                        alert("권한이 없습니다.");
+                        this.$router.push("/members/login");
+                        return;
+                    }
                     alert("댓글 쓰기 실패" + error);
                 }
             );
