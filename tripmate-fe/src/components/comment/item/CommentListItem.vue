@@ -86,4 +86,7 @@ export default {
     display: flex;
     justify-content: flex-end;
 }
+.card-body {
+    text-align: left;
+}
 </style>

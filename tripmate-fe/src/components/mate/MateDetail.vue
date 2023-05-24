@@ -304,7 +304,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .flex-form {
     display: flex;
     margin-bottom: 0;

@@ -45,9 +45,9 @@ export function age(value) {
 export function gender(value) {
     return value == "M" ? "남성" : value == "F" ? "여성" : "";
 }
-export function hashtag(value) {
-    if (value == "" || value == null) return "\n";
-    return "#" + value;
+export function hashtag(value, preferences) {
+    if (value == "" || value == null) return "";
+    return "#" + preferenceName(value, preferences);
 }
 export function personCnt(value) {
     if (value == "" || value == null) return "";

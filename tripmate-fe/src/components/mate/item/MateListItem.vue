@@ -50,7 +50,7 @@
                 </div>
                 <div class="hashtag-border pt-2">
                     <span class="hashtag">
-                        {{ mate.preferenceNo | hashtag }}</span
+                        {{ mate.preferenceNo | hashtag(preferences) }}</span
                     >
                 </div>
             </div>
