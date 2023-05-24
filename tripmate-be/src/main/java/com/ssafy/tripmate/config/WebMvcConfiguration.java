@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,7 +17,7 @@ import java.util.List;
 @Configuration
 @MapperScan(basePackages = {"com.ssafy.**.mapper"})
 public class WebMvcConfiguration implements WebMvcConfigurer {
-    private final List<String> addPaths = Arrays.asList("/members/*");
+    private final List<String> addPaths = Arrays.asList("/members/**", "/mates/**");
     private final List<String> excludePaths = Arrays.asList("/members/login", "/members/join");
 
     private final AuthInterceptor authInterceptor;
@@ -30,8 +31,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8080")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("Content-Type")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .exposedHeaders("Authorization");
     }
 

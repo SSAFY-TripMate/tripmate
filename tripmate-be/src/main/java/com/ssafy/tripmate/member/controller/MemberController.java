@@ -35,18 +35,22 @@ public class MemberController {
     @PostMapping("/join")
     public ResponseEntity<Void> join(@RequestBody Member member) throws SQLException {
         memberService.join(member);
+        logger.debug("회원가입 성공");
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
     @PostMapping("/login")
     public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest loginRequest) throws SQLException {
+        logger.debug("로그인 API 호출");
+
         AuthMember authMember = memberService.login(loginRequest);
         String accessToken = tokenManager.createAccessToken(authMember);
 //        String refreshToken = tokenManager.createRefreshToken();
-//        System.out.println("리프레시 : " + refreshToken);
+        
 //        memberService.saveToken(accessToken, authMember.getId());
 
+        logger.debug("로그인 성공");
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .build();
