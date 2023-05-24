@@ -24,4 +24,17 @@ async function write(formData, success, fail) {
         .catch(fail);
 }
 
-export { list, detail, write };
+async function modify(data, formData, success, fail) {
+    api.defaults.headers["Authorization"] =
+        sessionStorage.getItem("accessToken");
+    await api
+        .put(`/mates/${data.mateNo}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then(success)
+        .catch(fail);
+}
+
+export { list, detail, write, modify };

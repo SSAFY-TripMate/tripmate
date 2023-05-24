@@ -69,14 +69,14 @@ public class MateController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
-//    @PutMapping("")
-//    public ResponseEntity<String> modifyMate(@RequestBody ModifyMateRequest modifyMateRequest) throws Exception {
-//        logger.info("modifyMate - 호출"+modifyMateRequest.toString());
-//        if (mateService.modifyMate(modifyMateRequest)) {
-//            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-//    }
+    @PutMapping(value="/{mateNo}", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> modifyMate(@RequestParam("mate") String mate, @RequestParam(value="thumbnail", required = false) MultipartFile file) throws Exception {
+        logger.info("modifyMate - 호출" );
+        if (mateService.modifyMate(mate, file)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
 //
 //    @DeleteMapping("/{mateno}")
 //    private ResponseEntity<String> deleteMate(@PathVariable("mateno") int mateno){
