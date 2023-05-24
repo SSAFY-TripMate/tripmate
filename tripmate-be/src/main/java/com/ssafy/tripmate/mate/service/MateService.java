@@ -108,7 +108,12 @@ public class MateService {
         return res == 1;
     }
 
-    public int deleteMate(int mateNo) throws SQLException{
+    public int deleteMate(int mateNo) throws Exception {
+        ThumbnailDto deleteThumbnail = thumbnailMapper.findByThumbnailNo(mateNo);
+        if(deleteThumbnail!=null) {
+            fileHandler.deleteFile(deleteThumbnail);
+            thumbnailMapper.delete(deleteThumbnail.getMateThumbnailNo());
+        }
         return mateMapper.deleteMate(mateNo);
     }
 }
