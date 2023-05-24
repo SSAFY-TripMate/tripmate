@@ -11,4 +11,5 @@ import org.springframework.core.io.Resource;
 public class ListMateResponse extends MateDto {
     private MateMemberResponse member;
     private String thumbnailUrl;
+    private boolean isAuthor;
 }

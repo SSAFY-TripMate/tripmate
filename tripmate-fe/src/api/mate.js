@@ -36,7 +36,7 @@ async function deleteComment(data, success, fail) {
     api.defaults.headers["Authorization"] =
         sessionStorage.getItem("accessToken");
     await api
-        .delete(`/mates/${data.mateNo}/comments${data.mateCommentNo}`)
+        .delete(`/mates/${data.mateNo}/comments/${data.mateCommentNo}`)
         .then(success)
         .catch(fail);
 }
