@@ -2,6 +2,7 @@ package com.ssafy.tripmate.mate.util;
 
 import com.ssafy.tripmate.mate.domain.ThumbnailDto;
 import com.ssafy.tripmate.mate.dto.ListMateResponse;
+import com.ssafy.tripmate.mate.dto.ModifyMateRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -104,5 +105,18 @@ public class FileHandler {
     }
     public String parseTextarea(String origin){
         return origin.replaceAll("/<br/>/g","\r\n");
+    }
+
+    public boolean deleteFile(ThumbnailDto deleteThumbnail) throws Exception {
+        if (deleteThumbnail == null||deleteThumbnail.getImageSaveName().equals("default")) return true;
+
+        String path = resourcePath+File.separator+deleteThumbnail.getImageFolder()+File.separator+deleteThumbnail.getImageSaveName();
+        File file = new File(path);
+
+        if(file.exists()) { // 파일이 존재하면
+            file.delete(); // 파일 삭제
+        }
+
+        return true;
     }
 }

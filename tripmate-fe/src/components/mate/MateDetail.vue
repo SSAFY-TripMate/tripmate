@@ -89,10 +89,22 @@
                 <br />
 
                 <div class="bottom-right mt-5 mb-3">
-                    <!-- TODO:글 작성자와 유저가 같으면 수정하기 보이기로 수정 -->
-                    <router-link :to="'/mate/modify/' + mate.mateNo"
-                        ><b-button type="button" variant="primary" class="m-1">
-                            수정하기
+                    <b-button
+                        v-if="this.mate.author == true"
+                        type="button"
+                        variant="primary"
+                        class="m-1"
+                        @click="deleteMate"
+                    >
+                        삭제
+                    </b-button>
+
+                    <router-link
+                        v-if="this.mate.author == true"
+                        :to="'/mate/modify/' + mate.mateNo"
+                    >
+                        <b-button type="button" variant="primary" class="m-1">
+                            수정
                         </b-button>
                     </router-link>
 
@@ -130,7 +142,8 @@ import {
     preferenceName,
     personCnt,
 } from "@/api/mateFilters";
-import { detail, commentList } from "@/api/mate";
+
+import { detail, commentList, remove } from "@/api/mate";
 
 export default {
     name: "MateDetail",
@@ -163,22 +176,28 @@ export default {
         personCnt: personCnt,
     },
     methods: {
-        // async getMateItem() {
-        //     let mateNo = this.$route.params.mateno;
-        //     let res = await axios.get(`http://localhost:9999/mate/${mateNo}`);
-        //     this.mateItem = res.data;
-        // },
-        // async deleteMateItem() {
-        //     if (confirm("정말로 삭제?")) {
-        //         this.$router.push({ name: "matedelete" });
-        //     }
-        // },
-        // moveModify() {
-        //     this.$router.push({
-        //         name: "matemodify",
-        //         params: { mateno: this.$route.params.mateno },
-        //     });
-        // },
+        deleteMate() {
+            if (confirm("정말 삭제하시나요?")) {
+                let data = {
+                    mateNo: this.$route.params.mateno,
+                };
+
+                remove(
+                    data,
+                    (res) => {
+                        if (res.status == 200) {
+                            this.$router.push({ name: "matelist" });
+                            return;
+                        } else {
+                            alert("동행 삭제 에러");
+                        }
+                    },
+                    (error) => {
+                        alert("동행 삭제 에러" + error);
+                    }
+                );
+            }
+        },
         getMate() {
             let data = {
                 mateNo: this.$route.params.mateno,
@@ -186,7 +205,17 @@ export default {
             detail(
                 data,
                 (res) => {
-                    this.mate = res.data;
+                    if (res.status == 200) {
+                        this.mate = res.data;
+                        this.selectedDate = [
+                            this.mate.startDate,
+                            this.mate.endDate,
+                        ];
+                        this.isUserid = true;
+                        return;
+                    } else {
+                        alert("동행 detail 에러");
+                    }
                 },
                 (error) => {
                     alert("동행 detail 에러" + error);

@@ -41,6 +41,19 @@ async function writeComment(comment, success, fail) {
         .catch(fail);
 }
 
+async function modify(data, formData, success, fail) {
+    api.defaults.headers["Authorization"] =
+        sessionStorage.getItem("accessToken");
+    await api
+        .put(`/mates/${data.mateNo}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then(success)
+        .catch(fail);
+}
+
 async function deleteComment(data, success, fail) {
     api.defaults.headers["Authorization"] =
         sessionStorage.getItem("accessToken");
@@ -50,4 +63,17 @@ async function deleteComment(data, success, fail) {
         .catch(fail);
 }
 
-export { list, detail, write, commentList, deleteComment, writeComment };
+async function remove(data, success, fail) {
+    api.defaults.headers["Authorization"] =
+        sessionStorage.getItem("accessToken");
+    await api
+        .delete(`/mates/${data.mateNo}`, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then(success)
+        .catch(fail);
+}
+
+export { list, detail, write, commentList, deleteComment, writeComment, modify, remove };
