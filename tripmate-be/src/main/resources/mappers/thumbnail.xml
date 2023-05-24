@@ -26,4 +26,8 @@
         FROM mate_thumbnail
         where mate_no=#{mateNo}
     </select>
+    <delete id="delete" parameterType="int">
+        DELETE FROM mate_thumbnail
+        WHERE mate_thumbnail_no = #{thumbnailNo}
+    </delete>
 </mapper>

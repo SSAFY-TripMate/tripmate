@@ -10,5 +10,6 @@ public interface ThumbnailMapper {
     public int write(ThumbnailDto thumbnailDto) throws SQLException;
     public int modify(ThumbnailDto thumbnailDto) throws SQLException;
     public ThumbnailDto findByThumbnailNo(int thumbnailNo) throws SQLException;
+    public int delete(int thumbnailNo) throws SQLException;
 }
 

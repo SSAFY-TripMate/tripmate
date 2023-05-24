@@ -302,7 +302,7 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
 }
-.v-calendar .input-field.long {
+.v-calendar .input-field input {
     min-width: 320px;
 }
 .text {

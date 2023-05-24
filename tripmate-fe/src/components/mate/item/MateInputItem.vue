@@ -478,7 +478,7 @@ export default {
     background: none;
 }
 
-.v-calendar .input-field.long {
+.v-calendar .input-field input {
     min-width: 320px;
 }
 

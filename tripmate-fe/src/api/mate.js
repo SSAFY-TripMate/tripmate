@@ -2,10 +2,16 @@ import { apiInstance } from "@/api/index";
 
 const api = apiInstance();
 
-async function list(success, fail) {
+async function list(data, success, fail) {
     api.defaults.headers["Authorization"] =
         sessionStorage.getItem("accessToken");
-    await api.get("/mates", null).then(success).catch(fail);
+    await api
+        .get(
+            `/mates?pg=${data.pg}&spp=${data.spp}&start=${data.start}&order=${data.order}&word=${data.word}`,
+            null
+        )
+        .then(success)
+        .catch(fail);
 }
 async function detail(data, success, fail) {
     api.defaults.headers["Authorization"] =

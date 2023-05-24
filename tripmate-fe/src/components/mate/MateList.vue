@@ -3,6 +3,9 @@
         <div class="header-btn">
             <the-search-box-item
                 :searchHolder="'검색할 키워드를 적어주세요'"
+                :type="'mateList'"
+                :page="page"
+                @searchMateList="searchMateList"
             ></the-search-box-item>
             <b-form-group id="order-group" class="flex-form">
                 <b-form-radio-group
@@ -10,9 +13,10 @@
                     button-variant="primary"
                     class="radio-group"
                     style="display: block"
-                    v-model="order"
+                    v-model="page.order"
+                    @change="pageClick"
                 >
-                    <b-form-radio value="id" class="m-1 radiobtn">
+                    <b-form-radio value="mate_no" class="m-1 radiobtn">
                         <b-badge variant="light" class="badge-color">
                             최신순
                         </b-badge>
@@ -35,6 +39,15 @@
                 :preferences="preferences"
             ></mate-list-item>
         </div>
+        <div class="page-nav">
+            <b-pagination
+                v-model="page.pg"
+                :total-rows="page.total"
+                :per-page="page.spp"
+                pills
+                @page-click="pageClick"
+            ></b-pagination>
+        </div>
     </div>
 </template>
 
@@ -56,6 +69,15 @@ export default {
             sidos: [],
             preferences: [],
             order: "id",
+
+            page: {
+                pg: 1,
+                spp: 12,
+                total: 0,
+                start: 0,
+                order: "mate_no",
+                word: "",
+            },
         };
     },
     created() {
@@ -63,16 +85,17 @@ export default {
         this.preferences = preferenceList();
         this.getMateList();
     },
-
     methods: {
         moveWrite() {
             this.$router.push({ name: "matewrite" });
         },
         getMateList() {
             list(
+                this.page,
                 (res) => {
                     if (res.status == 200) {
-                        this.mateList = res.data;
+                        this.mateList = res.data.mates;
+                        this.page = res.data.pageNav;
                         return;
                     } else {
                         alert("동행 리스트 에러");
@@ -83,6 +106,14 @@ export default {
                     // this.$router.push({ name: "home" });
                 }
             );
+        },
+        pageClick(button, page) {
+            if (page != null) this.page.pg = page;
+            this.getMateList();
+        },
+        searchMateList(keyword) {
+            this.page.word = keyword;
+            this.getMateList();
         },
     },
 };
@@ -140,6 +171,12 @@ export default {
 *.disabled,
 *:disabled {
     opacity: 1 !important;
+}
+.page-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px;
 }
 
 /* .btn-primary:not(:disabled):not(.disabled):active,

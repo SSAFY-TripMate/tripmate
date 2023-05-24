@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h2 {
     justify-content: center;
     padding: 50px;
