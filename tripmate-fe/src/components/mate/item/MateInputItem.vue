@@ -118,7 +118,7 @@
                             deletable="true"
                             meta="true"
                             accept="', .jpeg, .jpg, .png, .gif'"
-                            maxSize="'1MB'"
+                            maxSize="'2MB'"
                             helpText="'썸네일 사진을 등록해주세요'"
                             errorText="{
                             type: 'Invalid file type. Only images or zip Allowed',
@@ -199,11 +199,10 @@
 </template>
 
 <script>
-// import { writeArticle, modifyArticle, getArticle } from "@/api/board";
-import axios from "axios";
 import sidoList from "@/api/sidoList";
 import preferenceList from "@/api/preferenceList";
-import { write } from "@/api/mate";
+import { write, detail, modify } from "@/api/mate";
+import { dateFormat } from "@/util/DateFormatByDatepicker";
 
 export default {
     name: "MateInputItem",
@@ -241,49 +240,7 @@ export default {
         this.sidos = sidoList();
         this.preferences = preferenceList();
         if (this.type === "modify") {
-            let param = this.$route.params.mateno;
-            axios
-                .get(`http://localhost:9999/mate/${param}`)
-                .then(({ data }) => {
-                    this.mate = data;
-                    // TODO: axios로 변경
-                    this.mate = {
-                        mateNo: 1,
-                        sidoCode: 3, // code를 서울로 변환해야함
-                        startDate: "2023-05-10 09:00:00",
-                        endDate: "2023-05-18 18:00:00",
-                        preferenceNo: 2,
-                        capacity: 10,
-                        contact: "example@gmail.com",
-                        title: "테스트 제목",
-                        content:
-                            "내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. ",
-                        hit: 1,
-                        commentCount: 5,
-                        createdTime: "2023-05-18 18:00:00",
-                        thumbnail: {
-                            imageFolder: "src/upload",
-                            imageOriginName: "dog",
-                            imageSaveName: "1235323dog",
-                            imageType: ".png",
-                        },
-                        member: {
-                            nickname: "김싸피",
-                            birth: "1998-05-18 09:00:00",
-                            gender: "M",
-                        },
-                    };
-                    this.selectedDate = [
-                        this.mate.startDate,
-                        this.mate.endDate,
-                    ];
-
-                    // TODO: 파일 연결
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            this.isUserid = true;
+            this.getMate();
         }
     },
     methods: {
@@ -314,46 +271,69 @@ export default {
         onReset(event) {
             event.preventDefault();
             this.mate = {
-                sidoCode: null,
-                startDate: null,
-                endDate: null,
-                preferenceNo: null,
-                capacity: null,
-                contact: null,
-                title: null,
-                content: null,
-                memberNo: null,
-                thumbnail: {
-                    imageFolder: null,
-                    imageOriginName: null,
-                    imageSaveName: null,
-                    imageType: null,
-                },
+                // sidoCode: null,
+                // startDate: null,
+                // endDate: null,
+                // preferenceNo: null,
+                // capacity: null,
+                // contact: null,
+                // title: null,
+                // content: null,
+                // memberNo: null,
+                // thumbnail: {
+                //     imageFolder: null,
+                //     imageOriginName: null,
+                //     imageSaveName: null,
+                //     imageType: null,
+                // },
             };
             this.isUserid = false;
             this.selectedDate = [new Date(), ""];
             this.fileRecords = [];
         },
+        getMate() {
+            let data = {
+                mateNo: this.$route.params.mateno,
+            };
+            detail(
+                data,
+                (res) => {
+                    if (res.status == 200) {
+                        this.mate = res.data;
+                        this.selectedDate = [
+                            this.mate.startDate,
+                            this.mate.endDate,
+                        ];
+                        this.isUserid = true;
+                        console.log(this.mate);
+                        let type = this.mate.thumbnail.imageType.replace(
+                            ".",
+                            ""
+                        );
+                        this.fileRecords = [
+                            {
+                                name: this.mate.thumbnail.imageOriginName,
+                                type: "image/" + type,
+                                size: 561813 * 2,
+                                url: this.mate.thumbnailUrl,
+                            },
+                        ];
+                        return;
+                    } else {
+                        alert("동행 detail api 에러");
+                    }
+                },
+                (error) => {
+                    alert("동행 detail api 에러" + error);
+                    // this.$router.push({ name: "home" });
+                }
+            );
+        },
         registArticle() {
             const formData = new FormData();
-            if (this.selectedDate[0] != null && this.selectedDate[0] != "") {
-                let date = new Date(this.selectedDate[0]);
-                this.mate.startDate =
-                    date.getFullYear() +
-                    "-" +
-                    (date.getMonth() + 1) +
-                    "-" +
-                    date.getDate();
-            }
-            if (this.selectedDate[1] != null && this.selectedDate[1] != "") {
-                let date = new Date(this.selectedDate[1]);
-                this.mate.endDate =
-                    date.getFullYear() +
-                    "-" +
-                    (date.getMonth() + 1) +
-                    "-" +
-                    date.getDate();
-            }
+            let date = dateFormat(this.selectedDate);
+            this.mate.startDate = date[0];
+            this.mate.endDate = date[1];
 
             formData.append("mate", JSON.stringify(this.mate));
             formData.append(
@@ -382,33 +362,60 @@ export default {
             );
         },
         modifyArticle() {
-            // let param = {
-            //     mateNo: this.mate.mateNo,
-            //     sidoCode: this.mate.sido,
-            //     startDate: this.mate.startDate,
-            //     endDate: this.mate.endDate.
-            //     memberNo: this.mate.memberNo,
-            //     title: this.mate.title,
-            //     content: this.mate.content,
-            // };
-            console.log(this.mate);
-            console.log(this.mate.sidoNo);
-            axios
-                .put("http://localhost:9999/mate", this.mate)
-                .then(({ data }) => {
-                    let msg = "수정 처리시 문제가 발생했습니다.";
-                    if (data === "success") {
-                        msg = "수정이 완료되었습니다.";
+            let data = {
+                mateNo: this.$route.params.mateno,
+            };
+            const formData = new FormData();
+            let date = dateFormat(this.selectedDate);
+
+            let modify_mate = {
+                startDate: date[0],
+                endDate: date[1],
+                title: this.mate.title,
+                mateNo: this.mate.mateNo,
+                capacity: this.mate.capacity,
+                preferenceNo: this.mate.preferenceNo,
+                sidoCode: this.mate.sidoCode,
+                contact: this.mate.contact,
+                content: this.mate.content,
+                thumbnail: this.mate.thumbnail,
+            };
+
+            formData.append("mate", JSON.stringify(modify_mate));
+            formData.append(
+                "thumbnail",
+                this.fileRecords.length > 0 &&
+                    this.fileRecords[0].file != undefined
+                    ? this.fileRecords[0].file
+                    : null
+            );
+            console.log("!!", this.mate);
+            console.log(modify_mate);
+            console.log(this.fileRecords[0].file);
+
+            modify(
+                data,
+                formData,
+                (res) => {
+                    if (res.status == 200) {
+                        let msg = "수정 처리시 문제가 발생했습니다.";
+                        if (res.data === "success") {
+                            msg = "수정이 완료되었습니다.";
+                        }
+                        alert(msg);
+                        this.$router.push({
+                            name: "matedetail",
+                            query: { mateno: this.mate.mateno },
+                        });
+                        return;
+                    } else {
+                        alert("동행 수정 에러");
                     }
-                    alert(msg);
-                    this.$router.push({
-                        name: "matedetail",
-                        query: { mateno: this.mate.mateno },
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+                },
+                (error) => {
+                    alert("동행 수정 에러" + error);
+                }
+            );
         },
         onBeforeDelete() {
             // var fileRecords = this.fileRecords;

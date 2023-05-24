@@ -1,12 +1,13 @@
 package com.ssafy.tripmate.mate.dto;
 
+import com.ssafy.tripmate.mate.domain.ThumbnailDto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
 public class ModifyMateRequest {
-    private int mateNo;
+    private Integer mateNo;
     private Integer sidoCode;
     private String startDate;
     private String endDate;
@@ -15,4 +16,5 @@ public class ModifyMateRequest {
     private String contact;
     private String title;
     private String content;
+    private ThumbnailDto thumbnail;
 }

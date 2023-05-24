@@ -69,24 +69,24 @@ public class MateController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
-//    @PutMapping("")
-//    public ResponseEntity<String> modifyMate(@RequestBody ModifyMateRequest modifyMateRequest) throws Exception {
-//        logger.info("modifyMate - 호출"+modifyMateRequest.toString());
-//        if (mateService.modifyMate(modifyMateRequest)) {
-//            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-//    }
-//
-//    @DeleteMapping("/{mateno}")
-//    private ResponseEntity<String> deleteMate(@PathVariable("mateno") int mateno){
-//        try {
-//            int res = mateService.deleteMate(mateno);
-//            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-//        }catch (Exception e){
-//            return exceptionHandling(e);
-//        }
-//    }
+    @PutMapping(value="/{mateNo}", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> modifyMate(@RequestParam("mate") String mate, @RequestParam(value="thumbnail", required = false) MultipartFile file) throws Exception {
+        logger.info("modifyMate - 호출" );
+        if (mateService.modifyMate(mate, file)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{mateNo}")
+    private ResponseEntity<String> deleteMate(@PathVariable("mateNo") int mateNo){
+        try {
+            int res = mateService.deleteMate(mateNo);
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }catch (Exception e){
+            return exceptionHandling(e);
+        }
+    }
 
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

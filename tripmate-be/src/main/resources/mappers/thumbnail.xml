@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.tripmate.mate.mapper.ThumbnailMapper">
-    <resultMap type="MateDto" id="mate">
+    <resultMap type="ThumbnailDto" id="thumbnail">
         <result column="mate_thumbnail_no" property="mateThumbnailNo"/>
         <result column="mate_no" property="mateNo"/>
         <result column="image_folder" property="imageFolder"/>
@@ -13,8 +13,17 @@
     </resultMap>
 
     <insert id="write" parameterType="ThumbnailDto">
-        insert into mate_thumbnail(mate_no, image_folder, image_origin_name, image_save_name, image_type)
-        values (#{mateNo}, #{imageFolder}, #{imageOriginName}, #{imageSaveName}, #{imageType})
+        INSERT INTO mate_thumbnail(mate_no, image_folder, image_origin_name, image_save_name, image_type)
+        VALUES (#{mateNo}, #{imageFolder}, #{imageOriginName}, #{imageSaveName}, #{imageType})
     </insert>
-
+    <insert id="modify" parameterType="ThumbnailDto">
+        UPDATE mate_thumbnail
+        SET image_folder=#{imageFolder}, image_origin_name=#{imageOriginName}, image_save_name=#{imageSaveName}, image_type=#{imageType}
+        WHERE mate_no=#{mateNo}
+    </insert>
+    <select id="findByThumbnailNo" parameterType="int" resultMap="thumbnail">
+        SELECT *
+        FROM mate_thumbnail
+        where mate_no=#{mateNo}
+    </select>
 </mapper>

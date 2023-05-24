@@ -63,20 +63,15 @@
         FROM mateMember LEFT JOIN mate_thumbnail
         Using (mate_no)
     </select>
-<!--    <update id="modifyMate" parameterType="ModifyMateRequest">-->
-<!--        update mate-->
-<!--        set-->
-<!--        <if test='sidoCode!=null'>-->
-<!--            sido_code = #{sidoCode},-->
-<!--        </if>-->
-<!--        start_date = #{startDate}, end_date = #{endDate}, preference_no = #{preferenceNo}, capacity = #{capacity}, contact = #{contact}, title = #{title}, content = #{content}-->
-<!--        where mate_no = #{mateNo}-->
-<!--    </update>-->
+    <update id="modifyMate" parameterType="ModifyMateRequest">
+        UPDATE mate
+        SET
+        sido_code = #{sidoCode}, start_date = #{startDate, jdbcType=TIMESTAMP}, end_date = #{endDate, jdbcType=TIMESTAMP}, preference_no = #{preferenceNo}, capacity = #{capacity}, contact = #{contact}, title = #{title}, content = #{content}
+        WHERE mate_no = #{mateNo}
+    </update>
 
-<!--    <delete id="deleteMate" parameterType="int">-->
-<!--        delete from mate-->
-<!--        where mate_no = #{mateNo}-->
-<!--    </delete>-->
-
-
+    <delete id="deleteMate" parameterType="int">
+        delete from mate
+        where mate_no = #{mateNo}
+    </delete>
 </mapper>

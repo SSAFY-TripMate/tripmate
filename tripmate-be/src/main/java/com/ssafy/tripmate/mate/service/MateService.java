@@ -82,12 +82,33 @@ public class MateService {
         return res == 1;
     }
 
-//    public boolean modifyMate(ModifyMateRequest modifyMateRequest) throws Exception {
-//        if (modifyMateRequest == null) throw new Exception();
-//        return mateMapper.modifyMate(modifyMateRequest) == 1;
-//    }
-//
-//    public int deleteMate(int mateno) throws SQLException{
-//        return mateMapper.deleteMate(mateno);
-//    }
+    public boolean modifyMate(String mate, MultipartFile file) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ModifyMateRequest modifyMateRequest = objectMapper.readValue(mate, ModifyMateRequest.class);
+        if (modifyMateRequest == null || modifyMateRequest.getMateNo()==null) throw new Exception();
+
+        //textarea안에서 사용할 줄바꿈은 db에 저장할 때 치환을 해야한다 replaceAll이 없어 정규화로 대체
+        modifyMateRequest.setContent(modifyMateRequest.getContent().replaceAll("\r\n","<br/>"));
+        if(modifyMateRequest.getStartDate()=="") modifyMateRequest.setStartDate(null);
+        if(modifyMateRequest.getEndDate()=="") modifyMateRequest.setEndDate(null);
+
+        int res=mateMapper.modifyMate(modifyMateRequest);
+
+        // 파일을 저장
+        ThumbnailDto thumbnailDto=null;
+        if(file!=null) {
+            thumbnailDto = fileHandler.parseFileInfo(modifyMateRequest.getMateNo(), file);
+        }
+        if(thumbnailDto!=null){
+            ThumbnailDto deleteThumbnail = thumbnailMapper.findByThumbnailNo(modifyMateRequest.getThumbnail().getMateThumbnailNo());
+            res = thumbnailMapper.modify(thumbnailDto);
+            if(res==1) fileHandler.deleteFile(deleteThumbnail);
+        }
+
+        return res == 1;
+    }
+
+    public int deleteMate(int mateNo) throws SQLException{
+        return mateMapper.deleteMate(mateNo);
+    }
 }
