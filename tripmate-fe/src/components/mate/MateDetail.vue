@@ -325,7 +325,8 @@ export default {
     justify-content: flex-end;
 }
 .v-calendar .input-field input {
-    min-width: 320px;
+    min-width: 320px !important;
+    max-width: 400px !important;
 }
 .text {
     white-space: break-spaces;
