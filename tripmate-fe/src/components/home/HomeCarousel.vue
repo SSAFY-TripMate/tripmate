@@ -31,8 +31,8 @@ export default {
 };
 </script>
 
-<style>
-.carousel {
+<style scoped>
+::v-deep .carousel {
     display: flex;
     max-width: 1200px;
     max-height: 400px;
@@ -41,11 +41,15 @@ export default {
     box-sizing: inherit;
 }
 
-img {
+::v-deep img {
     border-radius: 33px;
 }
 
-b-button {
+::v-deep b-button {
     color: aqua;
+}
+
+::v-deep .carousel-inner {
+    height: fit-content;
 }
 </style>

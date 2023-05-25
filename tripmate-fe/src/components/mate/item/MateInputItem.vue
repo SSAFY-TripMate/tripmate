@@ -473,7 +473,7 @@ export default {
 <style type="text/css">
 @import url("/public/css/common.css");
 </style>
-<style>
+<style scoped>
 .flex-form {
     display: flex;
     margin-bottom: 0;
@@ -504,8 +504,8 @@ export default {
     background: none;
 }
 
-.v-calendar .input-field input {
-    min-width: 320px !important;
+::v-deep .v-calendar .input-field input {
+    min-width: 330px !important;
     max-width: 400px !important;
 }
 
@@ -513,7 +513,7 @@ export default {
     width: fit-content;
 }
 
-.grid-block-wrapper .grid-block {
+::v-deep .grid-block-wrapper .grid-block {
     width: 30%;
 }
 
@@ -523,18 +523,30 @@ export default {
     justify-content: flex-end;
 }
 
-.btn-primary.disabled,
-.btn-primary:disabled {
+::v-deep .btn-primary.disabled,
+::v-deep .btn-primary:disabled {
     border-color: var(--color-reset-button);
 }
 
-*.disabled,
-*:disabled {
+::v-deep *.disabled,
+::v-deep *:disabled {
     opacity: 1 !important;
 }
 
-.thumbnail {
+::v-deep .thumbnail {
     width: 100%;
     object-fit: cover;
+}
+
+.radio-group .btn-primary:not(:disabled):not(.disabled):active,
+.radio-group .btn-primary:not(:disabled):not(.disabled).active,
+.radio-group .show > .btn-primary.dropdown-toggle {
+    border-color: var(--color-active-button);
+    background: var(--color-active-button) !important;
+}
+.radio-group .btn-primary:not(.active),
+.radio-group .btn-primary:not(:active) {
+    border-color: var(--color-reset-button);
+    background: var(--color-reset-button) !important;
 }
 </style>
