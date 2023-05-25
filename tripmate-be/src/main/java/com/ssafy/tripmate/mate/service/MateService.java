@@ -42,9 +42,11 @@ public class MateService {
         this.fileHandler = fileHandler;
     }
 
-    public PageMateResponse findAll(String rootPath, PageNavigation pageNav) throws SQLException, IOException {
+    public PageMateResponse findAll(String rootPath, PageNavigation pageNav, AuthMember authMember) throws SQLException, IOException {
         int start = pageNav.getPg() == 0 ? 0 : (pageNav.getPg() - 1) * pageNav.getSpp();
         pageNav.setStart(start);
+
+        if(pageNav.getAuthor()!=null) pageNav.setAuthor(authMember.getMemberNo());
 
         List<ListMateResponse> mates=mateMapper.findAll(pageNav);
         for(ListMateResponse mate:mates) {

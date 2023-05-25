@@ -55,8 +55,8 @@ public class MateController {
     @GetMapping("")
     private ResponseEntity<PageMateResponse> list(HttpServletRequest request, PageNavigation pageNav) throws SQLException, IOException {
         String rootPath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort();
-        
-        return new ResponseEntity<>(mateService.findAll(rootPath, pageNav), HttpStatus.OK);
+
+        return new ResponseEntity<>(mateService.findAll(rootPath, pageNav, memberService.getAuthMember(request)), HttpStatus.OK);
     }
 
     @GetMapping("/{mateNo}")

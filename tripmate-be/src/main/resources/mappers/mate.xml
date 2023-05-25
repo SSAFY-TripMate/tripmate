@@ -59,6 +59,9 @@
             <if test="order == 'start_date'">
                 AND start_date is not null
             </if>
+            <if test="author != null">
+                AND member_no = #{author}
+            </if>
         </trim>
     </select>
 
@@ -73,6 +76,9 @@
                 </if>
                 <if test="order == 'start_date'">
                     AND start_date is not null
+                </if>
+                <if test="author != null">
+                    AND member_no = #{author}
                 </if>
             </trim>
 
