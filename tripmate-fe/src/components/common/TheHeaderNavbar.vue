@@ -9,8 +9,12 @@
                                 style="text-decoration: none"
                                 :to="{ name: 'main' }"
                             >
-                                <!-- <img src="@/assets/logo.png" alt="" /> -->
-                                <div class="logo-font">TripMate</div>
+                                <img
+                                    src="@/assets/logo.png"
+                                    style="width: 300px"
+                                    alt=""
+                                />
+                                <!-- <div class="logo-font">TripMate</div> -->
                             </router-link>
 
                             <button
