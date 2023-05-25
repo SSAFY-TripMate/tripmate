@@ -108,15 +108,27 @@ public class MateService {
 
         int res=mateMapper.modifyMate(modifyMateRequest);
 
-        // 파일을 저장
+        // 파일 추가
+        ThumbnailDto deleteThumbnail = thumbnailMapper.findByThumbnailNo(modifyMateRequest.getThumbnail().getMateNo());
         ThumbnailDto thumbnailDto=null;
         if(file!=null) {
             thumbnailDto = fileHandler.parseFileInfo(modifyMateRequest.getMateNo(), file);
         }
-        if(thumbnailDto!=null){
-            ThumbnailDto deleteThumbnail = thumbnailMapper.findByThumbnailNo(modifyMateRequest.getThumbnail().getMateThumbnailNo());
+
+        if(file!=null && thumbnailDto==null) return res == 1;
+        // 파일o->파일x
+        else if(deleteThumbnail!=null && thumbnailDto==null){
+            res=thumbnailMapper.delete(deleteThumbnail.getMateThumbnailNo());
+            if(res==1) fileHandler.deleteFile(deleteThumbnail);
+        }
+        // 파일o->파일o
+        else if(deleteThumbnail!=null&&thumbnailDto!=null){
             res = thumbnailMapper.modify(thumbnailDto);
             if(res==1) fileHandler.deleteFile(deleteThumbnail);
+        }
+        // 파일x->파일o
+        else if(deleteThumbnail==null&&thumbnailDto!=null){
+            res=thumbnailMapper.write(thumbnailDto);
         }
 
         return res == 1;

@@ -331,19 +331,21 @@ export default {
                             this.mate.endDate,
                         ];
                         this.isUserid = true;
-                        console.log(this.mate);
-                        let type = this.mate.thumbnail.imageType.replace(
-                            ".",
-                            ""
-                        );
-                        this.fileRecords = [
-                            {
-                                name: this.mate.thumbnail.imageOriginName,
-                                type: "image/" + type,
-                                size: 561813 * 2,
-                                url: this.mate.thumbnailUrl,
-                            },
-                        ];
+
+                        if (this.mate.thumbnail.imageType) {
+                            let type = this.mate.thumbnail.imageType.replace(
+                                ".",
+                                ""
+                            );
+                            this.fileRecords = [
+                                {
+                                    name: this.mate.thumbnail.imageOriginName,
+                                    type: "image/" + type,
+                                    size: 561813 * 2,
+                                    url: this.mate.thumbnailUrl,
+                                },
+                            ];
+                        }
                         return;
                     } else {
                         alert("동행 detail api 에러");
@@ -415,14 +417,12 @@ export default {
             formData.append("mate", JSON.stringify(modify_mate));
             formData.append(
                 "thumbnail",
-                this.fileRecords.length > 0 &&
-                    this.fileRecords[0].file != undefined
-                    ? this.fileRecords[0].file
+                this.fileRecords.length > 0
+                    ? this.fileRecords[0].file != undefined
+                        ? this.fileRecords[0].file
+                        : this.fileRecords[0]
                     : null
             );
-            console.log("!!", this.mate);
-            console.log(modify_mate);
-            console.log(this.fileRecords[0].file);
 
             modify(
                 data,
