@@ -2,12 +2,12 @@
     <div>
         <footer class="footer-items mt-5">
             <div class="footer-left-item">
-                <p>TripMate</p>
-                <!-- <img
-                    class="footer_footerImg__1iADK"
-                    src="images/logo/footer.png"
+                <!-- <p>TripMate</p> -->
+                <img
+                    class="footer-logo"
+                    src="@/assets/logo.png"
                     alt="footer logo"
-                /> -->
+                />
                 <div class="footer-info">
                     <div class="footer_title">Developer</div>
                     <div class="footer_developer">SSAFY 9th 이용준, 김민정</div>
@@ -74,5 +74,10 @@ p {
     line-height: 17px;
     align-items: center;
     margin-top: 20px;
+}
+
+.footer-logo {
+    display: flex;
+    width: 87px;
 }
 </style>
