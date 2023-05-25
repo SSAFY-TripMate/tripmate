@@ -171,11 +171,18 @@
                         :key="index"
                     >
                         <div class="media-1">
-                            <a href="#" class="d-block mb-3"
+                            <a href="" class="d-block mb-3"
                                 ><img
                                     class="attraction_img"
                                     :src="area.firstimage"
-                            /></a>
+                                    v-if="area.firstimage"
+                                />
+                                <img
+                                    class="attraction_img"
+                                    src="@/assets/default.png"
+                                    v-else
+                                />
+                            </a>
                             <span class="d-flex align-items-center loc mb-2">
                                 <span class="icon-room mr-3"></span>
                                 <span>{{ area.addr1 }} {{ area.addr2 }}</span>
@@ -183,7 +190,7 @@
                             <div class="d-flex align-items-center mb-3">
                                 <div>
                                     <h3>
-                                        <a href="#">{{ area.title }}</a>
+                                        <a href="">{{ area.title }}</a>
                                     </h3>
                                 </div>
                             </div>

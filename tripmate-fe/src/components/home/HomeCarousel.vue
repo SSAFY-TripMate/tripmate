@@ -6,19 +6,19 @@
             fade
             indicators
             img-width="1200"
-            img-height="350"
+            img-height="400"
         >
             <b-carousel-slide
-                caption="마음의 안식"
-                img-src="https://picsum.photos/1200/350/?image=128"
+                caption="여행"
+                img-src="https://picsum.photos/1200/400/?image=128"
             ></b-carousel-slide>
             <b-carousel-slide
-                caption="쉼터"
-                img-src="https://picsum.photos/1200/350/?image=126"
+                caption="윤슬"
+                img-src="https://picsum.photos/1200/400/?image=126"
             ></b-carousel-slide>
             <b-carousel-slide
-                caption="세번째 슬라이드"
-                img-src="https://picsum.photos/1200/350/?image=125"
+                caption="자유"
+                img-src="https://picsum.photos/1200/400/?image=124"
             ></b-carousel-slide>
         </b-carousel>
     </div>
@@ -35,7 +35,7 @@ export default {
 ::v-deep .carousel {
     display: flex;
     max-width: 1200px;
-    max-height: 330px;
+    max-height: 400px;
     padding: 0 20px;
     margin: 0 auto;
     box-sizing: inherit;
