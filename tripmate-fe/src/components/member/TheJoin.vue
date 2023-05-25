@@ -9,7 +9,7 @@
                         <div>
                             <input
                                 type="text"
-                                class="inp"
+                                class="input-join"
                                 placeholder="아이디"
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='아이디'"
@@ -24,6 +24,7 @@
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='비밀번호'"
                                 v-model="password"
+                                class="input-join"
                             />
                         </div>
 
@@ -34,6 +35,7 @@
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='닉네임'"
                                 v-model="nickname"
+                                class="input-join"
                             />
                         </div>
 
@@ -46,6 +48,7 @@
                                 onfocus="this.placeholder = ''"
                                 onblur="this.placeholder='이메일'"
                                 v-model="email"
+                                class="input-join"
                             />
                         </div>
 
@@ -56,7 +59,7 @@
                         ></b-form-select>
 
                         <datepicker-ui
-                            class="join-birth"
+                            class="join-birth datepicker-full-width"
                             lang="KOR"
                             firstDayOfWeek="sunday"
                             placeholder="생년월일"
@@ -145,7 +148,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .join-form {
     width: 400px;
     margin: 0px auto;
@@ -179,9 +182,7 @@ export default {
     border: 3px solid green;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"] {
+.input-join {
     display: inline-block;
     width: 100%;
     font-size: 15px;
@@ -193,24 +194,27 @@ input[type="email"] {
     box-sizing: border-box;
     vertical-align: top;
 }
+::v-deep .v-calendar .input-field input {
+    min-width: -webkit-fill-available;
+}
 
 .join-gender {
     height: 62px;
-    font-weight: 700;
+    /* font-weight: 700; */
     padding: 0.375rem 1.75rem 0.375rem 20px;
     padding: 6px 25px 6px 20px;
 }
 
-.v-calendar .input-field input {
+/* .v-calendar .input-field input {
     padding-right: 128px;
-}
+} */
 
-.v-calendar .calendar .days-selection,
-.v-calendar .calendar .selected-field {
+::v-deep .v-calendar .calendar .days-selection,
+::v-deep .v-calendar .calendar .selected-field {
     padding-left: 52px;
     padding-right: 59px;
 }
-.v-calendar {
+::v-deep .v-calendar {
     min-width: -webkit-fill-available;
 }
 

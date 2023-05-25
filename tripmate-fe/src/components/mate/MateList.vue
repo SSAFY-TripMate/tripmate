@@ -14,7 +14,7 @@
                     class="radio-group"
                     style="display: block"
                     v-model="page.order"
-                    @change="pageClick"
+                    @change="pageClickOrder"
                 >
                     <b-form-radio value="mate_no" class="m-1 radiobtn">
                         <b-badge variant="light" class="badge-color">
@@ -134,6 +134,10 @@ export default {
         },
         pageClick(button, page) {
             if (page != null) this.page.pg = page;
+            this.getMateList();
+        },
+        pageClickOrder() {
+            this.page.pg = 1;
             this.getMateList();
         },
         searchMateList(keyword) {

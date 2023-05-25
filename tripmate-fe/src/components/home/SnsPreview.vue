@@ -15,11 +15,11 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 p {
     font-weight: bold;
 }
-.sns-preview {
+::v-deep .sns-preview {
     max-width: 1200px;
     height: 50px;
     display: flex;
@@ -28,7 +28,7 @@ p {
     margin-top: 50px;
 }
 
-.sns-list {
+::v-deep .sns-list {
     margin: auto;
     max-width: 1040px;
     display: grid;
@@ -41,7 +41,7 @@ p {
     flex-wrap: wrap;
 }
 
-.temp_items {
+::v-deep .temp_items {
     width: 100%;
     height: 300px;
     display: flex;

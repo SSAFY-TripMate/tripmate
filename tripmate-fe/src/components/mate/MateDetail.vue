@@ -302,7 +302,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .flex-form {
     display: flex;
     margin-bottom: 0;
@@ -324,8 +324,8 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
 }
-.v-calendar .input-field input {
-    min-width: 320px !important;
+::v-deep .v-calendar .input-field input {
+    min-width: 330px !important;
     max-width: 400px !important;
 }
 .text {
@@ -333,7 +333,7 @@ export default {
     font-size: larger;
 }
 
-.v-calendar .input-field input:disabled {
+::v-deep .v-calendar .input-field input:disabled {
     color: black;
     background-color: white;
 }
@@ -341,7 +341,7 @@ export default {
 .center {
     text-align: center;
 }
-.thumbnail {
+::v-deep .thumbnail {
     width: 100%;
     height: 500px;
     object-fit: cover;

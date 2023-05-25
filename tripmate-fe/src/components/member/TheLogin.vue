@@ -8,7 +8,7 @@
                     <div>
                         <input
                             type="text"
-                            class="id"
+                            class="id input-join"
                             placeholder="아이디"
                             onfocus="this.placeholder = ''"
                             onblur="this.placeholder='아이디'"
@@ -23,14 +23,17 @@
                             onfocus="this.placeholder = ''"
                             onblur="this.placeholder='비밀번호'"
                             v-model="password"
+                            class="input-join"
                         />
                     </div>
                 </div>
 
                 <label class="checkbox mt-3"
-                    ><input type="checkbox" name="autoLogin" /><span
-                        >로그인 상태 유지</span
-                    ></label
+                    ><input
+                        type="checkbox"
+                        name="autoLogin"
+                        class="input-join input-login-check"
+                    /><span>로그인 상태 유지</span></label
                 >
 
                 <b-button
@@ -128,9 +131,7 @@ export default {
     border: 3px solid green;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="number"] {
+.input-join {
     display: inline-block;
     width: 100%;
     font-size: 15px;
@@ -149,7 +150,7 @@ input[type="number"] {
     gap: 10px;
 }
 
-input[type="checkbox"] {
+.input-login-check {
     display: flex;
     max-width: 20px;
 }
