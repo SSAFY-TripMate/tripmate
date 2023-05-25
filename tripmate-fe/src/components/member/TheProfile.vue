@@ -1,10 +1,29 @@
 <template>
     <div class="profile-container">
         <b-container class="bv-example-row mt-5">
-            <div class="my-mates">
-                <p class="title">내 게시글</p>
+            <div>
+                <p class="title">내 동행 글</p>
+                <div v-if="mates.length != 0" class="mate-list">
+                    <mate-list-item
+                        v-for="(mate, index) in mates"
+                        :key="index"
+                        :mate="mate"
+                        :sidos="sidos"
+                        :preferences="preferences"
+                        :pre="'mypage'"
+                    ></mate-list-item>
+                </div>
+                <div v-else>게시글이 없습니다.</div>
+                <div class="page-nav">
+                    <b-pagination
+                        v-model="page.pg"
+                        :total-rows="page.total"
+                        :per-page="page.spp"
+                        pills
+                        @page-click="pageClick"
+                    ></b-pagination>
+                </div>
             </div>
-            게시글이 없습니다.
         </b-container>
 
         <b-container class="bv-example-row mt-5">
@@ -40,16 +59,37 @@
 
 <script>
 import { deleteMember, findMemberByToken, updateMember } from "@/api/member";
+import MateListItem from "@/components/mate/item/MateListItem.vue";
+import { list } from "@/api/mate";
+import { sidoList } from "@/api/area";
+import { preferenceList } from "@/api/preference";
 
 export default {
+    components: {
+        MateListItem,
+    },
     data() {
         return {
+            mates: [],
+            sidos: [],
+            preferences: [],
             myInfo: {},
             password: "",
+            page: {
+                pg: 1,
+                spp: 4,
+                total: 0,
+                start: 0,
+                order: "mate_no",
+                word: "",
+                author: 0,
+            },
         };
     },
 
     created() {
+        this.getMateList();
+
         findMemberByToken(
             (res) => {
                 this.myInfo = res.data;
@@ -62,6 +102,50 @@ export default {
     },
 
     methods: {
+        getMateList() {
+            list(
+                this.page,
+                (res) => {
+                    if (res.status == 200) {
+                        this.mates = res.data.mates;
+                        this.page = res.data.pageNav;
+                        return;
+                    } else {
+                        alert("동행 리스트 에러");
+                    }
+                },
+                (error) => {
+                    alert("동행 리스트 에러" + error);
+                    // this.$router.push({ name: "home" });
+                }
+            );
+            sidoList(
+                (res) => {
+                    if (res.status == 200) {
+                        this.sidos = res.data;
+                        return;
+                    } else {
+                        alert("sido 리스트 에러");
+                    }
+                },
+                (error) => {
+                    alert("sido 리스트 에러" + error);
+                }
+            );
+            preferenceList(
+                (res) => {
+                    if (res.status == 200) {
+                        this.preferences = res.data;
+                        return;
+                    } else {
+                        alert("preferences 리스트 에러");
+                    }
+                },
+                (error) => {
+                    alert("preferences 리스트 에러" + error);
+                }
+            );
+        },
         removeMember() {
             if (confirm("정말로 회원을 탈퇴하시겠습니까?")) {
                 deleteMember(
@@ -107,7 +191,14 @@ export default {
                 );
             }
         },
-
+        pageClick(button, page) {
+            if (page != null) this.page.pg = page;
+            this.getMateList();
+        },
+        pageClickOrder() {
+            this.page.pg = 1;
+            this.getMateList();
+        },
         tokenSave(accessToken) {
             sessionStorage.setItem("accessToken", accessToken);
         },
@@ -128,6 +219,7 @@ export default {
 
 .title {
     font-size: 30px;
+    text-align: left;
 }
 
 .description {
@@ -157,5 +249,25 @@ input {
 .profile-container {
     margin-top: 100px;
     margin-bottom: 100px;
+}
+
+.mate-list {
+    margin: auto;
+    max-width: 1040px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* gap: 24px; */
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.page-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px;
 }
 </style>

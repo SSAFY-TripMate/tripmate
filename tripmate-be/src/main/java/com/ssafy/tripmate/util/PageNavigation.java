@@ -15,4 +15,5 @@ public class PageNavigation {
     private int start; // 페이지 시작 글 번호
     private String order="mate_no"; // 정렬 조건
     private String word; // 검색어
+    private Integer author; // 내 글만 가져올때 사용
 }

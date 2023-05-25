@@ -8,7 +8,8 @@ async function list(data, success, fail) {
 
     await api
         .get(
-            `/mates?pg=${data.pg}&spp=${data.spp}&start=${data.start}&order=${data.order}&word=${data.word}`,
+            `/mates?pg=${data.pg}&spp=${data.spp}&start=${data.start}&order=${data.order}&word=${data.word}` +
+                (data.author != null ? `&author=${data.author}` : ""),
             null
         )
         .then(success)

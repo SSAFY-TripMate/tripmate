@@ -65,5 +65,5 @@ export function preferenceName(value, preferences) {
     let findPf = preferences.filter(
         (preference) => preference.preferenceNo == value
     );
-    return findPf[0].title;
+    return findPf.length <= 0 ? "" : findPf[0].title;
 }
