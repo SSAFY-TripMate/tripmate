@@ -171,7 +171,7 @@
                         :key="index"
                     >
                         <div class="media-1">
-                            <a href="" class="d-block mb-3"
+                            <a class="d-block mb-3"
                                 ><img
                                     class="attraction_img"
                                     :src="area.firstimage"
@@ -190,7 +190,7 @@
                             <div class="d-flex align-items-center mb-3">
                                 <div>
                                     <h3>
-                                        <a href="">{{ area.title }}</a>
+                                        <a>{{ area.title }}</a>
                                     </h3>
                                 </div>
                             </div>
