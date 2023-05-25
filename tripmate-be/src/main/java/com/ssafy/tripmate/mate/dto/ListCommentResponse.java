@@ -15,8 +15,9 @@ public class ListCommentResponse {
     private int MateNo;
     private String content;
     private int memberNo;
-    private Date createdTime;
+    private String createdTime;
     private Member member;
+    private boolean isAuthor;
 
     @AllArgsConstructor
     @NoArgsConstructor
