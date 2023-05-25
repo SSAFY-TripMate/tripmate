@@ -149,9 +149,10 @@ export default {
         removeMember() {
             if (confirm("정말로 회원을 탈퇴하시겠습니까?")) {
                 deleteMember(
-                    this.member.memberNo,
+                    this.myInfo.memberNo,
                     () => {
                         alert("회원이 탈퇴되었습니다.");
+                        sessionStorage.removeItem("accessToken");
                         this.$router.push("/");
                     },
                     (error) => {
