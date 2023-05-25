@@ -14,7 +14,7 @@
                     ></mate-list-item>
                 </div>
                 <div v-else>게시글이 없습니다.</div>
-                <div class="page-nav">
+                <div v-if="mates.length != 0" class="page-nav">
                     <b-pagination
                         v-model="page.pg"
                         :total-rows="page.total"

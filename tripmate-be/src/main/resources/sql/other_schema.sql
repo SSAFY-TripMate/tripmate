@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `mate_thumbnail` (
   `image_origin_name` varchar(255) NOT NULL,
   `image_save_name` varchar(255) NOT NULL,
   `image_type` varchar(255) NOT NULL,
-  FOREIGN KEY (mate_no) REFERENCES mate(mate_no)
+  FOREIGN KEY (mate_no) REFERENCES mate(mate_no) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `mate_comment` (
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `mate_comment` (
   `member_no` int NOT NULL,
   `created_time` timestamp DEFAULT current_timestamp,
   FOREIGN KEY (mate_no) REFERENCES mate(mate_no) ON DELETE CASCADE,
-  FOREIGN KEY (member_no) REFERENCES `member`(member_no)
+  FOREIGN KEY (member_no) REFERENCES `member`(member_no) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `preference` (
@@ -53,5 +53,5 @@ CREATE TABLE IF NOT EXISTS `preference` (
   `description` text
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
-INSERT INTO preference (title)
+INSERT INTO preference (`title`)
 VALUES ('인생샷'),('맛집탐방'),('활동적'),('계획적'),('자유로움'),('쇼핑'),('자연'),('휴양');
