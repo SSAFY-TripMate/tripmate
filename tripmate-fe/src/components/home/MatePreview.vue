@@ -92,13 +92,17 @@ export default {
 p {
     font-weight: bold;
 }
-.mate-preview {
+::v-deep .mate-preview {
+    margin-left: 36px;
     max-width: 1200px;
     height: 50px;
     display: flex;
-    justify-content: space-between;
-    padding: 0px 100px;
+    padding: 0px 30px;
     margin-top: 50px;
+    font-size: 20px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .mate-list {
