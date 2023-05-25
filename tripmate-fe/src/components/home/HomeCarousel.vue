@@ -9,15 +9,15 @@
             img-height="600"
         >
             <b-carousel-slide
-                caption="자유"
+                caption="TripMate에 오신것을 환영합니다."
                 img-src="https://picsum.photos/1500/600/?image=33"
             ></b-carousel-slide>
             <b-carousel-slide
-                caption="여행"
+                caption="많은 사람들이 동행을 기다리고 있습니다."
                 img-src="https://picsum.photos/1500/600/?image=128"
             ></b-carousel-slide>
             <b-carousel-slide
-                caption="윤슬"
+                caption="여행을 떠나보세요"
                 img-src="https://picsum.photos/1500/600/?image=126"
             ></b-carousel-slide>
         </b-carousel>
@@ -47,5 +47,10 @@ img {
 
 b-button {
     color: aqua;
+}
+
+.carousel-caption {
+    bottom: 40% !important;
+    color: #dee2e6 !important;
 }
 </style>
