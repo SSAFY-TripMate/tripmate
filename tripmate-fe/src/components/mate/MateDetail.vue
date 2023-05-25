@@ -248,7 +248,6 @@ export default {
             this.isUserid = true;
         },
         getComments() {
-            // TODO: 댓글 axios
             commentList(
                 this.$route.params.mateno,
                 (res) => {
@@ -258,45 +257,6 @@ export default {
                     alert("댓글 불러오기 실패" + error);
                 }
             );
-
-            // this.comments = [
-            //     {
-            //         mateCommentNo: 1,
-            //         mateNo: 1,
-            //         content: "내용1",
-            //         memberNo: 1,
-            //         createdTime: "2023-05-18 18:00:00",
-            //         member: {
-            //             nickname: "김싸피",
-            //             birth: "2023-05-18 09:00:00",
-            //             gender: "M",
-            //         },
-            //     },
-            //     {
-            //         mateCommentNo: 2,
-            //         mateNo: 2,
-            //         content: "내용2",
-            //         memberNo: 1,
-            //         createdTime: "2023-05-18 18:00:00",
-            //         member: {
-            //             nickname: "김싸피",
-            //             birth: "2023-05-18 09:00:00",
-            //             gender: "F",
-            //         },
-            //     },
-            //     {
-            //         mateCommentNo: 3,
-            //         mateNo: 3,
-            //         content: "내용3",
-            //         memberNo: 3,
-            //         createdTime: "2023-05-18 18:00:00",
-            //         member: {
-            //             nickname: "김싸피",
-            //             birth: "2023-05-18 09:00:00",
-            //             gender: "F",
-            //         },
-            //     },
-            // ];
         },
     },
 };

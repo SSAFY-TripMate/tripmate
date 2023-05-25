@@ -49,6 +49,13 @@ export default {
                 mateNo: this.mateNo,
                 content: this.content,
             };
+
+            if (
+                comment.content.replace(/\s/g, "").length == 0 ||
+                comment.content == "" ||
+                comment.content == null
+            )
+                return;
             writeComment(
                 comment,
                 () => {

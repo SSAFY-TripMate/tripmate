@@ -96,8 +96,8 @@ public class MateController {
     }
 
     @GetMapping("{mateNo}/comments")
-    public ResponseEntity<List<ListCommentResponse>> getComment(@PathVariable int mateNo) throws SQLException {
-        List<ListCommentResponse> listCommentResponse = mateCommentService.findAll(mateNo);
+    public ResponseEntity<List<ListCommentResponse>> getComment(HttpServletRequest request, @PathVariable int mateNo) throws SQLException {
+        List<ListCommentResponse> listCommentResponse = mateCommentService.findAll(mateNo, memberService.getAuthMember(request));
         return new ResponseEntity<>(listCommentResponse, HttpStatus.OK);
     }
 

@@ -17,11 +17,6 @@
                             <font size="2">{{ comment.createdTime }}</font>
                         </div>
                     </div>
-                    <!-- <tr>
-                                <td>
-                                    <font size="2">2020-09-14 22:41:11</font>
-                                </td>
-                            </tr> -->
                 </div>
                 <div class="card-body">
                     <p class="card-text">{{ comment.content }}</p>
@@ -31,6 +26,7 @@
                         icon="fa-solid fa-trash"
                         @click="delComment"
                         type="button"
+                        v-if="comment.author == true"
                     />
                 </div>
             </div>
