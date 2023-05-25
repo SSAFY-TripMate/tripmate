@@ -4,7 +4,7 @@
             <fieldset>
                 <h3 class="login-title">로그인</h3>
 
-                <div class="login-input">
+                <div class="login-input" @keyup.enter="loginMember">
                     <div>
                         <input
                             type="text"
