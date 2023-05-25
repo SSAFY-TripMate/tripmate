@@ -6,7 +6,7 @@
         <div class="card-container d-flex justify-content-center mt-3">
             <div class="card-item">
                 <div class="top-container">
-                    <div class="head-text middle-container">
+                    <div class="head-text">
                         <font-awesome-icon
                             icon="fa-sharp fa-list fa-location-dot"
                         />
@@ -17,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="head-title">
+                <div class="head-title mt-1">
                     {{ mate.title }}
                 </div>
 
@@ -28,31 +28,36 @@
                 </div>
 
                 <div class="top-container">
-                    <div class="img-fluid member-text">
+                    <div class="img-fluid member-text font-weight-bold">
                         {{ mate.member.nickname }}
                     </div>
-                    <div
-                        class="member-text middle-container"
-                        style="margin-left: auto"
-                    >
-                        {{ mate.member.birth | age }}
-                    </div>
-                    <div
-                        class="member-text middle-container"
-                        style="margin-left: 10px"
-                    >
-                        {{ mate.member.gender | gender }}
+                    <div class="tag-container" style="margin-left: auto">
+                        <div
+                            class="member-text middle-container hashtag"
+                            v-if="
+                                mate.preferenceNo != '' &&
+                                mate.preferenceNo != null
+                            "
+                        >
+                            {{ mate.preferenceNo | hashtag(preferences) }}
+                        </div>
+                        <div class="member-text middle-container">
+                            {{ mate.member.birth | age }}
+                        </div>
+                        <div class="member-text middle-container">
+                            {{ mate.member.gender | gender }}
+                        </div>
                     </div>
                 </div>
 
                 <div class="member-text ellipsis mt-1 content">
                     {{ mate.content }}
                 </div>
-                <div class="hashtag-border pt-2">
+                <!-- <div class="hashtag-border pt-2">
                     <span class="hashtag">
                         {{ mate.preferenceNo | hashtag(preferences) }}</span
                     >
-                </div>
+                </div> -->
             </div>
         </div>
     </router-link>
@@ -83,7 +88,7 @@ body {
 
 .card-container {
     margin: auto 5px;
-    height: 350px;
+    height: 320px;
 }
 .card-item {
     background-color: #fff;
@@ -108,9 +113,9 @@ body {
 }
 
 .head-text {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
-    color: #272727;
+    color: var(--color-location);
     position: relative;
     top: 8px;
 
@@ -129,7 +134,7 @@ body {
     margin-left: auto;
 }
 .head-title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     color: #272727;
     position: relative;
@@ -153,7 +158,7 @@ body {
 }
 
 .member-text {
-    font-size: 15px;
+    font-size: 12px;
     color: #272727;
     position: relative;
     top: 8px;
@@ -171,7 +176,7 @@ body {
 .middle-container {
     background-color: #eee;
     border-radius: 12px;
-    padding: 5px;
+    padding: 2px 5px;
 }
 .recent-orders {
     font-size: 16px;
@@ -182,10 +187,20 @@ body {
 .hashtag {
     font-size: 12px;
     font-weight: 700;
-    color: #272727;
+    color: var(--color-hashtag-font);
+    background-color: var(--color-hashtag);
 }
 
 .content {
-    height: 45px;
+    height: 35px;
+}
+
+.tag-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.tag-container > div {
+    margin-left: 3px;
 }
 </style>

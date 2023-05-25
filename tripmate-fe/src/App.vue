@@ -21,6 +21,7 @@ export default {
 </script>
 
 <style>
+@import url("/public/css/common.css");
 @font-face {
     font-family: "KimjungchulGothic-Bold";
     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/KimjungchulGothic-Bold.woff2")

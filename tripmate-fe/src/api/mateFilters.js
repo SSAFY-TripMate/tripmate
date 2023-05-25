@@ -20,14 +20,14 @@ export function yyyyMMdd(value) {
     }
 
     // 최종 포맷 (ex - '2021/10/08')
-    return year.toString().substring(2, 4) + "/" + month + "/" + day;
+    return year.toString().substring(2, 4) + "." + month + "." + day;
 }
 
 export function period(value, endDate) {
     let start = yyyyMMdd(value);
     let end = yyyyMMdd(endDate);
     if (start == "" && end == "") return "";
-    return start + "~" + end;
+    return start + " ~ " + end;
 }
 
 export function age(value) {
@@ -40,7 +40,7 @@ export function age(value) {
 
     let age = today.getFullYear() - js_date.getFullYear() + 1;
 
-    return parseInt(age / 10) * 10 + " 대";
+    return parseInt(age / 10) * 10 + "대";
 }
 export function gender(value) {
     return value == "M" ? "남성" : value == "F" ? "여성" : "";

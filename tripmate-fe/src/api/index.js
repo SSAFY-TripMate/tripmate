@@ -17,7 +17,7 @@ import axios from "axios";
 // member Instance
 function apiInstance() {
     const instance = axios.create({
-        baseURL: "http://localhost:9999",
+        baseURL: "http://70.12.50.84:9999",
         headers: {
             "Content-Type": "application/json;charset=utf-8",
         },
