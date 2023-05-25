@@ -30,23 +30,30 @@
             </b-form-group>
             <b-button class="btn" @click="moveWrite()">글쓰기</b-button>
         </div>
-        <div class="mate-list">
-            <mate-list-item
-                v-for="(mate, index) in mateList"
-                :key="index"
-                :mate="mate"
-                :sidos="sidos"
-                :preferences="preferences"
-            ></mate-list-item>
+
+        <div v-if="mateList.length != 0">
+            <div class="mate-list">
+                <mate-list-item
+                    v-for="(mate, index) in mateList"
+                    :key="index"
+                    :mate="mate"
+                    :sidos="sidos"
+                    :preferences="preferences"
+                ></mate-list-item>
+            </div>
+            <div class="page-nav">
+                <b-pagination
+                    v-model="page.pg"
+                    :total-rows="page.total"
+                    :per-page="page.spp"
+                    pills
+                    @page-click="pageClick"
+                ></b-pagination>
+            </div>
         </div>
-        <div class="page-nav">
-            <b-pagination
-                v-model="page.pg"
-                :total-rows="page.total"
-                :per-page="page.spp"
-                pills
-                @page-click="pageClick"
-            ></b-pagination>
+
+        <div class="mate-list" v-else>
+            <div class="temp_items">게시글이 없습니다.</div>
         </div>
     </div>
 </template>
@@ -218,5 +225,15 @@ export default {
 .btn-primary:not(:active) {
     border-color: var(--color-reset-button);
     background: var(--color-reset-button) !important;
+}
+
+::v-deep .temp_items {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 33px;
 }
 </style>

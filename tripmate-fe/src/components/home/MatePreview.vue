@@ -5,7 +5,7 @@
             <p><router-link to="/mate/list">더보기</router-link></p>
         </div>
 
-        <div class="mate-list">
+        <div class="mate-list" v-if="mates.length != 0">
             <mate-list-item
                 v-for="(mate, index) in mates"
                 :key="index"
@@ -13,6 +13,10 @@
                 :sidos="sidos"
                 :preferences="preferences"
             ></mate-list-item>
+        </div>
+
+        <div class="mate-list" v-else>
+            <div class="temp_items">게시글이 없습니다.</div>
         </div>
     </div>
 </template>
@@ -117,5 +121,14 @@ p {
     justify-content: flex-start;
     flex-wrap: wrap;
     margin-bottom: 50px;
+}
+::v-deep .temp_items {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 33px;
 }
 </style>
