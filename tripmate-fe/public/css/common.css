@@ -5,3 +5,6 @@
     --color-hashtag-font: #5d1715;
     --color-location: #008ff6;
 }
+html {
+    scroll-behavior: smooth;
+}

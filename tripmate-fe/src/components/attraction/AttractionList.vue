@@ -97,7 +97,7 @@
                                             <div
                                                 class="col-sm-12 col-md-12 mb-3 mb-lg-0 col-lg-12"
                                             >
-                                                <a href="#attraction-res"
+                                                <a
                                                     ><input
                                                         id="btn-search"
                                                         class="btn btn-primary btn-block text-white"
@@ -248,6 +248,7 @@ export default {
             } else searchUrl += `&keyword=${this.keyword}`;
             axios.get(searchUrl).then((res) => {
                 this.areas = res.data.response.body.items.item;
+                location.href = "#attraction-res";
             });
         },
     },

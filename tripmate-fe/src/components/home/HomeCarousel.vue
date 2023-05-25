@@ -18,7 +18,7 @@
             ></b-carousel-slide>
             <b-carousel-slide
                 caption="여행을 떠나보세요"
-                img-src="https://picsum.photos/1500/600/?image=126"
+                img-src="https://picsum.photos/1500/600/?image=49"
             ></b-carousel-slide>
         </b-carousel>
     </div>
