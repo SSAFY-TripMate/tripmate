@@ -43,8 +43,8 @@
 # Service Architecture
 ![image](/uploads/1af7cce3d16160a3666481fdb1873bc7/image.png)
 
-# 기능 설명
-
+# 기능 설명 및 시연 데모
+![TripMate_시연영상](/uploads/f75ac35979984131bbbbef79f4aa7cd1/TripMate_시연영상.gif)
 
 # RUN
 
