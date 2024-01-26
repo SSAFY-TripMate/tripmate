@@ -4,8 +4,8 @@
 
 <table>
   <tr>
-    <td align="center"><a href="https://lab.ssafy.com/minjeong.kim512"><img src="https://github.com/KimMinJeong05.png?size=200" alt=""/><br /><sub><b>김민정</b></sub></a><br /><a>💻</a></td>
-    <td align="center"><a href="https://lab.ssafy.com/jjuny7712"><img src="	https://github.com/jjuny0310.png?size=200" alt=""/><br /><sub><b>이용준</b></sub></a><br /><a>💻</a></td>
+    <td align="center"><a href="https://github.com/KimMinJeong05"><img src="https://github.com/KimMinJeong05.png?size=200" alt=""/><br /><sub><b>김민정</b></sub></a><br /><a>💻</a></td>
+    <td align="center"><a href="https://github.com/jjuny0310"><img src="https://github.com/jjuny0310.png?size=200" alt=""/><br /><sub><b>이용준</b></sub></a><br /><a>💻</a></td>
   </tr>
 </table>
 
@@ -16,8 +16,8 @@
   - **Vue.js**
   - **Bootstrap Vue**
   - **axios**
-  
 - **Back**
+
   - **Java 11**
   - **Spring Boot**
   - **Gradle**
@@ -26,25 +26,39 @@
   - **JWT**
 
 - **협업**
+
   - **Notion**
   - **Git**
   - **GitLab**
   - **GitLab Issue**
 
 - **API**
-  - **한국관광공사 국문관광정보 서비스_GW**
+  - **한국관광공사 국문관광정보 서비스\_GW**
 
-# 프로젝트 일정
-![image](/uploads/6df77a6875df7da4e5c0bba4a9cf37d4/image.png)
+# 프로젝트 개요
 
-# 프로젝트 발표 자료
-- [TripMate_PPT](https://lab.ssafy.com/jjuny7712/tripmate_final_s12/-/blob/main/docs/Tripmate-PPT.pdf)
+# 프로젝트 계획
 
-# Service Architecture
-![image](/uploads/1af7cce3d16160a3666481fdb1873bc7/image.png)
+![image](/images/plan.PNG)
 
-# 기능 설명 및 시연 데모
-![TripMate_시연영상](/uploads/f75ac35979984131bbbbef79f4aa7cd1/TripMate_시연영상.gif)
+# 서비스 아키텍처
+
+![image](/images/architecture.PNG)
+
+# 핵심 기능
+
+- 동행 리스트
+  ![image](/images/feature1.PNG)
+
+- 동행 글
+  ![image](/images/feature2.PNG)
+
+- 관광지 조회
+  ![image](/images/feature3.PNG)
+
+# 시연 데모
+
+![TripMate_시연영상](/images/demo.gif)
 
 # RUN
 
@@ -63,6 +77,7 @@ source [resources\sql\other_schema.sql의 경로]
 ```
 
 ### REST API 실행
+
 ```
 # jar 파일 실행
 java -jar [jar 파일명]
@@ -71,6 +86,7 @@ java -jar [jar 파일명]
 ```
 
 ### FrontEnd 실행
+
 ```bash
 npm run serve
 ```
