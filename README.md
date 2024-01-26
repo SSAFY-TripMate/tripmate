@@ -65,6 +65,10 @@
 
 ![TripMate_시연영상](/images/demo.gif)
 
+# 팀 사진
+
+![image](images/team.png)
+
 # RUN
 
 ### Database 설정
