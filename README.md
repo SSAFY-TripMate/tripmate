@@ -2,12 +2,14 @@
 
 ### **Contributors ✨**
 
+<div align="center">
 <table>
   <tr>
     <td align="center"><a href="https://github.com/KimMinJeong05"><img src="https://github.com/KimMinJeong05.png?size=200" alt=""/><br /><sub><b>김민정</b></sub></a><br /><a>💻</a></td>
     <td align="center"><a href="https://github.com/jjuny0310"><img src="https://github.com/jjuny0310.png?size=200" alt=""/><br /><sub><b>이용준</b></sub></a><br /><a>💻</a></td>
   </tr>
 </table>
+</div>
 
 # 기술 스택
 
@@ -37,6 +39,8 @@
 
 # 프로젝트 개요
 
+![image](/images/intro.PNG)
+
 # 프로젝트 계획
 
 ![image](/images/plan.PNG)
@@ -45,16 +49,17 @@
 
 ![image](/images/architecture.PNG)
 
-# 핵심 기능
+# 핵심 기능 - 동행 리스트
 
-- 동행 리스트
-  ![image](/images/feature1.PNG)
+![image](/images/feature1.PNG)
 
-- 동행 글
-  ![image](/images/feature2.PNG)
+# 핵심 기능 - 동행 글
 
-- 관광지 조회
-  ![image](/images/feature3.PNG)
+![image](/images/feature2.PNG)
+
+# 핵심 기능 - 관광지 조회
+
+![image](/images/feature3.PNG)
 
 # 시연 데모
 
